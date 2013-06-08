@@ -440,7 +440,7 @@ void init()
 
 	robot = battingRobot;
 
-	bat = new MyBat(0.0, -1.0, 3.0);
+	bat = new MyBat(3.0, -1.0, 3.0);
 	bat->setMaterialData(MaterialData::createMaterialData(Ore::GOLD));
 	bat->setRotateVector(1.0, -1.0, 0.0);
 	bat->setAngle(45.0);

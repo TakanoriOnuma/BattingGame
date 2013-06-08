@@ -58,7 +58,7 @@ public:
 	using DrawObject::draw;
 
 	MyRobot(double x = 0.0, double y = 0.0, double z = 0.0);
-	~MyRobot();
+	virtual ~MyRobot();
 
 	virtual void update();
 
