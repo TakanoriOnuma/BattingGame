@@ -174,7 +174,7 @@ void display()
 	glLoadIdentity();
 
 	/* Ž‹“_‚ÌˆÚ“®(•¨‘Ì‚Ì•û‚ð‰œ‚ÉˆÚ‚·) */
-	glTranslated(0.0, 0.0, -10.0);
+	glTranslated(0.0, 0.0, -13.0);
 
 	glRotated(angle, 0.0, 1.0, 0.0);
 
@@ -403,7 +403,7 @@ void init()
 
 	DrawManager& drawManager = DrawManager::getDrawManager();
 
-	robot = new MyRobot();
+	robot = new MyRobot(0.0, 0.9, 0.0);
 	robot->setMaterialData(MaterialData::createMaterialData(Color::WHITE, Material::PLASTIC));
 	drawManager.setDrawObject(robot);
 
@@ -434,7 +434,7 @@ void init()
 	drawManager.setDrawObject(pitchingRobotArm);
 
 
-	battingRobot = new BattingRobot(0.0, 0.0, 1.0);
+	battingRobot = new BattingRobot(0.0, 0.9, 1.0);
 	battingRobot->setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
 	drawManager.setDrawObject(battingRobot);
 

@@ -2,12 +2,12 @@
 
 // --- コンストラクタ --- //
 MyRobot::BodyParts::BodyParts(){
-	head     = new MyBox (  0.0,   0.0, 0.0,  0.2, 0.25, 0.22);
-	body     = new MyBox (  0.0,  -0.3, 0.0,  0.3,  0.4,  0.6);
-	leftArm  = new ArmLeg( 0.28,  -0.3, 0.0, 0.16,  0.4);
-	rightArm = new ArmLeg(-0.28,  -0.3, 0.0, 0.16,  0.4);
-	leftLeg  = new ArmLeg(  0.1, -0.95, 0.0,  0.2,  0.4);
-	rightLeg = new ArmLeg( -0.1, -0.95, 0.0,  0.2,  0.4);
+	head     = new MyBox (  0.0,    0.0, 0.0,  0.3, 0.325, 0.33);
+	body     = new MyBox (  0.0, -0.425, 0.0, 0.45,   0.6,  0.9);
+	leftArm  = new ArmLeg( 0.42, -0.425, 0.0, 0.24,   0.6);
+	rightArm = new ArmLeg(-0.42, -0.425, 0.0, 0.24,   0.6);
+	leftLeg  = new ArmLeg( 0.15, -1.365, 0.0,  0.3,   0.6);
+	rightLeg = new ArmLeg(-0.15, -1.365, 0.0,  0.3,   0.6);
 }
 
 // --- デストラクタ --- //
