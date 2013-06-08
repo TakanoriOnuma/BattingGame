@@ -19,7 +19,10 @@ void MyBat::draw() const
 	glPushMatrix();
 
 	gluQuadricOrientation(quad, GLU_OUTSIDE);
-	gluDisk(quad, 0.0, 0.2, 16, 16);
+	gluDisk(quad, 0.0, 0.18, 16, 16);
+
+	glTranslated(0.0, 0.0, -0.1);
+	gluCylinder(quad, 0.2, 0.18, 0.1, 16, 1);
 
 	glTranslated(0.0, 0.0, -0.7);
 	gluCylinder(quad, 0.2, 0.2, 0.7, 16, 1);
