@@ -1,11 +1,20 @@
+#include <math.h>
+#include "OpenGL.h"
+
 #include "BattingRobot.h"
 #include "MyRobot_BodyParts.h"
 
-#include <math.h>
+#include "MyBat.h"
+#include "MaterialData.h"
 
 BattingRobot::BattingRobot(double x, double y, double z)
 	: MyRobot(x, y, z)
 {
+	bat = new MyBat(0.0, -bodyParts->leftArm->getLength() - 3.0, 0.0);
+	bat->setMaterialData(MaterialData::createMaterialData(Ore::SILVER));
+	bat->setRotateVector(1.0, 0.0, 0.0);
+	bat->setAngle(90.0);
+
 	bodyParts->leftArm->setRotateVector(0.0, 1.0, 0.0);
 	bodyParts->rightArm->setRotateVector(0.0, 1.0, 0.0);
 
@@ -13,6 +22,30 @@ BattingRobot::BattingRobot(double x, double y, double z)
 	bodyParts->leftArm->setBox1Angle(-45.0);
 	bodyParts->leftArm->setBox2Angle(-30.0);
 
+	bodyParts->rightArm->setAngle(-45.0);
+	bodyParts->rightArm->setBox1Angle(-45.0);
+	bodyParts->rightArm->setBox2Angle(-30.0);
+}
+
+BattingRobot::~BattingRobot()
+{
+	delete bat;
+}
+
+void BattingRobot::draw() const
+{
+	bodyParts->head->draw(true, false);
+	bodyParts->body->draw(true, false);
+
+	glPushMatrix();								// Ž©•ª‚ÅÓ”C‚ðŽ‚Á‚Ä‘Þ”ð‚·‚é
+	bodyParts->leftArm->draw(false, false);		// ‘Þ”ð‚Í‚µ‚È‚¢
+	bat->draw(false, true);						// bat‚ÌF‚ðŽg‚Á‚Ä•`‰æ
+	glPopMatrix();								// Ó”C‚ðŽ‚Á‚Ä•œ‹A‚·‚é
+	setMaterial();								// F‚ðMyRobot‚ÌF‚É–ß‚·
+
+	bodyParts->rightArm->draw(true, false);
+	bodyParts->leftLeg->draw(true, false);
+	bodyParts->rightLeg->draw(true, false);
 }
 
 void BattingRobot::update()
@@ -46,6 +79,7 @@ void BattingRobot::_swing_init()
 void BattingRobot::_swing()
 {
 	bodyParts->leftArm->addAngle(vec_r);
+	bodyParts->rightArm->addAngle(vec_r);
 	vec_r += accel_vec_r;
 
 	frame++;
@@ -53,5 +87,6 @@ void BattingRobot::_swing()
 		frame = 0;
 		update_function = NULL;
 		bodyParts->leftArm->setAngle(0.0);
+		bodyParts->rightArm->setAngle(0.0);
 	}
 }
