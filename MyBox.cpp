@@ -10,7 +10,7 @@ int MyBox::face[6][4] = {
 	{ 3, 2, 6, 7 },
 };
 
-GLdouble MyBox::normal[6][3] = {
+double MyBox::normal[6][3] = {
 	{  0.0,  0.0, -1.0 },
 	{  1.0,  0.0,  0.0 },
 	{  0.0,  0.0,  1.0 },
@@ -25,7 +25,7 @@ MyBox::MyBox(const Point3d& pt, double length, double width, double height)
 	init();
 }
 
-MyBox::MyBox(GLdouble x, GLdouble y, GLdouble z, double length, double width, double height)
+MyBox::MyBox(double x, double y, double z, double length, double width, double height)
 	: DrawObject(x, y, z), length(length), width(width), height(height)
 {
 	init();
@@ -33,8 +33,8 @@ MyBox::MyBox(GLdouble x, GLdouble y, GLdouble z, double length, double width, do
 
 void MyBox::init()
 {
-	GLdouble hx = width * 0.5;
-	GLdouble hz = length * 0.5;
+	double hx = width * 0.5;
+	double hz = length * 0.5;
 
 	vertex[0][0] = -hx;		vertex[0][1] = -height;		vertex[0][2] = -hz;
 	vertex[1][0] =  hx;		vertex[1][1] = -height;		vertex[1][2] = -hz;
