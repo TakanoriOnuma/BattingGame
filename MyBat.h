@@ -7,6 +7,8 @@
 class MyBat : public DrawObject{
 	QuadricObject quadObject;
 
+	void init();
+
 protected:
 	void draw() const;
 

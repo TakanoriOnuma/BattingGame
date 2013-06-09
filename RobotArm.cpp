@@ -31,11 +31,23 @@ RobotArm::RobotArm(double x, double y, double z)
 	pimple->first_arm.setRotateVector(0.0, 1.0, 0.0);
 	pimple->first_arm.setAngle(90.0);
 	pimple->joint.setRotateVector(0.0, 0.0, 1.0);
+
+	setRectangularParallelepiped();
 }
 
 RobotArm::~RobotArm()
 {
 	delete pimple;
+}
+
+void RobotArm::setRectangularParallelepiped()
+{
+	const RectangularParallelepiped& foundation_size = pimple->foundation.getRectangularParallelepiped();
+	rectParallel.length = foundation_size.length;
+	rectParallel.width  = foundation_size.width;
+	rectParallel.height = foundation_size.height +
+		2 * pimple->first_arm.getRectangularParallelepiped().height +
+		pimple->hand.getRectangularParallelepiped().height;
 }
 
 void RobotArm::draw() const

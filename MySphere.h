@@ -11,6 +11,8 @@ class MySphere : public DrawObject{
 	double radius;		// ”¼Œa
 	int    sides;		// •ªŠ„”
 
+	void init();
+
 protected:
 	void draw() const;
 

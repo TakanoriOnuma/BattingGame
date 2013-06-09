@@ -4,6 +4,7 @@
 MyTeapot::MyTeapot(double x, double y, double z, double size)
 	: DrawObject(x, y, z), size(size)
 {
+	// Teapotのサイズは検討がつかないため、rectParallelは初期化しない
 }
 
 void MyTeapot::draw() const

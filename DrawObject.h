@@ -2,6 +2,7 @@
 #define ___Class_DrawObject
 
 #include "MyPoint.h"
+#include "RectangularParallelepiped.h"
 
 struct MaterialData;
 
@@ -17,12 +18,16 @@ class DrawObject{
 	float   specular[4];			// 鏡面光
 	float   shininess;				// 鏡面指数
 
+
 	static void setArray(float arr[], float a, float b, float c, float d){
 		arr[0] = a;		arr[1] = b;
 		arr[2] = c;		arr[3] = d;
 	}
 
 protected:
+	// --- DrawObjectの大雑把な大きさを知るメンバ --- //
+	RectangularParallelepiped rectParallel;		// 直方体
+
 	void setPosition() const;		// 相対的に自分の座標へ移動する
 	void setMaterial() const;		// 材質を設定する
 	virtual void draw() const = 0;
@@ -47,6 +52,10 @@ public:
 		pt.move(vec);
 	}
 
+	// --- 大雑把な大きさを取得 --- //
+	const RectangularParallelepiped& getRectangularParallelepiped() const{
+		return rectParallel;
+	}
 
 	// --- materialの色の設定 --- //
 	virtual void init_material_color();

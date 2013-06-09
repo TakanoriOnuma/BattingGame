@@ -12,6 +12,8 @@ class MyCylinder : public DrawObject{
 	double height;		// ‚‚³
 	int    sides;		// ‰~‚Ì•ªŠ„•`‰æ”
 
+	void init();		// ‰Šú‰»
+
 protected:
 	void draw() const;
 

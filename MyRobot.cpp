@@ -43,11 +43,26 @@ MyRobot::MyRobot(double x, double y, double z)
 	bodyParts = new BodyParts();
 
 	update_function = NULL;
+
+	setRectangularParallelepiped();
 }
 
 MyRobot::~MyRobot()
 {
 	delete bodyParts;
+}
+
+void MyRobot::setRectangularParallelepiped()
+{
+	// ‘åŽG”c‚È”»’èBŒ„ŠÔ‚Ìl—¶‚ª‚È‚¢
+	const RectangularParallelepiped& head_size = bodyParts->head->getRectangularParallelepiped();
+	const RectangularParallelepiped& body_size = bodyParts->body->getRectangularParallelepiped();
+	const RectangularParallelepiped& arm_size  = bodyParts->leftArm->getRectangularParallelepiped();
+	const RectangularParallelepiped& leg_size  = bodyParts->leftLeg->getRectangularParallelepiped();
+
+	rectParallel.length = body_size.length;
+	rectParallel.width  = body_size.width + 2 * arm_size.width;
+	rectParallel.height = head_size.height + body_size.height + leg_size.height;
 }
 
 void MyRobot::draw() const
