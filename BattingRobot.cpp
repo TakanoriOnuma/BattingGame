@@ -10,7 +10,8 @@
 BattingRobot::BattingRobot(double x, double y, double z)
 	: MyRobot(x, y, z)
 {
-	bat = new MyBat(0.0, -bodyParts->leftArm->getLength() - 3.0, 0.0);
+	bat = new MyBat(0.0, -bodyParts->leftArm->getLength(), 0.0);
+	bat->move(Vector3d(0.0, -bat->getRectangularParallelepiped().height, 0.0));
 	bat->setMaterialData(MaterialData::createMaterialData(Ore::SILVER));
 	bat->setRotateVector(1.0, 0.0, 0.0);
 	bat->setAngle(90.0);
