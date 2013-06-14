@@ -40,7 +40,7 @@ class MyRobot : public DrawObject{
 	double   leg_vec_r21;	// ˆÚsó‘Ô‚Å‘«‚ª‰ñ“]‚·‚ér21
 	double   leg_vec_r22;	// ˆÚsó‘Ô‚Å‘«‚ª‰ñ“]‚·‚ér22
 */
-	void setRectangularParallelepiped();
+	void setRectBox();
 
 	void (MyRobot::*update_function)();		// update—pŠÖ”
 

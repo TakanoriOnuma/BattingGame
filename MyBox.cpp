@@ -45,7 +45,7 @@ void MyBox::init()
 	vertex[6][0] =  hx;		vertex[6][1] =     0.0;		vertex[6][2] =  hz;
 	vertex[7][0] = -hx;		vertex[7][1] =     0.0;		vertex[7][2] =  hz;
 
-	rectParallel.setRectangularParallelepiped(length, width, height);
+	rectBox.setRectBox(length, width, height);
 }
 
 void MyBox::draw() const

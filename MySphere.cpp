@@ -17,7 +17,7 @@ MySphere::MySphere(double x, double y, double z, double radius, int sides)
 void MySphere::init()
 {
 	double diameter = 2 * radius;
-	rectParallel.setRectangularParallelepiped(diameter, diameter, diameter);
+	rectBox.setRectBox(diameter, diameter, diameter);
 }
 
 void MySphere::draw() const

@@ -2,7 +2,7 @@
 #define ___Class_DrawObject
 
 #include "MyPoint.h"
-#include "RectangularParallelepiped.h"
+#include "RectBox.h"
 
 struct MaterialData;
 
@@ -26,7 +26,7 @@ class DrawObject{
 
 protected:
 	// --- DrawObject‚Ì‘åG”c‚È‘å‚«‚³‚ğ’m‚éƒƒ“ƒo --- //
-	RectangularParallelepiped rectParallel;		// ’¼•û‘Ì
+	RectBox rectBox;		// ’¼•û‘Ì
 
 	void setPosition() const;		// ‘Š‘Î“I‚É©•ª‚ÌÀ•W‚ÖˆÚ“®‚·‚é
 	void setMaterial() const;		// Ş¿‚ğİ’è‚·‚é
@@ -53,8 +53,8 @@ public:
 	}
 
 	// --- ‘åG”c‚È‘å‚«‚³‚ğæ“¾ --- //
-	const RectangularParallelepiped& getRectangularParallelepiped() const{
-		return rectParallel;
+	const RectBox& getRectBox() const{
+		return rectBox;
 	}
 
 	// --- material‚ÌF‚Ìİ’è --- //

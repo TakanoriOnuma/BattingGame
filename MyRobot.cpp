@@ -44,7 +44,7 @@ MyRobot::MyRobot(double x, double y, double z)
 
 	update_function = NULL;
 
-	setRectangularParallelepiped();
+	setRectBox();
 }
 
 MyRobot::~MyRobot()
@@ -52,17 +52,17 @@ MyRobot::~MyRobot()
 	delete bodyParts;
 }
 
-void MyRobot::setRectangularParallelepiped()
+void MyRobot::setRectBox()
 {
 	// ‘åŽG”c‚È”»’èBŒ„ŠÔ‚Ìl—¶‚ª‚È‚¢
-	const RectangularParallelepiped& head_size = bodyParts->head->getRectangularParallelepiped();
-	const RectangularParallelepiped& body_size = bodyParts->body->getRectangularParallelepiped();
-	const RectangularParallelepiped& arm_size  = bodyParts->leftArm->getRectangularParallelepiped();
-	const RectangularParallelepiped& leg_size  = bodyParts->leftLeg->getRectangularParallelepiped();
+	const RectBox& head_size = bodyParts->head->getRectBox();
+	const RectBox& body_size = bodyParts->body->getRectBox();
+	const RectBox& arm_size  = bodyParts->leftArm->getRectBox();
+	const RectBox& leg_size  = bodyParts->leftLeg->getRectBox();
 
-	rectParallel.length = body_size.length;
-	rectParallel.width  = body_size.width + 2 * arm_size.width;
-	rectParallel.height = head_size.height + body_size.height + leg_size.height;
+	rectBox.length = body_size.length;
+	rectBox.width  = body_size.width + 2 * arm_size.width;
+	rectBox.height = head_size.height + body_size.height + leg_size.height;
 }
 
 void MyRobot::draw() const

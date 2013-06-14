@@ -10,7 +10,7 @@ ArmLeg::ArmLeg(GLdouble x, GLdouble y, GLdouble z, double girth, double length)
 	box2 = new MyBox(0.0, -0.05 - length, 0.0, girth, girth, length);
 	box2->setRotateVector(1.0, 0.0, 0.0);
 
-	rectParallel.setRectangularParallelepiped(girth, girth, 2 * length + 0.05);
+	rectBox.setRectBox(girth, girth, 2 * length + 0.05);
 }
 
 ArmLeg::~ArmLeg()

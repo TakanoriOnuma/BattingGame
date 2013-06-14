@@ -17,7 +17,7 @@ MyCylinder::MyCylinder(double x, double y, double z, double radius, double heigh
 void MyCylinder::init()
 {
 	double diameter = 2 * radius;
-	rectParallel.setRectangularParallelepiped(diameter, diameter, height);
+	rectBox.setRectBox(diameter, diameter, height);
 }
 
 void MyCylinder::draw() const

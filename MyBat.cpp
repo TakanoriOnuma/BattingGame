@@ -16,7 +16,7 @@ MyBat::MyBat(const Point3d& pt)
 
 void MyBat::init()
 {
-	rectParallel.setRectangularParallelepiped(0.2, 0.2, 2.6);
+	rectBox.setRectBox(0.2, 0.2, 2.6);
 }
 
 void MyBat::draw() const
