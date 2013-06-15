@@ -22,13 +22,11 @@ BattingRobot::BattingRobot(double x, double y, double z)
 	bodyParts->leftArm->setRotateVector(0.0, 1.0, 0.0);
 	bodyParts->rightArm->setRotateVector(0.0, 1.0, 0.0);
 
-	bodyParts->leftArm->setAngle(-45.0);
-	bodyParts->leftArm->setBox1Angle(-45.0);
-	bodyParts->leftArm->setBox2Angle(-30.0);
+	bodyParts->leftArm->setBox1Angle(-30.0);
+	bodyParts->leftArm->setBox2Angle(-90.0);
 
-	bodyParts->rightArm->setAngle(-45.0);
-	bodyParts->rightArm->setBox1Angle(-45.0);
-	bodyParts->rightArm->setBox2Angle(-30.0);
+	bodyParts->rightArm->setBox1Angle(-30.0);
+	bodyParts->rightArm->setBox2Angle(-90.0);
 }
 
 BattingRobot::~BattingRobot()
@@ -81,20 +79,18 @@ void BattingRobot::_swing_init()
 	accel_vec_r = accel_vec * angle;
 	vec_r = vec * angle;
 
-//	cout << "accel_vec_r:" << accel_vec_r << ", vec_r:" << vec_r << endl;
-
 	accel_vec_dis.x = 0.0;
 	accel_vec_dis.y = 0.0;
-//	accel_vec_dis.z = -8.0 * distance / (SWING_FRAME * SWING_FRAME);
 	accel_vec_dis.z = -accel_vec * distance;
 
 	vec_dis.x = 0.0;
 	vec_dis.y = 0.0;
-//	vec_dis.z = 4.0 * distance / SWING_FRAME;
 	vec_dis.z = -vec * distance;
 	
 //	bodyParts->leftArm->move(Vector3d(0.0, 0.0, 0.3));
 
+	bodyParts->leftArm->setBox2Angle(-90.0);
+	bodyParts->rightArm->setBox2Angle(-90.0);
 
 
 		bodyParts->leftArm->setAngle(0.0);
@@ -116,16 +112,33 @@ void BattingRobot::_swing()
 	bodyParts->rightArm->addAngle(vec_r);
 	vec_r += accel_vec_r;
 
+	bodyParts->leftArm->update();
+	bodyParts->rightArm->update();
+
 	if(frame < SWING_FRAME - SWING_FRAME / 12){
 		bodyParts->leftArm->move(vec_dis);
 		bodyParts->rightArm->move(-vec_dis);
 	}
 	vec_dis += accel_vec_dis;
 
+	if(frame == SWING_FRAME / 3){
+		const double angle = 60.0;
+		const double frame_time = 2.0 * SWING_FRAME / 3.0;
+		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
+		const double angle_vec = 4.0 / frame_time;
+		bodyParts->leftArm->setBox2AngleAccelVector(accel_angle_vec * angle);
+		bodyParts->leftArm->setBox2AngleVector(angle_vec * angle);
+		bodyParts->rightArm->setBox2AngleAccelVector(accel_angle_vec * angle);
+		bodyParts->rightArm->setBox2AngleVector(angle_vec * angle);
+
+	}
+
 	frame++;
 	if(frame > SWING_FRAME){
 		frame = 0;
 		update_function = NULL;
 
+		bodyParts->leftArm->resetVector();
+		bodyParts->rightArm->resetVector();
 	}
 }
