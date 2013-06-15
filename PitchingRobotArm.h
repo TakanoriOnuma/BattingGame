@@ -1,10 +1,11 @@
 #ifndef ___Class_PitchingRobotArm
 #define ___Class_PitchingRobotArm
 
-#include "IPitcher.h"
 #include "RobotArm.h"
+#include "IPitcher.h"
+#include "IAnimation.h"
 
-class PitchingRobotArm : public RobotArm, public IPitcher{
+class PitchingRobotArm : public RobotArm, public IPitcher, public IAnimation{
 
 	static const int THROWING_FRAME = 30;		// 投げる動作に必要なフレーム数
 
@@ -22,7 +23,7 @@ protected:
 public:
 	PitchingRobotArm(double x = 0.0, double y = 0.0, double z = 0.0);
 
-	void update();
+	void update() override;
 
 	void ball_throw();
 

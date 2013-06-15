@@ -2,11 +2,12 @@
 #define ___Class_MyRobot
 
 #include "DrawObject.h"
+#include "IAnimation.h"
 
 class MyBox;
 class ArmLeg;
 
-class MyRobot : public DrawObject{
+class MyRobot : public DrawObject, public IAnimation{
 	/* ÉçÉ{ÉbÉgÇÃèÛë‘ */
 	enum class State;
 
@@ -62,7 +63,7 @@ public:
 	MyRobot(double x = 0.0, double y = 0.0, double z = 0.0);
 	virtual ~MyRobot();
 
-	virtual void update();
+	virtual void update() override;
 
 	void stand();
 	void run();
