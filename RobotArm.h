@@ -7,6 +7,8 @@ class RobotArm : public DrawObject{
 	struct  PIMPLE;		// PIMPLEパターンの使用
 	PIMPLE* pimple;
 
+	void setRectBox();
+
 protected:
 	void draw() const;
 

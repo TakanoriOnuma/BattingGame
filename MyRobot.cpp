@@ -43,11 +43,26 @@ MyRobot::MyRobot(double x, double y, double z)
 	bodyParts = new BodyParts();
 
 	update_function = NULL;
+
+	setRectBox();
 }
 
 MyRobot::~MyRobot()
 {
 	delete bodyParts;
+}
+
+void MyRobot::setRectBox()
+{
+	// ‘åŽG”c‚È”»’èBŒ„ŠÔ‚Ìl—¶‚ª‚È‚¢
+	const RectBox& head_size = bodyParts->head->getRectBox();
+	const RectBox& body_size = bodyParts->body->getRectBox();
+	const RectBox& arm_size  = bodyParts->leftArm->getRectBox();
+	const RectBox& leg_size  = bodyParts->leftLeg->getRectBox();
+
+	rectBox.length = body_size.length;
+	rectBox.width  = body_size.width + 2 * arm_size.width;
+	rectBox.height = head_size.height + body_size.height + leg_size.height;
 }
 
 void MyRobot::draw() const

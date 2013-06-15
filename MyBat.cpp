@@ -5,11 +5,18 @@
 MyBat::MyBat(double x, double y, double z)
 	: DrawObject(x, y, z)
 {
+	init();
 }
 
 MyBat::MyBat(const Point3d& pt)
 	: DrawObject(pt)
 {
+	init();
+}
+
+void MyBat::init()
+{
+	rectBox.setRectBox(0.2, 0.2, 2.6);
 }
 
 void MyBat::draw() const

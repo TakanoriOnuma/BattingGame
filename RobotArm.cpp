@@ -31,11 +31,23 @@ RobotArm::RobotArm(double x, double y, double z)
 	pimple->first_arm.setRotateVector(0.0, 1.0, 0.0);
 	pimple->first_arm.setAngle(90.0);
 	pimple->joint.setRotateVector(0.0, 0.0, 1.0);
+
+	setRectBox();
 }
 
 RobotArm::~RobotArm()
 {
 	delete pimple;
+}
+
+void RobotArm::setRectBox()
+{
+	const RectBox& foundation_size = pimple->foundation.getRectBox();
+	rectBox.length = foundation_size.length;
+	rectBox.width  = foundation_size.width;
+	rectBox.height = foundation_size.height +
+		2 * pimple->first_arm.getRectBox().height +
+		pimple->hand.getRectBox().height;
 }
 
 void RobotArm::draw() const

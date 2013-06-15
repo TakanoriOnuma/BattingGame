@@ -5,11 +5,19 @@
 MyCylinder::MyCylinder(double radius, double height, int sides)
 	: DrawObject(), radius(radius), height(height), sides(sides)
 {
+	init();
 }
 
 MyCylinder::MyCylinder(double x, double y, double z, double radius, double height, int sides)
 	: DrawObject(x, y, z), radius(radius), height(height), sides(sides)
 {
+	init();
+}
+
+void MyCylinder::init()
+{
+	double diameter = 2 * radius;
+	rectBox.setRectBox(diameter, diameter, height);
 }
 
 void MyCylinder::draw() const

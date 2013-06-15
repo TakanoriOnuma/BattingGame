@@ -1,18 +1,57 @@
+#include <iostream>
+#include <math.h>
+#include "OpenGL.h"
+
 #include "BattingRobot.h"
 #include "MyRobot_BodyParts.h"
 
-#include <math.h>
+#include "MyBat.h"
+#include "MaterialData.h"
+
+using namespace std;
 
 BattingRobot::BattingRobot(double x, double y, double z)
 	: MyRobot(x, y, z)
 {
+	bat = new MyBat(0.0, -bodyParts->leftArm->getLength(), 0.0);
+	bat->move(Vector3d(-0.0, -bat->getRectBox().height, 0.0));
+	bat->setMaterialData(MaterialData::createMaterialData(Ore::SILVER));
+	bat->setRotateVector(1.0, 0.35, 0.0);
+	bat->setAngle(90.0);
+
 	bodyParts->leftArm->setRotateVector(0.0, 1.0, 0.0);
 	bodyParts->rightArm->setRotateVector(0.0, 1.0, 0.0);
 
-	bodyParts->leftArm->setAngle(-45.0);
-	bodyParts->leftArm->setBox1Angle(-45.0);
-	bodyParts->leftArm->setBox2Angle(-30.0);
+	bodyParts->leftArm->setAngle(-20.0);
+	bodyParts->rightArm->setAngle(20.0);
 
+	bodyParts->leftArm->setBox1Angle(-30.0);
+	bodyParts->leftArm->setBox2Angle(-90.0);
+
+	bodyParts->rightArm->setBox1Angle(-30.0);
+	bodyParts->rightArm->setBox2Angle(-90.0);
+}
+
+BattingRobot::~BattingRobot()
+{
+	delete bat;
+}
+
+void BattingRobot::draw() const
+{
+	bodyParts->head->draw(true, false);
+	bodyParts->body->draw(true, false);
+
+	glPushMatrix();								// Ž©•ª‚ÅÓ”C‚ðŽ‚Á‚Ä‘Þ”ð‚·‚é
+	bodyParts->leftArm->draw(false, false);		// ‘Þ”ð‚Í‚µ‚È‚¢
+	glTranslated(0.8, 0.0, 0.0);
+	bat->draw(false, true);						// bat‚ÌF‚ðŽg‚Á‚Ä•`‰æ
+	glPopMatrix();								// Ó”C‚ðŽ‚Á‚Ä•œ‹A‚·‚é
+	setMaterial();								// F‚ðMyRobot‚ÌF‚É–ß‚·
+
+	bodyParts->rightArm->draw(true, false);
+	bodyParts->leftLeg->draw(true, false);
+	bodyParts->rightLeg->draw(true, false);
 }
 
 void BattingRobot::update()
@@ -36,22 +75,84 @@ void BattingRobot::swing()
 void BattingRobot::_swing_init()
 {
 	double angle = 90.0;
+	double distance = 0.3;
 
-	accel_vec_r = (8.0 + 4 * sqrt(5.0)) * angle / (SWING_FRAME * SWING_FRAME);
-	vec_r = 2.0 * angle / SWING_FRAME - accel_vec_r * SWING_FRAME / 2.0;
+	double accel_vec = (8.0 + 4.0 * sqrt(5.0)) / (SWING_FRAME * SWING_FRAME);
+	double vec = -2.0 * (1.0 + sqrt(5.0)) / SWING_FRAME;
+
+	accel_vec_r = accel_vec * angle;
+	vec_r = vec * angle;
+
+	accel_vec_dis.x = 0.0;
+	accel_vec_dis.y = 0.0;
+	accel_vec_dis.z = -accel_vec * distance;
+
+	vec_dis.x = 0.0;
+	vec_dis.y = 0.0;
+	vec_dis.z = -vec * distance;
 	
+
+	double angle2 = 20.0;
+	double frame_time = SWING_FRAME / 3.0;
+	accel_vec_r2 = -8.0 * angle2 / (frame_time * frame_time);
+	vec_r2 = 4.0 * angle2 / frame_time;
+
+	bodyParts->leftArm->setBox2Angle(-90.0);
+	bodyParts->rightArm->setBox2Angle(-90.0);
+
+
+	bodyParts->leftArm->setAngle(-20.0);
+	bodyParts->rightArm->setAngle(20.0);
+
+
+		// Š’è‚ÌˆÊ’u‚É–ß‚é
+		Point3d pt = bodyParts->leftArm->getPoint();
+		pt.z = 0.0;
+		bodyParts->leftArm->move(pt);
+		pt.x = bodyParts->rightArm->getPoint().x;
+		bodyParts->rightArm->move(pt);
+
 }
 
 
 void BattingRobot::_swing()
 {
 	bodyParts->leftArm->addAngle(vec_r);
+	bodyParts->rightArm->addAngle(vec_r);
 	vec_r += accel_vec_r;
+
+	bodyParts->leftArm->update();
+	bodyParts->rightArm->update();
+
+	if(frame < SWING_FRAME - SWING_FRAME / 12){
+		bodyParts->leftArm->move(vec_dis);
+		bodyParts->rightArm->move(-vec_dis);
+	}
+	vec_dis += accel_vec_dis;
+
+	if(frame == SWING_FRAME / 3){
+		const double angle = 60.0;
+		const double frame_time = 2.0 * SWING_FRAME / 3.0;
+		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
+		const double angle_vec = 4.0 / frame_time;
+		bodyParts->leftArm->setBox2AngleAccelVector(accel_angle_vec * angle);
+		bodyParts->leftArm->setBox2AngleVector(angle_vec * angle);
+		bodyParts->rightArm->setBox2AngleAccelVector(accel_angle_vec * angle);
+		bodyParts->rightArm->setBox2AngleVector(angle_vec * angle);
+
+	}
+
+	if(frame <= SWING_FRAME / 3){
+		bodyParts->leftArm->addAngle(vec_r2);
+		vec_r2 += accel_vec_r2;
+	}
 
 	frame++;
 	if(frame > SWING_FRAME){
 		frame = 0;
 		update_function = NULL;
-		bodyParts->leftArm->setAngle(0.0);
+
+		bodyParts->leftArm->resetVector();
+		bodyParts->rightArm->resetVector();
 	}
 }
