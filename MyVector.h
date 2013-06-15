@@ -15,11 +15,22 @@ struct Vector3{
 
 	~Vector3(){ }
 
-	Vector3& operator += (const Vector3& vec){
+	Vector3<T>& operator += (const Vector3& vec){
 		this->x += vec.x;
 		this->y += vec.y;
 		this->z += vec.z;
 		return *this;
+	}
+
+	Vector3<T>& operator *= (double value){
+		x *= value;
+		y *= value;
+		z *= value;
+		return *this;
+	}
+
+	Vector3<T> operator - (){
+		return Vector3<T>(-x, -y, -z);
 	}
 };
 
@@ -27,6 +38,12 @@ struct Vector3d : public Vector3<GLdouble>
 {
 	Vector3d(GLdouble x = 0, GLdouble y = 0, GLdouble z = 0) : Vector3(x, y, z)
 	{
+	}
+
+	// 返り値の問題でうまくいかないためサブクラスでも実装。
+	// オーバーライドは敢えてしていない
+	Vector3d operator - (){
+		return Vector3d(-x, -y, -z);
 	}
 };
 

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <math.h>
 #include "OpenGL.h"
 
@@ -6,6 +7,8 @@
 
 #include "MyBat.h"
 #include "MaterialData.h"
+
+using namespace std;
 
 BattingRobot::BattingRobot(double x, double y, double z)
 	: MyRobot(x, y, z)
@@ -70,10 +73,40 @@ void BattingRobot::swing()
 void BattingRobot::_swing_init()
 {
 	double angle = 90.0;
+	double distance = 0.3;
 
-	accel_vec_r = (8.0 + 4 * sqrt(5.0)) * angle / (SWING_FRAME * SWING_FRAME);
-	vec_r = 2.0 * angle / SWING_FRAME - accel_vec_r * SWING_FRAME / 2.0;
+	double accel_vec = (8.0 + 4.0 * sqrt(5.0)) / (SWING_FRAME * SWING_FRAME);
+	double vec = -2.0 * (1.0 + sqrt(5.0)) / SWING_FRAME;
+
+	accel_vec_r = accel_vec * angle;
+	vec_r = vec * angle;
+
+//	cout << "accel_vec_r:" << accel_vec_r << ", vec_r:" << vec_r << endl;
+
+	accel_vec_dis.x = 0.0;
+	accel_vec_dis.y = 0.0;
+//	accel_vec_dis.z = -8.0 * distance / (SWING_FRAME * SWING_FRAME);
+	accel_vec_dis.z = -accel_vec * distance;
+
+	vec_dis.x = 0.0;
+	vec_dis.y = 0.0;
+//	vec_dis.z = 4.0 * distance / SWING_FRAME;
+	vec_dis.z = -vec * distance;
 	
+//	bodyParts->leftArm->move(Vector3d(0.0, 0.0, 0.3));
+
+
+
+		bodyParts->leftArm->setAngle(0.0);
+		bodyParts->rightArm->setAngle(0.0);
+
+		// Š’è‚ÌˆÊ’u‚É–ß‚é
+		Point3d pt = bodyParts->leftArm->getPoint();
+		pt.z = 0.0;
+		bodyParts->leftArm->move(pt);
+		pt.x = bodyParts->rightArm->getPoint().x;
+		bodyParts->rightArm->move(pt);
+
 }
 
 
@@ -83,11 +116,16 @@ void BattingRobot::_swing()
 	bodyParts->rightArm->addAngle(vec_r);
 	vec_r += accel_vec_r;
 
+	if(frame < SWING_FRAME - SWING_FRAME / 12){
+		bodyParts->leftArm->move(vec_dis);
+		bodyParts->rightArm->move(-vec_dis);
+	}
+	vec_dis += accel_vec_dis;
+
 	frame++;
 	if(frame > SWING_FRAME){
 		frame = 0;
 		update_function = NULL;
-		bodyParts->leftArm->setAngle(0.0);
-		bodyParts->rightArm->setAngle(0.0);
+
 	}
 }
