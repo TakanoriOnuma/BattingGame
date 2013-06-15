@@ -15,6 +15,8 @@ class BattingRobot : public MyRobot, public IBatter{
 	// 腕の角度変更に対する速度と加速度
 	double accel_vec_r;
 	double vec_r;
+	double accel_vec_r2;
+	double vec_r2;
 
 	// 腕の座標変更に対する速度と加速度
 	Vector3d accel_vec_dis;
