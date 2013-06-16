@@ -6,7 +6,8 @@
 class IAnimation;
 class AnimationManager{
 	std::list<IAnimation*> animations;
-	unsigned int frame_rate;
+	unsigned int frame_rate;		// 1秒に何フレーム描画するか
+	unsigned int time;				// 何ミリ秒のインターバルか
 
 	static void timer(int t);		// ループ毎に処理する関数
 
@@ -20,6 +21,7 @@ public:
 
 	void setFrameRate(unsigned int frame_rate){
 		this->frame_rate = frame_rate;
+		this->time = 1000 / frame_rate;
 	}
 	unsigned int getFrameRate() const{
 		return frame_rate;

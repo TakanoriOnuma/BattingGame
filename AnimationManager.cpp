@@ -6,7 +6,7 @@
 using namespace std;
 
 AnimationManager::AnimationManager()
-	: animations(), frame_rate(30)
+	: animations(), frame_rate(0), time(0)
 {
 }
 
@@ -27,8 +27,8 @@ AnimationManager& AnimationManager::getAnimationManager()
 void AnimationManager::useAnimation(unsigned int frame_rate)
 {
 	AnimationManager& animationManager = AnimationManager::getAnimationManager();
-	animationManager.frame_rate = frame_rate;
-	glutTimerFunc(0, AnimationManager::timer, 1000 / frame_rate);
+	animationManager.setFrameRate(frame_rate);
+	glutTimerFunc(animationManager.time, AnimationManager::timer, 0);
 }
 
 void AnimationManager::setAnimation(IAnimation* animation)
@@ -61,7 +61,5 @@ void AnimationManager::timer(int t)
 
 	glutPostRedisplay();
 
-	// この使い方が正しいか不安
-	// このtはタイマーIDを渡すのかもしれない
-	glutTimerFunc(t, AnimationManager::timer, t);
+	glutTimerFunc(animationManager.time, AnimationManager::timer, t);
 }

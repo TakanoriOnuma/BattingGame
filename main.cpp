@@ -454,6 +454,21 @@ void keyboard(unsigned char key, int x, int y)
 		exit(0);
 	}
 
+	switch(key){
+	case 'z':
+		AnimationManager::getAnimationManager().setFrameRate(20);
+		cout << "frame rate:" << 20 << endl;
+		break;
+	case 'x':
+		AnimationManager::getAnimationManager().setFrameRate(30);
+		cout << "frame rate:" << 30 << endl;
+		break;
+	case 'c':
+		AnimationManager::getAnimationManager().setFrameRate(40);
+		cout << "frame rate:" << 40 << endl;
+		break;
+	}
+
 	if(key == ' '){
 		MouseManager& mouseManager = MouseManager::getMouseManager();
 		const Point2i& pt = mouseManager.getMousePoint();
