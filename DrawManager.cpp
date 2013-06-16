@@ -36,14 +36,7 @@ void DrawManager::setDrawObject(DrawObject* drawObject)
 
 void DrawManager::removeDrawObject(DrawObject* drawObject)
 {
-	// 登録されているか調べる
-	list<DrawObject*>::iterator pos = find(drawList.begin(), drawList.end(), drawObject);
-
-	if(pos != drawList.end()){				// 登録してあれば
-		delete *pos;						// その場所のポインタをdeleteする
-		drawList.remove(drawObject);		// リストから消去する
-	}
-
+	drawList.remove(drawObject);		// リストから消去する
 }
 
 void DrawManager::draw() const
