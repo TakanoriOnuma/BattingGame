@@ -8,6 +8,7 @@ using namespace std;
 #include "DrawManager.h"
 #include "KeyboardManager.h"
 #include "MouseManager.h"
+#include "AnimationManager.h"
 #include "MyBox.h"
 #include "MyTeapot.h"
 #include "MyRobot.h"
@@ -364,10 +365,6 @@ void timer(int t)
 	check_keyboard();
 	check_specialKeyboard();
 
-	robot->update();
-	pitchingRobotArm->update();
-	battingRobot->update();
-
 	glutPostRedisplay();
 	glutTimerFunc(t, timer, FRAME_TIME);
 }
@@ -433,10 +430,13 @@ void init()
 	pitchingRobotArm->setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 	drawManager.setDrawObject(pitchingRobotArm);
 
+	AnimationManager::getAnimationManager().setAnimation(pitchingRobotArm);
+
 
 	battingRobot = new BattingRobot(0.0, 0.9, 1.0);
 	battingRobot->setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
 	drawManager.setDrawObject(battingRobot);
+	AnimationManager::getAnimationManager().setAnimation(battingRobot);
 
 	robot = battingRobot;
 
@@ -480,6 +480,7 @@ int main(int argc, char* argv[])
 
 //	glutKeyboardFunc(keyboard);
 //	glutSpecialFunc(specialKeyboard);
+	AnimationManager::useAnimation();
 
 	KeyboardManager::getKeyboardManager().useCharKeyboard();
 	KeyboardManager::getKeyboardManager().useSpecialKeyboard();
