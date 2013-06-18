@@ -8,7 +8,7 @@ using namespace std;
 #include "KeyboardManager.h"
 #include "MouseManager.h"
 #include "ExecuteScene.h"
-#include "Game.h"
+#include "StartMenu.h"
 
 void resize(int w, int h)
 {
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
 
 	MouseManager::getMouseManager().useMouse();
 
-	ExecuteScene::getExecuteScene().setScene(new Game());
+	ExecuteScene::getExecuteScene().setScene(new StartMenu());
 
 	init();
 	glutMainLoop();
