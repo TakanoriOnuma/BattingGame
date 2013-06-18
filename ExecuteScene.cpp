@@ -10,6 +10,7 @@ void ExecuteScene::_update()
 	ExecuteScene::getExecuteScene().update();
 }
 
+// AnimationManager‚ğg‚Á‚Ä‚¢‚éŠÔ‚Í‚¢‚ç‚È‚¢q
 void ExecuteScene::_display()
 {
 	ExecuteScene::getExecuteScene().display();
@@ -20,7 +21,8 @@ ExecuteScene::ExecuteScene()
 	: scene(NULL)
 {
 	glutDisplayFunc(ExecuteScene::_display);
-//	AnimationManager::getAnimationManager().setAnimation(this);
+	AnimationManager::getAnimationManager().useAnimation(30);		// ‚±‚±‚Å‘‚­‚×‚«‚©‚Í”÷–­
+	AnimationManager::getAnimationManager().setAnimation(this);
 }
 
 ExecuteScene::~ExecuteScene()

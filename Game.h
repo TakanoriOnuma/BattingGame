@@ -7,6 +7,11 @@ class Game : public IScene{
 	struct DrawObjects;
 	DrawObjects* objects;
 
+	double angle;
+
+	void check_char_key();
+	void check_special_key();
+
 public:
 	Game();
 	~Game();
