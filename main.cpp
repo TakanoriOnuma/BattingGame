@@ -16,6 +16,7 @@ using namespace std;
 #include "MySphere.h"
 #include "MaterialData.h"
 #include "RobotArm.h"
+#include "Ground.h"
 #include "MyBat.h"
 #include "PitchingRobotArm.h"
 #include "BattingRobot.h"
@@ -188,7 +189,7 @@ void display()
 
 	/* シーンの描画 */
 	/* 地面 */
-	myGround(-1.8, 10, 10);
+//	myGround(-1.8, 10, 10);
 
 	/* 箱男の位置と方向 */
 	glTranslated(px, h, pz);
@@ -420,6 +421,8 @@ void init()
 	drawManager.setDrawObject(obj);
 	obj = new MyTeapot(-1.5, -1.0, -1.5);
 	obj->setMaterialData(MaterialData::createMaterialData(Jewel::RUBY));
+	drawManager.setDrawObject(obj);
+	obj = new Ground(0, -1.8, 0);
 	drawManager.setDrawObject(obj);
 
 	robotArm = new RobotArm(0.0, -1.5, -3.0);
