@@ -7,6 +7,12 @@ class MyTeapot;
 class StartMenu : public IScene{
 	MyTeapot* teapot;
 
+	double angle_xz;
+	double angle_yz;
+
+	void check_char_key();
+	void check_special_key();
+
 public:
 	StartMenu();
 	~StartMenu();
