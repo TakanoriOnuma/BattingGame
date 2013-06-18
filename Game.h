@@ -3,9 +3,9 @@
 
 #include "IScene.h"
 
-class MyBox;
 class Game : public IScene{
-	MyBox* box;
+	struct DrawObjects;
+	DrawObjects* objects;
 
 public:
 	Game();

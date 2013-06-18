@@ -20,6 +20,8 @@ using namespace std;
 #include "MyBat.h"
 #include "PitchingRobotArm.h"
 #include "BattingRobot.h"
+#include "ExecuteScene.h"
+#include "Game.h"
 
 /* ’è”‚ğ’è‹` */
 #define PI 3.141592653589793	// ƒÎ
@@ -141,6 +143,8 @@ void myGround(double height, int width, int distance)
  */
 void display()
 {
+
+	cout << "display" << endl;
 	/* ŒõŒ¹‚ÌˆÊ’u */
 	static GLfloat lightpos0[] = { 3.0, 4.0, 5.0, 1.0 };
 	static GLfloat lightpos1[] = {-3.0, 4.0, 5.0, 1.0 };
@@ -491,14 +495,14 @@ int main(int argc, char* argv[])
 	glutInitWindowSize(400, 300);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 	glutCreateWindow(argv[0]);
-	glutDisplayFunc(display);
+//	glutDisplayFunc(display);
 	glutReshapeFunc(resize);
 //	glutMouseFunc(mouse);
 
 
 //	glutKeyboardFunc(keyboard);
 //	glutSpecialFunc(specialKeyboard);
-	AnimationManager::useAnimation();
+//	AnimationManager::useAnimation();
 
 	KeyboardManager::getKeyboardManager().useCharKeyboard();
 	KeyboardManager::getKeyboardManager().useSpecialKeyboard();
@@ -507,7 +511,9 @@ int main(int argc, char* argv[])
 	MouseManager::getMouseManager().useMouse();
 	MouseManager::getMouseManager().setMouseHandlar(mouse);
 
-	glutTimerFunc(0, timer, FRAME_TIME);
+	ExecuteScene::getExecuteScene().setScene(new Game());
+
+//	glutTimerFunc(0, timer, FRAME_TIME);
 	init();
 	glutMainLoop();
 	return 0;
