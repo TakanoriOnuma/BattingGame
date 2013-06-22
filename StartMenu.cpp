@@ -1,19 +1,49 @@
 #include "StartMenu.h"
 #include "MyTeapot.h"
+#include "MyCylinder.h"
+#include "Ground.h"
 #include "MaterialData.h"
+#include "Camera.h"
 #include "Game.h"
 #include "KeyboardManager.h"
+
+struct StartMenu::DrawObjects{
+	MyTeapot   teapot;
+	MyCylinder cyliender;
+	Ground     ground;
+
+	DrawObjects()
+		: teapot(),
+		cyliender(0.0, 0.0, -3.0, 1.0, 2.0),
+		ground(0.0, -1.0, 0.0)
+	{
+		teapot.setMaterialData(MaterialData::createMaterialData(Jewel::RUBY));
+
+		cyliender.setMaterialData(MaterialData::createMaterialData(Ore::CHROME));
+		cyliender.setRotateVector(1.0, 1.0, 0.0);
+		cyliender.addAngle(45.0);
+	}
+
+	void draw() const{
+		teapot.draw(true, true);
+		cyliender.draw(true, true);
+		ground.draw(true, true);
+	}
+};
+
+
 
 StartMenu::StartMenu()
 	: angle_xz(0.0), angle_yz(0.0)
 {
-	teapot = new MyTeapot();
-	teapot->setMaterialData(MaterialData::createMaterialData(Jewel::RUBY));
+	objects = new DrawObjects();
+	camera  = new Camera();
 }
 
 StartMenu::~StartMenu()
 {
-	delete teapot;
+	delete objects;
+	delete camera;
 }
 
 void StartMenu::check_char_key()
@@ -21,22 +51,36 @@ void StartMenu::check_char_key()
 	KeyboardManager& keyboardManager = KeyboardManager::getKeyboardManager();
 
 	if(keyboardManager.isPushCharKey('a')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::EMERALD));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::EMERALD));
 	}
 	else if(keyboardManager.isPushCharKey('s')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::JADE));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::JADE));
 	}
 	else if(keyboardManager.isPushCharKey('d')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 	}
 	else if(keyboardManager.isPushCharKey('f')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::PEARL));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::PEARL));
 	}
 	else if(keyboardManager.isPushCharKey('g')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::RUBY));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::RUBY));
 	}
 	else if(keyboardManager.isPushCharKey('h')){
-		teapot->setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
+		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
+	}
+
+	if(keyboardManager.isPushCharKey('z')){
+		camera->getEye().x += 0.1;
+	}
+	else if(keyboardManager.isPushCharKey('x')){
+		camera->getEye().x -= 0.1;
+	}
+
+	if(keyboardManager.isPushCharKey('n')){
+		camera->getTarget().x += 0.1;
+	}
+	else if(keyboardManager.isPushCharKey('m')){
+		camera->getTarget().x -= 0.1;
 	}
 }
 
@@ -81,6 +125,8 @@ void StartMenu::display() const
 	/* モデル・ビュー変換行列の初期化 */
 	glLoadIdentity();
 
+	camera->setCamera();
+
 	/* 視点の移動(物体の方を奥に移す) */
 	glTranslated(0.0, 0.0, -13.0);
 	glRotated(angle_xz, 0.0, 1.0, 0.0);
@@ -90,7 +136,7 @@ void StartMenu::display() const
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos0);
 	glLightfv(GL_LIGHT1, GL_POSITION, lightpos1);
 
-	teapot->draw(true, true);
+	objects->draw();
 
 	glutSwapBuffers();
 }

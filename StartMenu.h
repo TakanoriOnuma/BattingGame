@@ -3,9 +3,11 @@
 
 #include "IScene.h"
 
-class MyTeapot;
+class Camera;
 class StartMenu : public IScene{
-	MyTeapot* teapot;
+	struct DrawObjects;
+	DrawObjects* objects;
+	Camera* camera;
 
 	double angle_xz;
 	double angle_yz;
