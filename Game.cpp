@@ -20,11 +20,12 @@ struct Game::DrawObjects{
 	DrawObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, 0.0),
-		battingRobot(0.0, 0.9, 1.0),
+		battingRobot(-2.0, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -3.0)
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
+		battingRobot.setAngle(90.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 		pitchingRobotArm.hand_ball(&ball);

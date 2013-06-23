@@ -54,7 +54,7 @@ void PitchingRobotArm::_ball_throw()
 			pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
 
 			ball->move(pt);
-			ball->setVector(0.0, 0.0, 0.3);
+			ball->setVector(0.0, 0.0, 0.5);
 			ball->emit();
 			ball = NULL;
 		}
