@@ -5,27 +5,35 @@
 #include "MaterialData.h"
 #include "KeyboardManager.h"
 #include "Camera.h"
+#include "MyBall.h"
 
 #include <iostream>
 
 using namespace std;
 
 struct Game::DrawObjects{
+	MyBall ball;
 	Ground ground;
 	BattingRobot battingRobot;
 	PitchingRobotArm pitchingRobotArm;
 
 	DrawObjects()
-		: ground(0.0, -1.8, 0.0),
+		: ball(0.3),
+		ground(0.0, -1.8, 0.0),
 		battingRobot(0.0, 0.9, 1.0),
 		pitchingRobotArm(0.0, -1.5, -3.0)
 	{
+		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
+		pitchingRobotArm.hand_ball(&ball);
 	}
 
 	void draw() const{
+		if(ball.getState() != MyBall::State::HANDED){
+			ball.draw(true, true);
+		}
 		ground.draw(true, true);
 		battingRobot.draw(true, true);
 		pitchingRobotArm.draw(true, true);
@@ -33,6 +41,7 @@ struct Game::DrawObjects{
 
 	// •K—v‚Ì‚ ‚é‚à‚Ì‚¾‚¯update‚·‚é
 	void update(){
+		ball.update();
 		battingRobot.update();
 		pitchingRobotArm.update();
 	}

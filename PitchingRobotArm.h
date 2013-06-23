@@ -5,9 +5,12 @@
 #include "IPitcher.h"
 #include "IAnimation.h"
 
+class MyBall;
 class PitchingRobotArm : public RobotArm, public IPitcher, public IAnimation{
 
 	static const int THROWING_FRAME = 30;		// 投げる動作に必要なフレーム数
+
+	MyBall* ball;
 
 	int frame;				// フレーム数
 
@@ -17,15 +20,20 @@ class PitchingRobotArm : public RobotArm, public IPitcher, public IAnimation{
 	void (PitchingRobotArm::*update_function)();	// update用関数
 
 protected:
+	void draw() const override;
+
 	void _ball_throw_init();
 	void _ball_throw();
 
 public:
+	using DrawObject::draw;
+
 	PitchingRobotArm(double x = 0.0, double y = 0.0, double z = 0.0);
 
 	void update() override;
 
 	void ball_throw();
+	void hand_ball(MyBall* ball);		// ボールを持つ
 
 };
 

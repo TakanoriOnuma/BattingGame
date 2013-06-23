@@ -17,7 +17,8 @@ private:
 	Vector3d vec;		// ˆÚ“®ƒxƒNƒgƒ‹
 
 public:
-	MyBall();
+	MyBall(double radius = 1.0, int sides = 16);
+	MyBall(double x, double y, double z, double radius = 1.0, int sides = 16);
 
 	void update() override;
 
