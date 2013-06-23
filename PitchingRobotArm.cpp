@@ -1,6 +1,7 @@
 #include <math.h>
 
 #include "PitchingRobotArm.h"
+#include "RobotArm_Parts.h"
 #include "MyBall.h"
 
 PitchingRobotArm::PitchingRobotArm(double x, double y, double z)
@@ -47,6 +48,18 @@ void PitchingRobotArm::_ball_throw()
 	vec_r += accel_vec_r;
 
 	frame++;
+	if(parts->joint.getAngle() > 0.0){
+		if(ball != NULL){
+			Point3d pt = this->getPoint();
+			pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
+
+			ball->move(pt);
+			ball->setVector(0.0, 0.0, 0.3);
+			ball->emit();
+			ball = NULL;
+		}
+	}
+
 	if(frame > THROWING_FRAME){
 		frame = 0;
 		update_function = NULL;
@@ -58,5 +71,6 @@ void PitchingRobotArm::hand_ball(MyBall* ball)
 	if(this->ball == NULL){
 		this->ball = ball;
 		this->ball->handed();		// ƒ{[ƒ‹‚ðŽ‚Â
+		this->ball->move(Point3d(0.0, 0.0, 0.0));
 	}
 }

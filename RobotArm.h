@@ -4,12 +4,13 @@
 #include "DrawObject.h"
 
 class RobotArm : public DrawObject{
-	struct  PIMPLE;		// PIMPLEパターンの使用
-	PIMPLE* pimple;
-
 	void setRectBox();
 
 protected:
+	struct Parts;		// PIMPLEパターンの使用
+	Parts* parts;
+
+
 	void draw() const;
 
 public:

@@ -68,14 +68,17 @@ void Game::check_char_key()
 	if(keyboardManager.isPushCharKey('o')){
 		objects->pitchingRobotArm.ball_throw();
 	}
+	if(keyboardManager.isPushCharKey('h')){
+		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ƒ{[ƒ‹‚ðŽ‚½‚¹‚é
+	}
 
+	// --- ƒJƒƒ‰‚Ì’²® --- //
 	if(keyboardManager.isPushCharKey('a')){
 		camera->addAngle_xz(5.0);
 	}
 	else if(keyboardManager.isPushCharKey('d')){
 		camera->addAngle_xz(-5.0);
 	}
-
 	if(keyboardManager.isPushCharKey('w')){
 		camera->addDistance(-1.0);
 	}
