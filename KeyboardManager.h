@@ -33,6 +33,8 @@ private:
 	KeyboardManager();
 	KeyboardManager(const KeyboardManager&);
 public:
+	~KeyboardManager();
+
 	static KeyboardManager& getKeyboardManager();
 
 	void useCharKeyboard();

@@ -20,6 +20,7 @@ void ExecuteScene::_display()
 ExecuteScene::ExecuteScene()
 	: scene(NULL)
 {
+	std::cout << "create ExecuteScene" << std::endl;
 	glutDisplayFunc(ExecuteScene::_display);
 	AnimationManager::getAnimationManager().useAnimation(30);		// ‚±‚±‚Å‘‚­‚×‚«‚©‚Í”÷–­
 	AnimationManager::getAnimationManager().setAnimation(this);
@@ -27,6 +28,7 @@ ExecuteScene::ExecuteScene()
 
 ExecuteScene::~ExecuteScene()
 {
+	std::cout << "delete ExecuteScene" << std::endl;
 	if(scene != NULL){
 		delete scene;
 	}

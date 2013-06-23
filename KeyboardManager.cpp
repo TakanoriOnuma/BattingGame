@@ -1,6 +1,8 @@
 #include "OpenGL.h"
 #include "KeyboardManager.h"
 
+#include <iostream>
+
 /* friend 関数の定義 */
 void _keyboard(unsigned char key, int x, int y)
 {
@@ -74,6 +76,7 @@ KeyboardManager::KeyboardManager()
 	: char_key_handlar(NULL), char_key_up_handlar(NULL),
 	special_key_handlar(NULL), special_key_up_handlar(NULL)
 {
+	std::cout << "create KeyboadManager" << std::endl;
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
@@ -81,6 +84,11 @@ KeyboardManager& KeyboardManager::getKeyboardManager()
 {
 	static KeyboardManager keyboardManager;
 	return keyboardManager;
+}
+
+KeyboardManager::~KeyboardManager()
+{
+	std::cout << "delete KeyboardManager" << std::endl;
 }
 
 
