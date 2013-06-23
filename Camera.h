@@ -36,11 +36,19 @@ public:
 	}
 	void addAngle_yz(double value){
 		angle_yz += value;
-		adj_degree(angle_yz);
+		if(angle_yz <= -90.0){
+			angle_yz = -89.0;
+		}
+		else if(angle_yz > 90.0){
+			angle_yz = 90.0;
+		}
 		adjust();
 	}
 	void addDistance(double value){
 		distance += value;
+		if(distance < 1.0){
+			distance = 1.0;
+		}
 		adjust();
 	}
 

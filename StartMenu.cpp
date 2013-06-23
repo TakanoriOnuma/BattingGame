@@ -128,10 +128,10 @@ void StartMenu::check_char_key()
 	}
 
 	if(keyboardManager.isPushCharKey('o')){
-		camera->addAngle_xz(1.0);
+		camera->addAngle_yz(1.0);
 	}
 	else if(keyboardManager.isPushCharKey('p')){
-		camera->addAngle_xz(-1.0);
+		camera->addAngle_yz(-1.0);
 	}
 }
 

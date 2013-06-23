@@ -21,10 +21,9 @@ TriFunction& TriFunction::Instance()
 
 int TriFunction::adj_degree(int degree)
 {
-	if(degree < 0){
-		degree *= -1;
+	while(degree < 0){
+		degree += 360;
 	}
-
 	while(degree >= 360){
 		degree -= 360;
 	}

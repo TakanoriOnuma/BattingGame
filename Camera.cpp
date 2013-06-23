@@ -20,9 +20,6 @@ void Camera::adjust()
 	eye.x = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_cos((int)angle_xz);
 	eye.y = distance * tri_func.t_sin((int)angle_yz);
 	eye.z = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_sin((int)angle_xz);
-
-	cout << "angle_xz:" << angle_xz << endl;
-	cout << "eye(" << eye.x << ", " << eye.y << ", " << eye.z << ")" << endl;
 }
 
 void Camera::setCamera() const
