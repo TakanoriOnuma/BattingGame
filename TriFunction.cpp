@@ -25,7 +25,7 @@ int TriFunction::adj_degree(int degree)
 		degree *= -1;
 	}
 
-	while(degree > 360){
+	while(degree >= 360){
 		degree -= 360;
 	}
 	return degree;

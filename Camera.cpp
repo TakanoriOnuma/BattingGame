@@ -1,17 +1,28 @@
 #include "OpenGL.h"
 
 #include "Camera.h"
+#include "TriFunction.h"
+
+#include <iostream>
+
+using namespace std;
 
 Camera::Camera()
-	: eye(0.0, 0.0, 1.0), target(0.0, 0.0, 0.0), upVector(0.0, 1.0, 0.0), distance(1.0)
+	: eye(0.0, 0.0, 10.0), target(0.0, 0.0, 0.0), upVector(0.0, 1.0, 0.0),
+	distance(10.0), angle_xz(90.0), angle_yz(0.0)
 {
 }
 
 // eye‚ÌÀ•W‚ğ•ÏX‚·‚é‚±‚Æ‚Å–µ‚‚ğ–³‚­‚·
 void Camera::adjust()
 {
+	TriFunction& tri_func = TriFunction::Instance();
+	eye.x = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_cos((int)angle_xz);
+	eye.y = distance * tri_func.t_sin((int)angle_yz);
+	eye.z = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_sin((int)angle_xz);
 
-
+	cout << "angle_xz:" << angle_xz << endl;
+	cout << "eye(" << eye.x << ", " << eye.y << ", " << eye.z << ")" << endl;
 }
 
 void Camera::setCamera() const

@@ -82,6 +82,13 @@ void StartMenu::check_char_key()
 	else if(keyboardManager.isPushCharKey('m')){
 		camera->getTarget().x -= 0.1;
 	}
+
+	if(keyboardManager.isPushCharKey('o')){
+		camera->addAngle_xz(1.0);
+	}
+	else if(keyboardManager.isPushCharKey('p')){
+		camera->addAngle_xz(-1.0);
+	}
 }
 
 void StartMenu::check_special_key()
@@ -125,12 +132,8 @@ void StartMenu::display() const
 	/* モデル・ビュー変換行列の初期化 */
 	glLoadIdentity();
 
-	camera->setCamera();
+	camera->setCamera();		// カメラをセット
 
-	/* 視点の移動(物体の方を奥に移す) */
-	glTranslated(0.0, 0.0, -13.0);
-	glRotated(angle_xz, 0.0, 1.0, 0.0);
-	glRotated(angle_yz, 1.0, 0.0, 0.0);
 
 	/* 光源の位置を指定 */
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos0);

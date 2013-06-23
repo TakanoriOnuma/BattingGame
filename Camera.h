@@ -14,6 +14,14 @@ class Camera{
 
 	void adjust();			// 変更に矛盾が内容に調整する
 
+	static void adj_degree(double& degree){
+		while(degree < 0){
+			degree += 360;
+		}
+		while(degree >= 360){
+			degree -= 360;
+		}
+	}
 public:
 	Camera();
 //	Camera(const Point3d& eye, const Point3d& target, const Vector3d& upVector);
@@ -23,10 +31,12 @@ public:
 	// === 各メンバの変更と調整 === //
 	void addAngle_xz(double value){
 		angle_xz += value;
+		adj_degree(angle_xz);
 		adjust();
 	}
 	void addAngle_yz(double value){
 		angle_yz += value;
+		adj_degree(angle_yz);
 		adjust();
 	}
 	void addDistance(double value){
