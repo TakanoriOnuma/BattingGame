@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Game.h"
 #include "KeyboardManager.h"
+#include "MouseManager.h"
 
 struct StartMenu::DrawObjects{
 	MyTeapot   teapot;
@@ -32,18 +33,61 @@ struct StartMenu::DrawObjects{
 };
 
 
+class StartMenu::StartMenuMouseListener : public MouseListener
+{
+	StartMenu& parent;
+
+	Point2i oldPos;
+
+public:
+	StartMenuMouseListener(StartMenu& parent) : parent(parent)
+	{
+		MouseManager::getMouseManager().addListener(this);
+	}
+
+	~StartMenuMouseListener(){
+		MouseManager::getMouseManager().removeListener(this);
+	}
+
+	void passive(int x, int y) override{
+	}
+
+	void motion(int x, int y) override{
+		if(MouseManager::getMouseManager().isClick(MouseClick::LEFT)){
+			parent.camera->addAngle_xz(x - oldPos.x);
+			parent.camera->addAngle_yz(y - oldPos.y);
+
+			oldPos.x = x;
+			oldPos.y = y;
+		}
+	}
+
+	void mouse(int button, int state, int x, int y) override{
+		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+			oldPos.x = x;
+			oldPos.y = y;
+		}
+	}
+
+	void wheel(int wheel_number, int direction, int x, int y) override{
+		parent.camera->addDistance(-direction);
+	}
+};
+
 
 StartMenu::StartMenu()
 	: angle_xz(0.0), angle_yz(0.0)
 {
 	objects = new DrawObjects();
 	camera  = new Camera();
+	mouseListener = new StartMenuMouseListener(*this);
 }
 
 StartMenu::~StartMenu()
 {
 	delete objects;
 	delete camera;
+	delete mouseListener;
 }
 
 void StartMenu::check_char_key()

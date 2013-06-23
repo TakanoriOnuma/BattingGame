@@ -11,6 +11,6 @@ public:
 	virtual void motion(int x, int y) = 0;
 	virtual void mouse(int button, int state, int x, int y) = 0;
 	virtual void wheel(int wheel_number, int direction, int x, int y) = 0;
-}
+};
 
 #endif

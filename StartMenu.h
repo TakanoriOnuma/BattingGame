@@ -9,6 +9,9 @@ class StartMenu : public IScene{
 	DrawObjects* objects;
 	Camera* camera;
 
+	class StartMenuMouseListener;		// MouseListener
+	StartMenuMouseListener* mouseListener;
+
 	double angle_xz;
 	double angle_yz;
 
