@@ -3,11 +3,12 @@
 
 #include "IScene.h"
 
+class Camera;
 class Game : public IScene{
 	struct DrawObjects;
 	DrawObjects* objects;
 
-	double angle;
+	Camera* camera;
 
 	void check_char_key();
 	void check_special_key();
