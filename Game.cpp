@@ -4,6 +4,7 @@
 #include "PitchingRobotArm.h"
 #include "MaterialData.h"
 #include "KeyboardManager.h"
+#include "Camera.h"
 
 #include <iostream>
 
@@ -38,14 +39,15 @@ struct Game::DrawObjects{
 };
 
 Game::Game()
-	: angle(0.0)
 {
 	objects = new DrawObjects();
+	camera  = new Camera();
 }
 
 Game::~Game()
 {
 	delete objects;
+	delete camera;
 }
 
 void Game::check_char_key()
@@ -59,10 +61,17 @@ void Game::check_char_key()
 	}
 
 	if(keyboardManager.isPushCharKey('a')){
-		angle += 1.0;
+		camera->addAngle_xz(5.0);
 	}
 	else if(keyboardManager.isPushCharKey('d')){
-		angle -= 1.0;
+		camera->addAngle_xz(-5.0);
+	}
+
+	if(keyboardManager.isPushCharKey('w')){
+		camera->addDistance(-1.0);
+	}
+	else if(keyboardManager.isPushCharKey('s')){
+		camera->addDistance(1.0);
 	}
 }
 
@@ -108,9 +117,8 @@ void Game::display() const
 	/* モデル・ビュー変換行列の初期化 */
 	glLoadIdentity();
 
-	/* 視点の移動(物体の方を奥に移す) */
-	glTranslated(0.0, 0.0, -13.0);
-	glRotated(angle, 0.0, 1.0, 0.0);
+	/* カメラのセット */
+	camera->setCamera();
 
 	/* 光源の位置を指定 */
 	glLightfv(GL_LIGHT0, GL_POSITION, lightpos0);
