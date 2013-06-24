@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <iostream>
+#include <time.h>
 #include "OpenGL.h"
 
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 #include "ExecuteScene.h"
 #include "StartMenu.h"
 #include "Game.h"
+#include "XorShift.h"
 
 void resize(int w, int h)
 {
@@ -51,6 +53,8 @@ void init()
 	glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+
+	XorShift::instance().setSeed(static_cast<unsigned int>(time(NULL)));
 }
 
 void keyboard(unsigned char key, int x, int y)
