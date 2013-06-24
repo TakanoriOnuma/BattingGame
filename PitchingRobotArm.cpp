@@ -1,8 +1,12 @@
+#include <iostream>
 #include <math.h>
 
 #include "PitchingRobotArm.h"
 #include "RobotArm_Parts.h"
 #include "MyBall.h"
+#include "XorShift.h"
+
+using namespace std;
 
 PitchingRobotArm::PitchingRobotArm(double x, double y, double z)
 	: RobotArm(x, y, z), frame(0), accel_vec_r(0.0), vec_r(0.0), ball(NULL)
@@ -53,8 +57,19 @@ void PitchingRobotArm::_ball_throw()
 			Point3d pt = this->getPoint();
 			pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
 
+			Vector3d vec;
+			vec.x = XorShift::instance().rand() % 101;
+			vec.y = XorShift::instance().rand() % 101;
+			vec.z = XorShift::instance().rand() % 50;
+
+			vec.x = (vec.x - 50.0) / 200.0;
+			vec.y = (vec.y - 50.0) / 200.0;
+			vec.z = vec.z / 50.0 + 1.0;
+
+			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+
 			ball->move(pt);
-			ball->setVector(0.0, 0.0, 0.5);
+			ball->setVector(vec.x, vec.y, vec.z);
 			ball->emit();
 			ball = NULL;
 		}
