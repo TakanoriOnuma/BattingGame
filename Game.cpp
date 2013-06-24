@@ -6,6 +6,7 @@
 #include "KeyboardManager.h"
 #include "Camera.h"
 #include "MyBall.h"
+#include "Rectangle2D.h"
 
 #include <iostream>
 
@@ -17,11 +18,14 @@ struct Game::DrawObjects{
 	BattingRobot battingRobot;
 	PitchingRobotArm pitchingRobotArm;
 
+	Rectangle2D batting_field;
+
 	DrawObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, 0.0),
 		battingRobot(-2.0, 0.9, 3.0),
-		pitchingRobotArm(0.0, -1.5, -3.0)
+		pitchingRobotArm(0.0, -1.5, -3.0),
+		batting_field(0.0, 0.0, 1.5, 2.0, 2.0, ColorData(1.0, 0.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
@@ -38,6 +42,8 @@ struct Game::DrawObjects{
 		ground.draw(true, true);
 		battingRobot.draw(true, true);
 		pitchingRobotArm.draw(true, true);
+
+		batting_field.draw(true, true);
 	}
 
 	// •K—v‚Ì‚ ‚é‚à‚Ì‚¾‚¯update‚·‚é
