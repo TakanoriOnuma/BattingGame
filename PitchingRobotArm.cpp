@@ -4,12 +4,13 @@
 #include "PitchingRobotArm.h"
 #include "RobotArm_Parts.h"
 #include "MyBall.h"
+#include "Rectangle2D.h"
 #include "XorShift.h"
 
 using namespace std;
 
 PitchingRobotArm::PitchingRobotArm(double x, double y, double z)
-	: RobotArm(x, y, z), frame(0), accel_vec_r(0.0), vec_r(0.0), ball(NULL)
+	: RobotArm(x, y, z), frame(0), accel_vec_r(0.0), vec_r(0.0), ball(NULL), target_field(NULL)
 {
 	update_function = NULL;
 }
@@ -54,24 +55,56 @@ void PitchingRobotArm::_ball_throw()
 	frame++;
 	if(parts->joint.getAngle() > 0.0){
 		if(ball != NULL){
-			Point3d pt = this->getPoint();
-			pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
+			if(target_field == NULL){
+				Point3d pt = this->getPoint();
+				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
 
-			Vector3d vec;
-			vec.x = XorShift::instance().rand() % 101;
-			vec.y = XorShift::instance().rand() % 101;
-			vec.z = XorShift::instance().rand() % 50;
+				double vec = XorShift::instance().rand() % 50;
+				vec = vec / 50.0 + 0.5;
 
-			vec.x = (vec.x - 50.0) / 200.0;
-			vec.y = (vec.y - 50.0) / 200.0;
-			vec.z = vec.z / 50.0 + 1.0;
+				ball->move(pt);
+				ball->setVector(0.0, 0.0, vec);		// ストレートを投げる
+				ball->emit();
+				ball = NULL;
+			}
+			else{
+				Point3d pt = this->getPoint();
+				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
+				ball->move(pt);
 
-			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+				double distance = this->getPoint().z - target_field->getPoint().z;		// z軸の距離を求める
+				int field_width  = static_cast<int>(target_field->getWidth());
+				int field_height = static_cast<int>(target_field->getHeight());
 
-			ball->move(pt);
-			ball->setVector(vec.x, vec.y, vec.z);
-			ball->emit();
-			ball = NULL;
+				double width  = XorShift::instance().rand() % (100 * field_width + 1);
+				width = width / 100 - field_width / 2;
+				double height = XorShift::instance().rand() % (100 * field_height + 1);
+				height = height / 100 - field_height / 2;
+				height -= pt.y - target_field->getPoint().y;		// 投げる座標とターゲット座標の差も考慮する
+				double v = XorShift::instance().rand() % 100;
+				v = v / 100 + 0.5;
+
+				cout << "target(" << width << ", " << height << ")" << endl;
+
+
+				double theta = atan2(distance, width);
+				double phi = atan2(height, sqrt(width * width + distance * distance));
+
+				double tiltVector = v * cos(phi);
+
+				Vector3d vec;
+
+				vec.x = tiltVector * cos(-theta);
+				vec.y = v * sin(phi);
+				vec.z = tiltVector * sin(-theta);
+
+				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
+				cout << "|vec| = " << sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) << endl;
+
+				ball->setVector(vec.x, vec.y, vec.z);
+				ball->emit();
+				ball = NULL;
+			}
 		}
 	}
 

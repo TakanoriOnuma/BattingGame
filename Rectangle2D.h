@@ -19,6 +19,12 @@ public:
 	Rectangle2D(double width, double height, const ColorData& color);
 	Rectangle2D(double x, double y, double z, double width, double height, const ColorData& color);
 
+	double getWidth() const{
+		return width;
+	}
+	double getHeight() const{
+		return height;
+	}
 };
 
 #endif

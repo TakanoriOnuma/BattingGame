@@ -22,9 +22,9 @@ struct Game::DrawObjects{
 
 	DrawObjects()
 		: ball(0.3),
-		ground(0.0, -1.8, 0.0),
+		ground(0.0, -1.8, -5.0, 10, 20),
 		battingRobot(-2.0, 0.9, 3.0),
-		pitchingRobotArm(0.0, -1.5, -3.0),
+		pitchingRobotArm(0.0, -1.5, -13.0),
 		batting_field(0.0, 0.0, 1.5, 2.0, 2.0, ColorData(1.0, 0.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
@@ -33,6 +33,7 @@ struct Game::DrawObjects{
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 		pitchingRobotArm.hand_ball(&ball);
+		pitchingRobotArm.setTargetField(&batting_field);
 	}
 
 	void draw() const{
@@ -77,6 +78,12 @@ void Game::check_char_key()
 	}
 	if(keyboardManager.isPushCharKey('h')){
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ƒ{[ƒ‹‚ğ‚½‚¹‚é
+	}
+	if(keyboardManager.isPushCharKey('k')){
+		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
+	}
+	else if(keyboardManager.isPushCharKey('l')){
+		objects->pitchingRobotArm.setTargetField(NULL);
 	}
 
 	// --- ƒJƒƒ‰‚Ì’²® --- //
