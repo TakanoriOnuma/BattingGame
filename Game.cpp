@@ -25,7 +25,7 @@ struct Game::DrawObjects{
 		ground(0.0, -1.8, -5.0, 10, 20),
 		battingRobot(-2.0, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -13.0),
-		batting_field(0.0, 0.0, 1.5, 2.0, 2.0, ColorData(1.0, 0.0, 0.0))
+		batting_field(0.0, 0.0, 3.0, 2.0, 2.0, ColorData(1.0, 0.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);

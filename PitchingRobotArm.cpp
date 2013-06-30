@@ -75,14 +75,24 @@ void PitchingRobotArm::_ball_throw()
 				int field_width  = static_cast<int>(target_field->getWidth());
 				int field_height = static_cast<int>(target_field->getHeight());
 
+				cout << "field(" << field_width << ", " << field_height << ")" << endl;
+
 				double width  = XorShift::instance().rand() % (100 * field_width + 1);
-				width = width / 100 - field_width / 2;
+				width = width / 100 - static_cast<double>(field_width) / 2;
 				double height = XorShift::instance().rand() % (100 * field_height + 1);
-				height = height / 100 - field_height / 2;
+				height = height / 100 - static_cast<double>(field_height) / 2;
 				double v = XorShift::instance().rand() % 100;
 				v = v / 100 + 0.5;
 
 				cout << "target(" << width << ", " << height << ")" << endl;
+
+				Vector3d vec(pt.x - target_field->getPoint().x,
+					pt.y - target_field->getPoint().y,
+					pt.z - target_field->getPoint().z);
+				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+				vec.x -= width;
+				vec.y -= height;
+				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
 
 				Vector3d vec2;
 				vec2.x = (pt.x - target_field->getPoint().x) - width;
