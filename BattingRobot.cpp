@@ -11,7 +11,7 @@
 using namespace std;
 
 BattingRobot::BattingRobot(double x, double y, double z)
-	: MyRobot(x, y, z)
+	: MyRobot(x, y, z), update_function(NULL)
 {
 	bat = new MyBat(0.0, -bodyParts->leftArm->getLength(), 0.0);
 	bat->move(Vector3d(-0.0, -bat->getRectBox().height, 0.0));
