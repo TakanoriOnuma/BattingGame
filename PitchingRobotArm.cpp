@@ -72,7 +72,6 @@ void PitchingRobotArm::_ball_throw()
 				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
 				ball->move(pt);
 
-				double distance = this->getPoint().z - target_field->getPoint().z;		// z軸の距離を求める
 				int field_width  = static_cast<int>(target_field->getWidth());
 				int field_height = static_cast<int>(target_field->getHeight());
 
@@ -80,28 +79,22 @@ void PitchingRobotArm::_ball_throw()
 				width = width / 100 - field_width / 2;
 				double height = XorShift::instance().rand() % (100 * field_height + 1);
 				height = height / 100 - field_height / 2;
-				height -= pt.y - target_field->getPoint().y;		// 投げる座標とターゲット座標の差も考慮する
 				double v = XorShift::instance().rand() % 100;
 				v = v / 100 + 0.5;
 
 				cout << "target(" << width << ", " << height << ")" << endl;
 
+				Vector3d vec2;
+				vec2.x = (pt.x - target_field->getPoint().x) - width;
+				vec2.y = (pt.y - target_field->getPoint().y) - height;
+				vec2.z = (pt.z - target_field->getPoint().z);
+				vec2 *= -v / sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z);
 
-				double theta = atan2(distance, width);
-				double phi = atan2(height, sqrt(width * width + distance * distance));
 
-				double tiltVector = v * cos(phi);
+				cout << "vec2(" << vec2.x << ", " << vec2.y << ", " << vec2.z << "), ";
+				cout << "|vec2| = " << sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z) << endl;
 
-				Vector3d vec;
-
-				vec.x = tiltVector * cos(-theta);
-				vec.y = v * sin(phi);
-				vec.z = tiltVector * sin(-theta);
-
-				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
-				cout << "|vec| = " << sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) << endl;
-
-				ball->setVector(vec.x, vec.y, vec.z);
+				ball->setVector(vec2.x, vec2.y, vec2.z);
 				ball->emit();
 				ball = NULL;
 			}
