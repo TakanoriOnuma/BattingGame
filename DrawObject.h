@@ -42,7 +42,7 @@ public:
 	void draw(bool useShelter, bool useMaterial) const;
 
 	// --- À•W‚ÌˆÚ“®‚âæ“¾ --- //
-	const Point3d& getPoint(){
+	const Point3d& getPoint() const{
 		return pt;
 	}
 	void move(const Point3d& pt){

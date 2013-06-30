@@ -7,7 +7,7 @@
 class MyBat;
 class BattingRobot : public MyRobot, public IBatter{
 
-	static const int SWING_FRAME = 50;
+	static const int SWING_FRAME = 30;
 
 
 	MyBat* bat;
