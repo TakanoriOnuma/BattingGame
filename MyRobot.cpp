@@ -34,7 +34,7 @@ struct MoveData{
 };
 
 MyRobot::MyRobot(double x, double y, double z)
-	: DrawObject(x, y, z), frame(0), direction(1)
+	: DrawableObject(x, y, z), frame(0), direction(1)
 {
 	state = State::STANDING;
 //	leg   = WalkLeg::LEFT;

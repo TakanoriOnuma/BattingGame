@@ -5,8 +5,8 @@
 
 class Camera;
 class StartMenu : public IScene{
-	struct DrawObjects;
-	DrawObjects* objects;
+	struct DrawableObjects;
+	DrawableObjects* objects;
 	Camera* camera;
 
 	class StartMenuMouseListener;		// MouseListener

@@ -5,8 +5,8 @@
 
 class Camera;
 class Game : public IScene{
-	struct DrawObjects;
-	DrawObjects* objects;
+	struct DrawableObjects;
+	DrawableObjects* objects;
 
 	Camera* camera;
 

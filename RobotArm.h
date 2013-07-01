@@ -1,9 +1,9 @@
 #ifndef ___Class_RobotArm
 #define ___Class_RobotArm
 
-#include "DrawObject.h"
+#include "DrawableObject.h"
 
-class RobotArm : public DrawObject{
+class RobotArm : public DrawableObject{
 	void setRectBox();
 
 protected:
@@ -14,7 +14,7 @@ protected:
 	void draw() const;
 
 public:
-	using DrawObject::draw;
+	using DrawableObject::draw;
 	RobotArm(double x = 0.0, double y = 0.0, double z = 0.0);
 	~RobotArm();
 

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-struct Game::DrawObjects{
+struct Game::DrawableObjects{
 	MyBall ball;
 	Ground ground;
 	BattingRobot battingRobot;
@@ -20,7 +20,7 @@ struct Game::DrawObjects{
 
 	Rectangle2D batting_field;
 
-	DrawObjects()
+	DrawableObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, -5.0, 10, 20),
 		battingRobot(-2.0, 0.9, 3.0),
@@ -57,7 +57,7 @@ struct Game::DrawObjects{
 
 Game::Game()
 {
-	objects = new DrawObjects();
+	objects = new DrawableObjects();
 	camera  = new Camera();
 }
 

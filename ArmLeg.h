@@ -1,11 +1,11 @@
 #ifndef ___Class_ArmLeg
 #define ___Class_ArmLeg
 
-#include "DrawObject.h"
+#include "DrawableObject.h"
 
 class MyBox;
 
-class ArmLeg : public DrawObject{
+class ArmLeg : public DrawableObject{
 
 	double girth;
 	double length;
@@ -21,7 +21,7 @@ protected:
 	void draw() const;
 
 public:
-	using DrawObject::draw;
+	using DrawableObject::draw;
 
 	ArmLeg(GLdouble x = 0.0, GLdouble y = 0.0, GLdouble z = 0.0,
 		double girth = 1.0, double length = 1.0);

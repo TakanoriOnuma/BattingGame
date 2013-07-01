@@ -3,13 +3,13 @@
 #include "MyCylinder.h"
 
 MyCylinder::MyCylinder(double radius, double height, int sides)
-	: DrawObject(), radius(radius), height(height), sides(sides)
+	: DrawableObject(), radius(radius), height(height), sides(sides)
 {
 	init();
 }
 
 MyCylinder::MyCylinder(double x, double y, double z, double radius, double height, int sides)
-	: DrawObject(x, y, z), radius(radius), height(height), sides(sides)
+	: DrawableObject(x, y, z), radius(radius), height(height), sides(sides)
 {
 	init();
 }

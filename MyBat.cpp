@@ -3,13 +3,13 @@
 #include "MyBat.h"
 
 MyBat::MyBat(double x, double y, double z)
-	: DrawObject(x, y, z)
+	: DrawableObject(x, y, z)
 {
 	init();
 }
 
 MyBat::MyBat(const Point3d& pt)
-	: DrawObject(pt)
+	: DrawableObject(pt)
 {
 	init();
 }

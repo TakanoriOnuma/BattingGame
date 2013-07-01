@@ -8,12 +8,12 @@
 #include "KeyboardManager.h"
 #include "MouseManager.h"
 
-struct StartMenu::DrawObjects{
+struct StartMenu::DrawableObjects{
 	MyTeapot   teapot;
 	MyCylinder cyliender;
 	Ground     ground;
 
-	DrawObjects()
+	DrawableObjects()
 		: teapot(),
 		cyliender(0.0, 0.0, -3.0, 1.0, 2.0),
 		ground(0.0, -1.0, 0.0)
@@ -78,7 +78,7 @@ public:
 StartMenu::StartMenu()
 	: angle_xz(0.0), angle_yz(0.0)
 {
-	objects = new DrawObjects();
+	objects = new DrawableObjects();
 	camera  = new Camera();
 	mouseListener = new StartMenuMouseListener(*this);
 }

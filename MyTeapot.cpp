@@ -2,7 +2,7 @@
 #include "MyTeapot.h"
 
 MyTeapot::MyTeapot(double x, double y, double z, double size)
-	: DrawObject(x, y, z), size(size)
+	: DrawableObject(x, y, z), size(size)
 {
 	// Teapotのサイズは検討がつかないため、rectBoxは初期化しない
 }

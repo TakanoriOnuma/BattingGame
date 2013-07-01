@@ -8,12 +8,12 @@ const float Ground::ground[2][4] = {
 };
 
 Ground::Ground(int width, int distance)
-	: DrawObject(), width(width), distance(distance)
+	: DrawableObject(), width(width), distance(distance)
 {
 }
 
 Ground::Ground(double x, double y, double z, int width, int distance)
-	: DrawObject(x, y, z), width(width), distance(distance)
+	: DrawableObject(x, y, z), width(width), distance(distance)
 {
 }
 

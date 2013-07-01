@@ -1,11 +1,11 @@
 #ifndef ___Class_MySphere
 #define ___Class_MySphere
 
-#include "DrawObject.h"
+#include "DrawableObject.h"
 #include "QuadricObject.h"
 
 
-class MySphere : public DrawObject{
+class MySphere : public DrawableObject{
 	QuadricObject quadObject;
 
 	double radius;		// ”¼Œa
@@ -17,7 +17,7 @@ protected:
 	void draw() const;
 
 public:
-	using DrawObject::draw;
+	using DrawableObject::draw;
 	MySphere(double radius = 1.0, int sides = 16);
 	MySphere(double x, double y, double z, double radius = 1.0, int sides = 16);
 

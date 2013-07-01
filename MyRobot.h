@@ -1,13 +1,13 @@
 #ifndef ___Class_MyRobot
 #define ___Class_MyRobot
 
-#include "DrawObject.h"
+#include "DrawableObject.h"
 #include "IAnimation.h"
 
 class MyBox;
 class ArmLeg;
 
-class MyRobot : public DrawObject, public IAnimation{
+class MyRobot : public DrawableObject, public IAnimation{
 	/* ロボットの状態 */
 	enum class State;
 	State   state;			// 自分の状態
@@ -35,7 +35,7 @@ protected:
 	void _run();			// 走る具体的な運動
 
 public:
-	using DrawObject::draw;
+	using DrawableObject::draw;
 
 	MyRobot(double x = 0.0, double y = 0.0, double z = 0.0);
 	virtual ~MyRobot();

@@ -3,13 +3,13 @@
 #include "MySphere.h"
 
 MySphere::MySphere(double radius, int sides)
-	: DrawObject(), radius(radius), sides(sides)
+	: DrawableObject(), radius(radius), sides(sides)
 {
 	init();
 }
 
 MySphere::MySphere(double x, double y, double z, double radius, int sides)
-	: DrawObject(x, y, z), radius(radius), sides(sides)
+	: DrawableObject(x, y, z), radius(radius), sides(sides)
 {
 	init();
 }

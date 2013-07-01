@@ -4,7 +4,7 @@
 
 
 RobotArm::RobotArm(double x, double y, double z)
-	: DrawObject(x, y, z)
+	: DrawableObject(x, y, z)
 {
 	parts = new Parts();
 	parts->foundation.setRotateVector(1.0, 0.0, 0.0);

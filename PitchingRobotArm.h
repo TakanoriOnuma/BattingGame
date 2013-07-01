@@ -29,7 +29,7 @@ protected:
 	void _ball_throw();
 
 public:
-	using DrawObject::draw;
+	using DrawableObject::draw;
 
 	PitchingRobotArm(double x = 0.0, double y = 0.0, double z = 0.0);
 

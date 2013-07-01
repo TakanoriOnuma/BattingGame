@@ -1,17 +1,17 @@
 #include "Rectangle2D.h"
 
 Rectangle2D::Rectangle2D(double width, double height)
-	: DrawObject(), width(width), height(height), color()
+	: DrawableObject(), width(width), height(height), color()
 {
 }
 
 Rectangle2D::Rectangle2D(double width, double height, const ColorData& color)
-	: DrawObject(), width(width), height(height), color(color)
+	: DrawableObject(), width(width), height(height), color(color)
 {
 }
 
 Rectangle2D::Rectangle2D(double x, double y, double z, double width, double height, const ColorData& color)
-	: DrawObject(x, y, z), width(width), height(height), color(color)
+	: DrawableObject(x, y, z), width(width), height(height), color(color)
 {
 }
 

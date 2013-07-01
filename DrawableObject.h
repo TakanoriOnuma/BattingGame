@@ -1,13 +1,13 @@
-#ifndef ___Class_DrawObject
-#define ___Class_DrawObject
+#ifndef ___Class_DrawableObject
+#define ___Class_DrawableObject
 
 #include "MyPoint.h"
 #include "RectBox.h"
 
 struct MaterialData;
 
-class DrawObject{
-	// --- DrawObjectの座標や回転を決めるメンバ --- //
+class DrawableObject{
+	// --- DrawableObjectの座標や回転を決めるメンバ --- //
 	Point3d pt;						// 描画の基準点
 	double  angle;					// 回転する角度
 	double  rotate_vec[3];			// 回転方向を定めるベクトル
@@ -25,7 +25,7 @@ class DrawObject{
 	}
 
 protected:
-	// --- DrawObjectの大雑把な大きさを知るメンバ --- //
+	// --- DrawableObjectの大雑把な大きさを知るメンバ --- //
 	RectBox rectBox;		// 直方体
 
 	void setPosition() const;		// 相対的に自分の座標へ移動する
@@ -33,11 +33,11 @@ protected:
 	virtual void draw() const = 0;
 
 public:
-	DrawObject(GLdouble x = 0.0, GLdouble y = 0.0, GLdouble z = 0.0);
+	DrawableObject(GLdouble x = 0.0, GLdouble y = 0.0, GLdouble z = 0.0);
 
-	DrawObject(const Point3d& pt);
+	DrawableObject(const Point3d& pt);
 	// 仮想デストラクタ
-	virtual ~DrawObject();
+	virtual ~DrawableObject();
 
 	void draw(bool useShelter, bool useMaterial) const;
 
@@ -74,7 +74,7 @@ public:
 	virtual void setMaterialData(const MaterialData& matData);
 
 
-	// --- DrawObjectの回転方向の指定や回転量の指定や取得 --- //
+	// --- DrawableObjectの回転方向の指定や回転量の指定や取得 --- //
 	void setRotateVector(double x, double y, double z){
 		rotate_vec[0] = x;
 		rotate_vec[1] = y;

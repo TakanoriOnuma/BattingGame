@@ -2,7 +2,7 @@
 #include "MyBox.h"
 
 ArmLeg::ArmLeg(GLdouble x, GLdouble y, GLdouble z, double girth, double length)
-	: DrawObject(x, y, z), girth(girth), length(length), vec_r1(0.0), vec_r2(0.0),
+	: DrawableObject(x, y, z), girth(girth), length(length), vec_r1(0.0), vec_r2(0.0),
 	accel_vec_r1(0.0), accel_vec_r2(0.0)
 {
 	box1 = new MyBox(0.0, 0.0, 0.0, girth, girth, length);

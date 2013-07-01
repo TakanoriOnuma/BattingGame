@@ -20,13 +20,13 @@ double MyBox::normal[6][3] = {
 };
 
 MyBox::MyBox(const Point3d& pt, double length, double width, double height)
-	: DrawObject(pt), length(length), width(width), height(height)
+	: DrawableObject(pt), length(length), width(width), height(height)
 {
 	init();
 }
 
 MyBox::MyBox(double x, double y, double z, double length, double width, double height)
-	: DrawObject(x, y, z), length(length), width(width), height(height)
+	: DrawableObject(x, y, z), length(length), width(width), height(height)
 {
 	init();
 }

@@ -1,34 +1,34 @@
 #include "OpenGL.h"
 
-#include "DrawObject.h"
+#include "DrawableObject.h"
 #include "MaterialData.h"
 
 
-DrawObject::DrawObject(GLdouble x, GLdouble y, GLdouble z)
+DrawableObject::DrawableObject(GLdouble x, GLdouble y, GLdouble z)
 	: pt(x, y, z), angle(0.0)
 {
 	init_material_color();
 	setRotateVector(0.0, 0.0, 0.0);
 }
 
-DrawObject::DrawObject(const Point3d& pt)
+DrawableObject::DrawableObject(const Point3d& pt)
 	: pt(pt), angle(0.0)
 {
 	init_material_color();
 	setRotateVector(0.0, 0.0, 0.0);
 }
 
-DrawObject::~DrawObject()
+DrawableObject::~DrawableObject()
 {
 
 }
 
-void DrawObject::setPosition() const{
+void DrawableObject::setPosition() const{
 	glTranslated(pt.x, pt.y, pt.z);
 	glRotated(angle, rotate_vec[0], rotate_vec[1], rotate_vec[2]);
 }
 
-void DrawObject::setMaterial() const{
+void DrawableObject::setMaterial() const{
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
@@ -40,7 +40,7 @@ void DrawObject::setMaterial() const{
  *	ïœä∑çsóÒÇëﬁîÇ∑ÇÈÇ»ÇÁuseShelterÇtrueÇ…ÅA
  *	çﬁéøÇÃê›íËÇÇµÇΩÇ¢Ç»ÇÁuseMaterialÇtrueÇ…Ç∑ÇÈ
  */
-void DrawObject::draw(bool useShelter, bool useMaterial) const
+void DrawableObject::draw(bool useShelter, bool useMaterial) const
 {
 	if(useShelter)
 		glPushMatrix();
@@ -54,7 +54,7 @@ void DrawObject::draw(bool useShelter, bool useMaterial) const
 		glPopMatrix();
 }
 
-void DrawObject::setMaterialData(const MaterialData& matData)
+void DrawableObject::setMaterialData(const MaterialData& matData)
 {
 	for(int i = 0; i < 4; i++){
 		ambient[i] = matData.ambient[i];
@@ -64,7 +64,7 @@ void DrawObject::setMaterialData(const MaterialData& matData)
 	shininess = matData.shininess;
 }
 
-void DrawObject::init_material_color(){
+void DrawableObject::init_material_color(){
 	setAmbient(0.2f, 0.2f, 0.2f);
 	setDiffuse(0.8f, 0.8f, 0.8f);
 	setSpecular(0.0f, 0.0f, 0.0f);
