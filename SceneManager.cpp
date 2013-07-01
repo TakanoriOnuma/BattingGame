@@ -21,9 +21,6 @@ SceneManager::SceneManager()
 	: scene(NULL)
 {
 	std::cout << "create SceneManager" << std::endl;
-	glutDisplayFunc(SceneManager::_display);
-	AnimationManager::getInstance().useAnimation(30);		// ここで書くべきかは微妙
-	AnimationManager::getInstance().setAnimation(this);
 }
 
 SceneManager::~SceneManager()
@@ -45,6 +42,11 @@ void SceneManager::setScene(IScene* scene)
 {
 	if(this->scene == NULL){		// sceneがNULL(まだsceneがセットされていない)なら
 		this->scene = scene;		// sceneをセット
+
+		// callback 関数をセット
+		glutDisplayFunc(SceneManager::_display);
+		AnimationManager::getInstance().useAnimation(30);		// ここで書くべきかは微妙
+		AnimationManager::getInstance().setAnimation(this);
 	}
 }
 
