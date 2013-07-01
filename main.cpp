@@ -8,7 +8,7 @@ using namespace std;
 
 #include "KeyboardManager.h"
 #include "MouseManager.h"
-#include "ExecuteScene.h"
+#include "SceneManager.h"
 #include "StartMenu.h"
 #include "Game.h"
 #include "XorShift.h"
@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
 
 	MouseManager::getMouseManager().useMouse();
 
-	ExecuteScene::getExecuteScene().setScene(new Game());
+	SceneManager::getSceneManager().setScene(new Game());
 
 	init();
 	glutMainLoop();

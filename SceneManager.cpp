@@ -1,54 +1,54 @@
 #include <iostream>
 
-#include "ExecuteScene.h"
+#include "SceneManager.h"
 #include "OpenGL.h"
 #include "AnimationManager.h"
 
 
-void ExecuteScene::_update()
+void SceneManager::_update()
 {
-	ExecuteScene::getExecuteScene().update();
+	SceneManager::getSceneManager().update();
 }
 
 // AnimationManagerを使っている間はいらない子
-void ExecuteScene::_display()
+void SceneManager::_display()
 {
-	ExecuteScene::getExecuteScene().display();
+	SceneManager::getSceneManager().display();
 }
 
 // シングルトンならではの関数ポインタのセット
-ExecuteScene::ExecuteScene()
+SceneManager::SceneManager()
 	: scene(NULL)
 {
-	std::cout << "create ExecuteScene" << std::endl;
-	glutDisplayFunc(ExecuteScene::_display);
+	std::cout << "create SceneManager" << std::endl;
+	glutDisplayFunc(SceneManager::_display);
 	AnimationManager::getAnimationManager().useAnimation(30);		// ここで書くべきかは微妙
 	AnimationManager::getAnimationManager().setAnimation(this);
 }
 
-ExecuteScene::~ExecuteScene()
+SceneManager::~SceneManager()
 {
-	std::cout << "delete ExecuteScene" << std::endl;
+	std::cout << "delete SceneManager" << std::endl;
 	if(scene != NULL){
 		delete scene;
 	}
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
-ExecuteScene& ExecuteScene::getExecuteScene()
+SceneManager& SceneManager::getSceneManager()
 {
-	static ExecuteScene exeScene;
+	static SceneManager exeScene;
 	return exeScene;
 }
 
-void ExecuteScene::setScene(IScene* scene)
+void SceneManager::setScene(IScene* scene)
 {
 	if(this->scene == NULL){		// sceneがNULL(まだsceneがセットされていない)なら
 		this->scene = scene;		// sceneをセット
 	}
 }
 
-void ExecuteScene::update()
+void SceneManager::update()
 {
 	IScene* nextScene = scene->update();
 
@@ -61,7 +61,7 @@ void ExecuteScene::update()
 	}
 }
 
-void ExecuteScene::display() const
+void SceneManager::display() const
 {
 	scene->display();
 }

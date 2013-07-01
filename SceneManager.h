@@ -1,21 +1,21 @@
-#ifndef ___Class_ExecuteScene
-#define ___Class_ExecuteScene
+#ifndef ___Class_SceneManager
+#define ___Class_SceneManager
 
 #include "IScene.h"
 #include "IAnimation.h"
 
-class ExecuteScene : IAnimation{
+class SceneManager : IAnimation{
 	IScene* scene;
 
-	ExecuteScene();
-	ExecuteScene(const ExecuteScene&);
+	SceneManager();
+	SceneManager(const SceneManager&);
 
 	static void _update();
 	static void _display();
 
 public:
-	~ExecuteScene();
-	static ExecuteScene& getExecuteScene();
+	~SceneManager();
+	static SceneManager& getSceneManager();
 	void setScene(IScene* scene);		// ƒZƒbƒg‚Å‚«‚é‚Ì‚ÍÅ‰‚Ì1‰ñ‚¾‚¯
 
 	void update() override;
