@@ -23,7 +23,15 @@ class MyRobot : public DrawableObject, public IAnimation{
 	void (MyRobot::*update_function)();		// update用関数
 
 protected:
+	// --- デザインパターン State --- //
+	class  State;		// Stateクラス
+	State* state;
 
+	// --- Stateクラスのサブクラスを前方宣言 --- //
+	class Standing;
+	class Walking;
+	class Running;
+	
 
 	int frame;				// 現在のフレーム数
 	struct BodyParts;		// 体の部位の構造体
@@ -31,8 +39,6 @@ protected:
 
 	virtual void draw() const;
 
-	void _walk_init();		// 歩く具体的な初期化
-	void _walk();			// 歩く具体的な運動
 	void _run_init();		// 走る具体的な初期化
 	void _run();			// 走る具体的な運動
 
