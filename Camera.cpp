@@ -16,7 +16,7 @@ Camera::Camera()
 // eye‚ÌÀ•W‚ğ•ÏX‚·‚é‚±‚Æ‚Å–µ‚‚ğ–³‚­‚·
 void Camera::adjust()
 {
-	TriFunction& tri_func = TriFunction::Instance();
+	TriFunction& tri_func = TriFunction::getInstance();
 	eye.x = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_cos((int)angle_xz);
 	eye.y = distance * tri_func.t_sin((int)angle_yz);
 	eye.z = distance * tri_func.t_cos((int)angle_yz) * tri_func.t_sin((int)angle_xz);

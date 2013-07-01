@@ -35,7 +35,7 @@ private:
 public:
 	~KeyboardManager();
 
-	static KeyboardManager& getKeyboardManager();
+	static KeyboardManager& getInstance();
 
 	void useCharKeyboard();
 	void useSpecialKeyboard();

@@ -16,7 +16,7 @@ class AnimationManager{
 public:
 	~AnimationManager();
 
-	static AnimationManager& getAnimationManager();
+	static AnimationManager& getInstance();
 	static void useAnimation(unsigned int frame_rate = 30);
 
 	void setFrameRate(unsigned int frame_rate){

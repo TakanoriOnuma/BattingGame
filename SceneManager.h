@@ -15,7 +15,7 @@ class SceneManager : IAnimation{
 
 public:
 	~SceneManager();
-	static SceneManager& getSceneManager();
+	static SceneManager& getInstance();
 	void setScene(IScene* scene);		// ƒZƒbƒg‚Å‚«‚é‚Ì‚ÍÅ‰‚Ì1‰ñ‚¾‚¯
 
 	void update() override;

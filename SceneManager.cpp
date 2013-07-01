@@ -7,13 +7,13 @@
 
 void SceneManager::_update()
 {
-	SceneManager::getSceneManager().update();
+	SceneManager::getInstance().update();
 }
 
 // AnimationManagerを使っている間はいらない子
 void SceneManager::_display()
 {
-	SceneManager::getSceneManager().display();
+	SceneManager::getInstance().display();
 }
 
 // シングルトンならではの関数ポインタのセット
@@ -22,8 +22,8 @@ SceneManager::SceneManager()
 {
 	std::cout << "create SceneManager" << std::endl;
 	glutDisplayFunc(SceneManager::_display);
-	AnimationManager::getAnimationManager().useAnimation(30);		// ここで書くべきかは微妙
-	AnimationManager::getAnimationManager().setAnimation(this);
+	AnimationManager::getInstance().useAnimation(30);		// ここで書くべきかは微妙
+	AnimationManager::getInstance().setAnimation(this);
 }
 
 SceneManager::~SceneManager()
@@ -35,7 +35,7 @@ SceneManager::~SceneManager()
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
-SceneManager& SceneManager::getSceneManager()
+SceneManager& SceneManager::getInstance()
 {
 	static SceneManager exeScene;
 	return exeScene;

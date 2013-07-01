@@ -14,7 +14,7 @@ class TriFunction{
 public:
 	static const double PI;
 
-	static TriFunction& Instance();
+	static TriFunction& getInstance();
 
 	double DegToRad(double degree){
 		return degree * PI / 180.0;

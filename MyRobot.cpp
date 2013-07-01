@@ -206,7 +206,7 @@ void MyRobot::_walk()
 		direction *= -1;		// 方向を反対にする
 
 		// ↑キーが入力されていたら
-		if(KeyboardManager::getKeyboardManager().isPushSpecialKey(SpecialKey::UP)){
+		if(KeyboardManager::getInstance().isPushSpecialKey(SpecialKey::UP)){
 			_walk_init();	// また歩かせる
 		}
 		else{
@@ -302,7 +302,7 @@ void MyRobot::_run()
 		direction *= -1;
 
 		// キー入力があったら
-		if(KeyboardManager::getKeyboardManager().isPushSpecialKey(SpecialKey::UP)){
+		if(KeyboardManager::getInstance().isPushSpecialKey(SpecialKey::UP)){
 			_run_init();		// また走らせる
 		}
 		else{

@@ -65,7 +65,7 @@ void keyboard(unsigned char key, int x, int y)
 	}
 
 	if(key == ' '){
-		MouseManager& mouseManager = MouseManager::getMouseManager();
+		MouseManager& mouseManager = MouseManager::getInstance();
 		const Point2i& pt = mouseManager.getMousePoint();
 		cout << "Mouse Point:(" << pt.x << ", " << pt.y << ")" << endl;
 		cout << "--- Mouse State ---" << endl;
@@ -85,13 +85,13 @@ int main(int argc, char* argv[])
 	glutCreateWindow(argv[0]);
 	glutReshapeFunc(resize);
 
-	KeyboardManager::getKeyboardManager().useCharKeyboard();
-	KeyboardManager::getKeyboardManager().useSpecialKeyboard();
-	KeyboardManager::getKeyboardManager().setKeyboardHandlar(keyboard);
+	KeyboardManager::getInstance().useCharKeyboard();
+	KeyboardManager::getInstance().useSpecialKeyboard();
+	KeyboardManager::getInstance().setKeyboardHandlar(keyboard);
 
-	MouseManager::getMouseManager().useMouse();
+	MouseManager::getInstance().useMouse();
 
-	SceneManager::getSceneManager().setScene(new Game());
+	SceneManager::getInstance().setScene(new Game());
 
 	init();
 	glutMainLoop();

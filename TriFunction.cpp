@@ -13,7 +13,7 @@ TriFunction::TriFunction()
 }
 
 // ŠÖ”‚É“à•”•Ï”‚ğ‚½‚¹‚ÄƒVƒ“ƒOƒ‹ƒgƒ“‚ğÀ‘•‚·‚é
-TriFunction& TriFunction::Instance()
+TriFunction& TriFunction::getInstance()
 {
 	static TriFunction func;
 	return func;

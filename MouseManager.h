@@ -37,7 +37,7 @@ private:
 	MouseManager();
 	MouseManager(const MouseManager&);
 public:
-	static MouseManager& getMouseManager();
+	static MouseManager& getInstance();
 
 	void useMouse();
 

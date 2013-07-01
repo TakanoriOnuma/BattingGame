@@ -42,18 +42,18 @@ class StartMenu::StartMenuMouseListener : public MouseListener
 public:
 	StartMenuMouseListener(StartMenu& parent) : parent(parent)
 	{
-		MouseManager::getMouseManager().addListener(this);
+		MouseManager::getInstance().addListener(this);
 	}
 
 	~StartMenuMouseListener(){
-		MouseManager::getMouseManager().removeListener(this);
+		MouseManager::getInstance().removeListener(this);
 	}
 
 	void passive(int x, int y) override{
 	}
 
 	void motion(int x, int y) override{
-		if(MouseManager::getMouseManager().isClick(MouseClick::LEFT)){
+		if(MouseManager::getInstance().isClick(MouseClick::LEFT)){
 			parent.camera->addAngle_xz(x - oldPos.x);
 			parent.camera->addAngle_yz(y - oldPos.y);
 
@@ -92,7 +92,7 @@ StartMenu::~StartMenu()
 
 void StartMenu::check_char_key()
 {
-	KeyboardManager& keyboardManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 
 	if(keyboardManager.isPushCharKey('a')){
 		objects->teapot.setMaterialData(MaterialData::createMaterialData(Jewel::EMERALD));
@@ -137,7 +137,7 @@ void StartMenu::check_char_key()
 
 void StartMenu::check_special_key()
 {
-	KeyboardManager& keyboardManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 
 	if(keyboardManager.isPushSpecialKey(SpecialKey::LEFT)){
 		angle_xz -= 2.0;
@@ -159,7 +159,7 @@ IScene* StartMenu::update()
 	check_char_key();
 	check_special_key();
 
-	if(KeyboardManager::getKeyboardManager().isPushCharKey(' ')){
+	if(KeyboardManager::getInstance().isPushCharKey(' ')){
 		return new Game();
 	}
 

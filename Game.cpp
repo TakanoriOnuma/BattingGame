@@ -69,7 +69,7 @@ Game::~Game()
 
 void Game::check_char_key()
 {
-	KeyboardManager& keyboardManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 	if(keyboardManager.isPushCharKey('t')){
 		objects->battingRobot.swing();
 	}
@@ -103,7 +103,7 @@ void Game::check_char_key()
 
 void Game::check_special_key()
 {
-	KeyboardManager& keyboardManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 
 	if(keyboardManager.isPushSpecialKey(SpecialKey::LEFT)){
 		objects->battingRobot.addAngle(-5.0);

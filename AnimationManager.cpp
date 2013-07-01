@@ -17,7 +17,7 @@ AnimationManager::~AnimationManager()
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
-AnimationManager& AnimationManager::getAnimationManager()
+AnimationManager& AnimationManager::getInstance()
 {
 	static AnimationManager animationManager;
 	return animationManager;
@@ -26,7 +26,7 @@ AnimationManager& AnimationManager::getAnimationManager()
 // TimerFuncにセットする
 void AnimationManager::useAnimation(unsigned int frame_rate)
 {
-	AnimationManager& animationManager = AnimationManager::getAnimationManager();
+	AnimationManager& animationManager = AnimationManager::getInstance();
 	animationManager.setFrameRate(frame_rate);
 	glutTimerFunc(animationManager.time, AnimationManager::timer, 0);
 }
@@ -56,7 +56,7 @@ void AnimationManager::update() const
 
 void AnimationManager::timer(int t)
 {
-	AnimationManager& animationManager = AnimationManager::getAnimationManager();
+	AnimationManager& animationManager = AnimationManager::getInstance();
 	animationManager.update();
 
 	glutPostRedisplay();

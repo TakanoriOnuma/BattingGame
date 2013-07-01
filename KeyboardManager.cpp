@@ -6,7 +6,7 @@
 /* friend 関数の定義 */
 void _keyboard(unsigned char key, int x, int y)
 {
-	KeyboardManager& keyManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyManager = KeyboardManager::getInstance();
 
 	if(keyManager.char_key_handlar != NULL){
 		keyManager.char_key_handlar(key, x, y);
@@ -16,7 +16,7 @@ void _keyboard(unsigned char key, int x, int y)
 
 void _keyboardUp(unsigned char key, int x, int y)
 {
-	KeyboardManager& keyManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyManager = KeyboardManager::getInstance();
 
 	if(keyManager.char_key_up_handlar != NULL){
 		keyManager.char_key_up_handlar(key, x, y);
@@ -26,7 +26,7 @@ void _keyboardUp(unsigned char key, int x, int y)
 
 void _specialKeyboard(int key, int x, int y)
 {
-	KeyboardManager& keyManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyManager = KeyboardManager::getInstance();
 
 	if(keyManager.special_key_handlar != NULL){
 		keyManager.special_key_handlar(key, x, y);
@@ -49,7 +49,7 @@ void _specialKeyboard(int key, int x, int y)
 
 void _specialKeyboardUp(int key, int x, int y)
 {
-	KeyboardManager& keyManager = KeyboardManager::getKeyboardManager();
+	KeyboardManager& keyManager = KeyboardManager::getInstance();
 
 	if(keyManager.special_key_up_handlar != NULL){
 		keyManager.special_key_up_handlar(key, x, y);
@@ -80,7 +80,7 @@ KeyboardManager::KeyboardManager()
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
-KeyboardManager& KeyboardManager::getKeyboardManager()
+KeyboardManager& KeyboardManager::getInstance()
 {
 	static KeyboardManager keyboardManager;
 	return keyboardManager;

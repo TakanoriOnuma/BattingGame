@@ -9,7 +9,7 @@ using namespace std;
 // ----- friend関数の定義 ----- //
 void _passive(int x, int y)
 {
-	MouseManager& mouseManager = MouseManager::getMouseManager();
+	MouseManager& mouseManager = MouseManager::getInstance();
 
 	if(mouseManager.passive_handlar != NULL){
 		mouseManager.passive_handlar(x, y);
@@ -26,7 +26,7 @@ void _passive(int x, int y)
 // クリック後ウィンドウ外に出ればウィンドウ外の座標を得てしまう
 void _motion(int x, int y)
 {
-	MouseManager& mouseManager = MouseManager::getMouseManager();
+	MouseManager& mouseManager = MouseManager::getInstance();
 
 	if(mouseManager.motion_handlar != NULL){
 		mouseManager.motion_handlar(x, y);
@@ -42,7 +42,7 @@ void _motion(int x, int y)
 
 void _mouse(int button, int state, int x, int y)
 {
-	MouseManager& mouseManager = MouseManager::getMouseManager();
+	MouseManager& mouseManager = MouseManager::getInstance();
 
 	if(mouseManager.mouse_handlar != NULL){
 		mouseManager.mouse_handlar(button, state, x, y);
@@ -82,7 +82,7 @@ void _mouse(int button, int state, int x, int y)
 
 void _wheel(int wheel_number, int direction, int x, int y)
 {
-	MouseManager& mouseManager = MouseManager::getMouseManager();
+	MouseManager& mouseManager = MouseManager::getInstance();
 
 	if(mouseManager.wheel_handlar != NULL){
 		mouseManager.wheel_handlar(wheel_number, direction, x, y);
@@ -101,7 +101,7 @@ MouseManager::MouseManager()
 }
 
 // 関数に内部変数を持たせてシングルトンを実装する
-MouseManager& MouseManager::getMouseManager()
+MouseManager& MouseManager::getInstance()
 {
 	static MouseManager mouseManager;
 	return mouseManager;
