@@ -20,8 +20,6 @@ class MyRobot : public DrawableObject, public IAnimation{
 
 	void setRectBox();
 
-	void (MyRobot::*update_function)();		// update用関数
-
 protected:
 	// --- デザインパターン State --- //
 	class  State;		// Stateクラス

@@ -7,15 +7,9 @@
 #include "RobotState.h"
 #include "MyRobotCondition.h"
 #include "RobotStateWalking.h"
-
-#define PI 3.141592653589793	// π
+#include "RobotStateRunning.h"
 
 using namespace std;
-
-inline double DegToRad(double degree)
-{
-	return PI * degree / 180;
-}
 
 
 // ====== フレームごとの動作に使う構造体 ===== //
@@ -32,12 +26,10 @@ MyRobot::MyRobot(double x, double y, double z)
 	: DrawableObject(x, y, z), frame(0), direction(1)
 {
 	condition = Condition::STANDING;
-//	leg   = WalkLeg::LEFT;
 	setRotateVector(0.0, 1.0, 0.0);
 
 	bodyParts = new BodyParts();
 
-	update_function = NULL;
 	state = NULL;
 
 	setRectBox();
@@ -73,10 +65,6 @@ void MyRobot::draw() const
 
 void MyRobot::update()
 {
-	if(update_function != NULL){
-		(this->*update_function)();
-	}
-
 	if(state != NULL){
 		state->update(*this);
 	}
@@ -116,94 +104,9 @@ void MyRobot::run()
 {
 	// RUNNING状態じゃなくて、かつ残っているフレームがないなら
 	if(condition != Condition::RUNNING && frame == 0){
-		update_function = &MyRobot::_run;		// update関数をセット
-		_run_init();					// 初期化
-		condition = Condition::RUNNING;			// WALKING状態へ移行する
+		state = Running::getInstance();		// RUNNING状態をセット
+		state->init(*this);					// RUNNINGの初期化を行う
+		condition = Condition::RUNNING;		// RUNNING状態へ移行する
 	}
 
 }
-
-void MyRobot::_run_init()
-{
-	double angle1 = 30.0;
-	double angle2 = 20.0;
-	double angle3 = 30.0;
-	double angle4 = 15.0;
-
-	double v0 = 4.0 / RUNNING_FRAME;
-	double a  = -8.0 / (RUNNING_FRAME * RUNNING_FRAME);
-
-	bodyParts->leftArm->setBox1AngleAccelVector(-direction * a * angle1);
-	bodyParts->leftArm->setBox1AngleVector(-direction * v0 * angle1);
-	bodyParts->leftArm->setBox2AngleAccelVector(-direction * a * angle2);
-	bodyParts->leftArm->setBox2AngleVector(-direction * v0 * angle2);
-	bodyParts->leftArm->setBox2Angle(-angle2);
-
-	bodyParts->rightArm->setBox1AngleAccelVector(direction * a * angle1);
-	bodyParts->rightArm->setBox1AngleVector(direction * v0 * angle1);
-	bodyParts->rightArm->setBox2AngleAccelVector(direction * a * angle2);
-	bodyParts->rightArm->setBox2AngleVector(direction * v0 * angle2);
-	bodyParts->rightArm->setBox2Angle(-angle2);
-
-
-	bodyParts->leftLeg->setBox1AngleAccelVector(direction * a * angle3);
-	bodyParts->leftLeg->setBox1AngleVector(direction * v0 * angle3);
-	bodyParts->leftLeg->setBox2AngleAccelVector(direction * a * angle4);
-	bodyParts->leftLeg->setBox2AngleVector(direction * v0 * angle4);
-	bodyParts->leftLeg->setBox2Angle(angle4);
-	
-	bodyParts->rightLeg->setBox1AngleAccelVector(-direction * a * angle3);
-	bodyParts->rightLeg->setBox1AngleVector(-direction * v0 * angle3);
-	bodyParts->rightLeg->setBox2AngleAccelVector(-direction * a * angle4);
-	bodyParts->rightLeg->setBox2AngleVector(-direction * v0 * angle4);
-	bodyParts->rightLeg->setBox2Angle(angle4);
-
-	double length = 2 * bodyParts->leftLeg->getLength() / RUNNING_FRAME;
-//	cout << "length:" << length << endl;
-	vec.x = length * sin(DegToRad(this->getAngle()));
-	vec.z = length * cos(DegToRad(-this->getAngle()));
-}
-
-void MyRobot::_run()
-{
-	move(vec);
-
-	bodyParts->leftArm->update();
-	bodyParts->rightArm->update();
-	bodyParts->leftLeg->update();
-	bodyParts->rightLeg->update();
-
-	frame++;
-
-	if(frame > RUNNING_FRAME){
-		frame = 0;
-//		swap(bodyParts->leftArm, bodyParts->rightArm);
-//		swap(bodyParts->leftLeg, bodyParts->rightLeg);
-		direction *= -1;
-
-		// キー入力があったら
-		if(KeyboardManager::getInstance().isPushSpecialKey(SpecialKey::UP)){
-			_run_init();		// また走らせる
-		}
-		else{
-			condition = Condition::STANDING;
-			bodyParts->leftLeg->setBox1Angle(0.0);
-			bodyParts->leftLeg->setBox2Angle(0.0);
-			bodyParts->rightLeg->setBox1Angle(0.0);
-			bodyParts->rightLeg->setBox2Angle(0.0);
-			bodyParts->leftArm->setBox1Angle(0.0);
-			bodyParts->leftArm->setBox2Angle(0.0);
-			bodyParts->rightArm->setBox1Angle(0.0);
-			bodyParts->rightArm->setBox2Angle(0.0);
-
-			bodyParts->leftArm->resetVector();
-			bodyParts->rightArm->resetVector();
-			bodyParts->leftLeg->resetVector();
-			bodyParts->rightLeg->resetVector();
-
-
-			update_function = NULL;
-		}
-	}
-}
-
