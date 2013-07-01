@@ -15,7 +15,7 @@ inline double DegToRad(double degree)
 }
 
 // --- エラーと出ているけど大丈夫 --- //
-enum class MyRobot::State{
+enum class MyRobot::Condition{
 	STANDING,		// 立ち状態
 	RUNNING,		// 走り状態
 	SITTING,		// 座り状態
@@ -36,7 +36,7 @@ struct MoveData{
 MyRobot::MyRobot(double x, double y, double z)
 	: DrawableObject(x, y, z), frame(0), direction(1)
 {
-	state = State::STANDING;
+	condition = Condition::STANDING;
 //	leg   = WalkLeg::LEFT;
 	setRotateVector(0.0, 1.0, 0.0);
 
@@ -105,10 +105,10 @@ void MyRobot::jump()
 void MyRobot::walk()
 {
 	// WALKING状態じゃなくて、かつ残っているフレームがないなら
-	if(state != State::WALKING && state != State::RUNNING && frame == 0){
+	if(condition != Condition::WALKING && condition != Condition::RUNNING && frame == 0){
 		update_function = &MyRobot::_walk;		// update関数をセット
 		_walk_init();					// 初期化
-		state = State::WALKING;			// WALKING状態へ移行する
+		condition = Condition::WALKING;			// WALKING状態へ移行する
 	}
 }
 
@@ -210,7 +210,7 @@ void MyRobot::_walk()
 			_walk_init();	// また歩かせる
 		}
 		else{
-			state = State::STANDING;
+			condition = Condition::STANDING;
 			bodyParts->leftLeg->setBox1Angle(0.0);
 			bodyParts->leftLeg->setBox2Angle(0.0);
 			bodyParts->rightLeg->setBox1Angle(0.0);
@@ -235,10 +235,10 @@ void MyRobot::_walk()
 void MyRobot::run()
 {
 	// RUNNING状態じゃなくて、かつ残っているフレームがないなら
-	if(state != State::RUNNING && frame == 0){
+	if(condition != Condition::RUNNING && frame == 0){
 		update_function = &MyRobot::_run;		// update関数をセット
 		_run_init();					// 初期化
-		state = State::RUNNING;			// WALKING状態へ移行する
+		condition = Condition::RUNNING;			// WALKING状態へ移行する
 	}
 
 }
@@ -306,7 +306,7 @@ void MyRobot::_run()
 			_run_init();		// また走らせる
 		}
 		else{
-			state = State::STANDING;
+			condition = Condition::STANDING;
 			bodyParts->leftLeg->setBox1Angle(0.0);
 			bodyParts->leftLeg->setBox2Angle(0.0);
 			bodyParts->rightLeg->setBox1Angle(0.0);

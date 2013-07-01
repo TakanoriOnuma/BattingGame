@@ -9,8 +9,8 @@ class ArmLeg;
 
 class MyRobot : public DrawableObject, public IAnimation{
 	/* ロボットの状態 */
-	enum class State;
-	State   state;			// 自分の状態
+	enum class Condition;
+	Condition condition;			// 自分の状態
 
 	static const int WALKING_FRAME = 50;		// 歩く動作に必要なフレーム数
 	static const int RUNNING_FRAME = 40;		// 走る動作に必要なフレーム数
@@ -23,6 +23,8 @@ class MyRobot : public DrawableObject, public IAnimation{
 	void (MyRobot::*update_function)();		// update用関数
 
 protected:
+
+
 	int frame;				// 現在のフレーム数
 	struct BodyParts;		// 体の部位の構造体
 	BodyParts* bodyParts;	// 体のパーツを持つ
