@@ -23,13 +23,13 @@ class BattingRobot : public MyRobot, public IBatter{
 	Vector3d vec_dis;
 
 
-	void (BattingRobot::*update_function)();
 
 protected:
-	void draw() const override;
+	// --- Stateクラスの実装クラス --- //
+	class Batting;
 
-	void _swing_init();
-	void _swing();
+
+	void draw() const override;
 
 
 public:
