@@ -14,6 +14,14 @@
 
 using namespace std;
 
+static void drawString(const char* str)
+{
+	while(*str != '\0'){
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *str);
+		++str;
+	}
+}
+
 struct Game::DrawableObjects{
 	MyBall ball;
 	Ground ground;
@@ -160,6 +168,12 @@ void Game::display() const
 	glLightfv(GL_LIGHT1, GL_POSITION, lightpos1);
 
 	objects->draw();
+
+	glDisable(GL_LIGHTING);
+	glColor3d(0.0, 0.0, 1.0);
+	glRasterPos3d(-3.0, 2.0, 0.0);
+	drawString("Batting");
+	glEnable(GL_LIGHTING);
 
 	glutSwapBuffers();
 }
