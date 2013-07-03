@@ -131,3 +131,24 @@ void MouseManager::removeListener(MouseListener* listener){
 
 	listeners.erase(end_it, listeners.end());
 }
+
+Point3d MouseManager::getWorldPoint3d() const
+{
+	GLdouble model[16], proj[16];
+    GLint view[4];
+    GLfloat z;
+
+	Point3d worldPoint3d;
+
+	glGetDoublev(GL_MODELVIEW_MATRIX, model);
+	glGetDoublev(GL_PROJECTION_MATRIX, proj);
+	glGetIntegerv(GL_VIEWPORT, view);
+
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
+	glReadPixels(pt.x, h - pt.y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	gluUnProject(pt.x, h - pt.y, z, model, proj, view,
+		&worldPoint3d.x, &worldPoint3d.y, &worldPoint3d.z);
+
+	return worldPoint3d;
+}

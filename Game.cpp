@@ -4,6 +4,7 @@
 #include "PitchingRobotArm.h"
 #include "MaterialData.h"
 #include "KeyboardManager.h"
+#include "MouseManager.h"
 #include "Camera.h"
 #include "MyBall.h"
 #include "Rectangle2D.h"
@@ -128,6 +129,8 @@ void Game::check_special_key()
 
 IScene* Game::update()
 {
+	objects->circle.move(MouseManager::getInstance().getWorldPoint3d());
+
 	objects->update();
 
 	check_char_key();

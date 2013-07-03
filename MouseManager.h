@@ -44,6 +44,7 @@ public:
 	const Point2i& getMousePoint() const{
 		return pt;
 	}
+	Point3d getWorldPoint3d() const;
 	bool isClick(MouseClick mouse) const{
 		return state[static_cast<size_t>(mouse)];
 	}
