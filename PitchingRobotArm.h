@@ -41,6 +41,9 @@ public:
 	void setTargetField(const Rectangle2D* target_field){
 		this->target_field = target_field;
 	}
+	bool isSetTargetField() const{
+		return target_field != NULL;
+	}
 };
 
 

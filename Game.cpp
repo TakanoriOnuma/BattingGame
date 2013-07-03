@@ -112,6 +112,14 @@ void Game::check_char_key()
 	else if(keyboardManager.isPushCharKey('s')){
 		camera->addDistance(1.0);
 	}
+
+	// --- 投げるフィールドの指定 --- //
+	if(keyboardManager.isPushCharKey('z')){
+		objects->pitchingRobotArm.setTargetField(NULL);
+	}
+	else if(keyboardManager.isPushCharKey('x')){
+		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
+	}
 }
 
 void Game::check_special_key()
@@ -170,9 +178,16 @@ void Game::display() const
 	objects->draw();
 
 	glDisable(GL_LIGHTING);
-	glColor3d(0.0, 0.0, 1.0);
-	glRasterPos3d(-3.0, 2.0, 0.0);
-	drawString("Batting");
+	if(objects->pitchingRobotArm.isSetTargetField()){
+		glColor3d(1.0, 0.0, 0.0);
+		glRasterPos3d(-3.0, 2.0, 0.0);
+		drawString("Throw ball in red box");
+	}
+	else{
+		glColor3d(0.0, 1.0, 0.0);
+		glRasterPos3d(-3.0, 2.0, 0.0);
+		drawString("Throw ball at green circle");
+	}
 	glEnable(GL_LIGHTING);
 
 	glutSwapBuffers();

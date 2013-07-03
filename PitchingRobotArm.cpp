@@ -6,6 +6,7 @@
 #include "MyBall.h"
 #include "Rectangle2D.h"
 #include "XorShift.h"
+#include "MouseManager.h"
 
 using namespace std;
 
@@ -59,11 +60,17 @@ void PitchingRobotArm::_ball_throw()
 				Point3d pt = this->getPoint();
 				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
 
-				double vec = XorShift::instance().rand() % 50;
-				vec = vec / 50.0 + 0.5;
+				double v = XorShift::instance().rand() % 50;
+				v = v / 50.0 + 0.5;
+
+				Point3d worldPt = MouseManager::getInstance().getWorldPoint3d();
+
+				Vector3d vec(pt.x - worldPt.x, pt.y - worldPt.y, pt.z - worldPt.z);
+
+				vec *= -v / sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 
 				ball->move(pt);
-				ball->setVector(0.0, 0.0, vec);		// ストレートを投げる
+				ball->setVector(vec.x, vec.y, vec.z);
 				ball->emit();
 				ball = NULL;
 			}
