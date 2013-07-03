@@ -129,7 +129,9 @@ void Game::check_special_key()
 
 IScene* Game::update()
 {
-	objects->circle.move(MouseManager::getInstance().getWorldPoint3d());
+	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
+	worldPoint.z += 0.01;
+	objects->circle.move(worldPoint);
 
 	objects->update();
 
