@@ -1,9 +1,14 @@
 #include <math.h>
+#include <iostream>
 
 #include "RobotStateBatting.h"
 #include "MyRobot_BodyParts.h"
 
+#include "TriFunction.h"
+
 #include "MyLine.h"
+
+using namespace std;
 
 BattingRobot::Batting::Batting()
 	: max_frame(-1)		// 未使用
@@ -23,21 +28,29 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 	// (BattingRobotクラスしかBattingクラスを知らないため)
 	BattingRobot& battingRobot = dynamic_cast<BattingRobot&>(robot);
 
-		double length = battingRobot.bodyParts->leftArm->getRectBox().height;
-		battingRobot.locus.x = -length * 0.8;
-		battingRobot.locus.y = 0.0;
-		battingRobot.locus.z = 0.0;
-		battingRobot.line->setPoint2(battingRobot.locus);
+	double length = battingRobot.bodyParts->leftArm->getRectBox().height;
+	battingRobot.locus.x = -length * 0.8;
+	battingRobot.locus.y = 0.0;
+	battingRobot.locus.z = 0.0;
+	battingRobot.line->setPoint2(battingRobot.locus);
 
-		Point3d robot_pt = battingRobot.getPoint();
-		robot_pt.y += battingRobot.bodyParts->body->getPoint().y;
-		double dis_y = battingRobot.target.y - robot_pt.y;
-		battingRobot.accel_vec_r_y = -8 * dis_y / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
-		battingRobot.vec_r_y = 4 * dis_y / battingRobot.SWING_FRAME;
+	Point3d robot_pt = battingRobot.getPoint();
+	robot_pt.y += battingRobot.bodyParts->body->getPoint().y;
+	double dis_y = battingRobot.target.y - robot_pt.y;
+	battingRobot.accel_vec_r_y = -8 * dis_y / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
+	battingRobot.vec_r_y = 4 * dis_y / battingRobot.SWING_FRAME;
 
-		double dis_z = battingRobot.target.x - robot_pt.x;
-		battingRobot.accel_vec_r_z = -8 * dis_z / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
-		battingRobot.vec_r_z = 4 * dis_z / battingRobot.SWING_FRAME;
+	double dis_z = battingRobot.target.x - robot_pt.x;
+	battingRobot.accel_vec_r_z = -8 * dis_z / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
+	battingRobot.vec_r_z = 4 * dis_z / battingRobot.SWING_FRAME;
+
+
+	TriFunction& triFunc = TriFunction::getInstance();
+	const Point3d& locus = battingRobot.locus;
+	const Point3d& right_arm_pt = battingRobot.bodyParts->rightArm->getPoint();
+	double angle = atan2(right_arm_pt.z - locus.z, right_arm_pt.x - locus.x);
+	cout << "angle:" << angle << endl;
+	battingRobot.bodyParts->rightArm->setAngle(triFunc.RadToDeg(angle) - 90.0);
 }
 
 void BattingRobot::Batting::update(MyRobot& robot) const
@@ -53,6 +66,14 @@ void BattingRobot::Batting::update(MyRobot& robot) const
 	battingRobot.locus.z += battingRobot.vec_r_z;
 	battingRobot.vec_r_z += battingRobot.accel_vec_r_z;
 	battingRobot.line->setPoint2(battingRobot.locus);
+
+
+	TriFunction& triFunc = TriFunction::getInstance();
+	const Point3d& locus = battingRobot.locus;
+	const Point3d& right_arm_pt = battingRobot.bodyParts->rightArm->getPoint();
+	double angle = atan2(right_arm_pt.z - locus.z, right_arm_pt.x - locus.x);
+	cout << "angle:" << angle << endl;
+	battingRobot.bodyParts->rightArm->setAngle(-triFunc.RadToDeg(angle) - 90.0);
 
 	battingRobot.frame++;
 	if(battingRobot.frame > SWING_FRAME){
