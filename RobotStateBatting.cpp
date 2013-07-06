@@ -61,11 +61,21 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 		pt.x = battingRobot.bodyParts->rightArm->getPoint().x;
 		battingRobot.bodyParts->rightArm->move(pt);
 
+
+
 		double length = battingRobot.bodyParts->leftArm->getRectBox().height;
 		battingRobot.locus.x = -length * 0.8;
 		battingRobot.locus.y = 0.0;
 		battingRobot.locus.z = 0.0;
 		battingRobot.line->setPoint2(battingRobot.locus);
+
+		double dis_y = -1.0;
+		battingRobot.accel_vec_r_y = -8 * dis_y / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
+		battingRobot.vec_r_y = 4 * dis_y / battingRobot.SWING_FRAME;
+
+		double dis_z = 1.0;
+		battingRobot.accel_vec_r_z = -8 * dis_z / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
+		battingRobot.vec_r_z = 4 * dis_z / battingRobot.SWING_FRAME;
 }
 
 void BattingRobot::Batting::update(MyRobot& robot) const
@@ -103,6 +113,13 @@ void BattingRobot::Batting::update(MyRobot& robot) const
 		battingRobot.bodyParts->leftArm->addAngle(battingRobot.vec_r2);
 		battingRobot.vec_r2 += battingRobot.accel_vec_r2;
 	}
+
+	battingRobot.locus.x += 0.15;
+	battingRobot.locus.y += battingRobot.vec_r_y;
+	battingRobot.vec_r_y += battingRobot.accel_vec_r_y;
+	battingRobot.locus.z += battingRobot.vec_r_z;
+	battingRobot.vec_r_z += battingRobot.accel_vec_r_z;
+	battingRobot.line->setPoint2(battingRobot.locus);
 
 	battingRobot.frame++;
 	if(battingRobot.frame > SWING_FRAME){

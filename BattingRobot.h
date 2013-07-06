@@ -8,7 +8,7 @@ class MyBat;
 class MyLine;
 class BattingRobot : public MyRobot, public IBatter{
 
-	static const int SWING_FRAME = 30;
+	static const int SWING_FRAME = 10;
 
 
 	MyBat* bat;
@@ -18,6 +18,12 @@ class BattingRobot : public MyRobot, public IBatter{
 	double vec_r;
 	double accel_vec_r2;
 	double vec_r2;
+
+	// 軌跡の移動に対する速度と加速度
+	double vec_r_y;
+	double vec_r_z;
+	double accel_vec_r_y;
+	double accel_vec_r_z;
 
 	// 腕の座標変更に対する速度と加速度
 	Vector3d accel_vec_dis;
