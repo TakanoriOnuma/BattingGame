@@ -16,14 +16,12 @@ MyBat::MyBat(const Point3d& pt)
 
 void MyBat::init()
 {
-	rectBox.setRectBox(0.2, 0.2, 2.6);
+	rectBox.setRectBox(0.4, 0.4, 2.6);
 }
 
 void MyBat::draw() const
 {
 	GLUquadric* quad = quadObject.getQuadric();
-
-	glPushMatrix();
 
 	gluQuadricOrientation(quad, GLU_OUTSIDE);
 	gluDisk(quad, 0.0, 0.18, 16, 16);
@@ -48,5 +46,6 @@ void MyBat::draw() const
 	gluQuadricOrientation(quad, GLU_INSIDE);
 	gluDisk(quad, 0.0, 0.15, 16, 1);
 
-	glPopMatrix();
+	glTranslated(-0.2, -0.2, 0.0);
+	rectBox.draw();
 }

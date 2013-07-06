@@ -16,7 +16,11 @@ private:
 	State state;		// “à•”ó‘Ô
 	Vector3d vec;		// ˆÚ“®ƒxƒNƒgƒ‹
 
+	void draw() const override;
+
 public:
+	using DrawableObject::draw;
+
 	MyBall(double radius = 1.0, int sides = 16);
 	MyBall(double x, double y, double z, double radius = 1.0, int sides = 16);
 

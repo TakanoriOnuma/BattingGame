@@ -3,6 +3,7 @@
 
 // ===== ’¼•û‘ÌƒNƒ‰ƒX ===== //
 class RectBox{
+	static const int edge[12][2];
 
 public:
 	double length;
@@ -17,6 +18,8 @@ public:
 		this->width = width;
 		this->height = height;
 	}
+
+	void draw() const;
 };
 
 #endif
