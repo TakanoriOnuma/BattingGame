@@ -9,6 +9,8 @@
 #include "MyBall.h"
 #include "Rectangle2D.h"
 #include "MyCircle.h"
+#include "RoughHitProcesser.h"
+#include "MyLine.h"
 
 #include <iostream>
 
@@ -31,13 +33,16 @@ struct Game::DrawableObjects{
 	Rectangle2D batting_field;
 	MyCircle circle;
 
+	MyLine line;
+
 	DrawableObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, -5.0, 10, 20),
 		battingRobot(-2.0, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -13.0),
 		batting_field(0.0, 0.0, 3.0, 2.0, 2.0, ColorData(1.0, 0.0, 0.0)),
-		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
+		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0)),
+		line(0.0, 0.0, 0.0, 1.0, 1.0, 1.0)
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
@@ -58,6 +63,8 @@ struct Game::DrawableObjects{
 
 		batting_field.draw(true, true);
 		circle.draw(true, true);
+
+		line.draw(true, true);
 	}
 
 	// •K—v‚Ì‚ ‚é‚à‚Ì‚¾‚¯update‚·‚é
@@ -72,6 +79,7 @@ Game::Game()
 {
 	objects = new DrawableObjects();
 	camera  = new Camera();
+	hitProcesser = RoughHitProcesser::getInstance();
 }
 
 Game::~Game()
@@ -153,6 +161,10 @@ IScene* Game::update()
 
 	check_char_key();
 	check_special_key();
+
+
+	hitProcesser->hitProcess(objects->ball, objects->battingRobot, objects->line);
+
 
 	return this;
 }

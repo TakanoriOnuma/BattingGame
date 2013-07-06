@@ -16,7 +16,7 @@ protected:
 
 public:
 	virtual ~HitProcesser(){ }
-	void hitProcess(MyBall& ball, BattingRobot& battingRobot);
+	void hitProcess(MyBall& ball, BattingRobot& battingRobot, MyLine& line);
 };
 
 

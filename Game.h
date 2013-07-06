@@ -3,8 +3,12 @@
 
 #include "IScene.h"
 
+class MyLine;
+
 class Camera;
 class Game : public IScene{
+	MyLine* line;
+
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
@@ -14,7 +18,7 @@ class Game : public IScene{
 	class StandardHitProcesser;
 	class StrictHitProcesser;
 
-	HitProcesser* hitProcesser;
+	HitProcesser* hitProcesser;		// “–‚½‚è”»’è‚ğs‚¤ƒNƒ‰ƒX
 
 	Camera* camera;
 
