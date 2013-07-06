@@ -27,10 +27,10 @@ BattingRobot::BattingRobot(double x, double y, double z)
 	bodyParts->rightArm->setAngle(20.0);
 
 	bodyParts->leftArm->setBox1Angle(-30.0);
-	bodyParts->leftArm->setBox2Angle(-90.0);
+	bodyParts->leftArm->setBox2Angle(-80.0);
 
 	bodyParts->rightArm->setBox1Angle(-30.0);
-	bodyParts->rightArm->setBox2Angle(-90.0);
+	bodyParts->rightArm->setBox2Angle(-80.0);
 }
 
 BattingRobot::~BattingRobot()

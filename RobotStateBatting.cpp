@@ -81,7 +81,7 @@ void BattingRobot::Batting::update(MyRobot& robot) const
 	battingRobot.vec_dis += battingRobot.accel_vec_dis;
 
 	if(battingRobot.frame == SWING_FRAME / 3){
-		const double angle = 60.0;
+		const double angle = 50.0;
 		const double frame_time = 2.0 * SWING_FRAME / 3.0;
 		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
 		const double angle_vec = 4.0 / frame_time;
