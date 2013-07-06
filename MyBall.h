@@ -45,6 +45,9 @@ public:
 		vec.y = y;
 		vec.z = z;
 	}
+	const Vector3d& getVector() const{
+		return vec;
+	}
 };
 
 #endif

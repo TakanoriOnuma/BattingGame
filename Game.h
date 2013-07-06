@@ -8,6 +8,14 @@ class Game : public IScene{
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
+	// --- デザインパターン Strategy --- //
+	class HitProcesser;
+	class RoughHitProcesser;
+	class StandardHitProcesser;
+	class StrictHitProcesser;
+
+	HitProcesser* hitProcesser;
+
 	Camera* camera;
 
 	void check_char_key();
