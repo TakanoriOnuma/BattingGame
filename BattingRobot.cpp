@@ -9,6 +9,8 @@
 #include "MaterialData.h"
 #include "RobotStateBatting.h"
 
+#include "MyLine.h"
+
 using namespace std;
 
 BattingRobot::BattingRobot(double x, double y, double z)
@@ -31,6 +33,9 @@ BattingRobot::BattingRobot(double x, double y, double z)
 
 	bodyParts->rightArm->setBox1Angle(-30.0);
 	bodyParts->rightArm->setBox2Angle(-90.0);
+
+	locus.x = 2.0;
+	line = new MyLine(0.0, bodyParts->body->getPoint().y, 0.0, locus.x, locus.y, locus.z);
 }
 
 BattingRobot::~BattingRobot()
@@ -53,6 +58,8 @@ void BattingRobot::draw() const
 	bodyParts->rightArm->draw(true, false);
 	bodyParts->leftLeg->draw(true, false);
 	bodyParts->rightLeg->draw(true, false);
+
+	line->draw(true, true);
 }
 
 void BattingRobot::update()

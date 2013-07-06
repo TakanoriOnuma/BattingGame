@@ -5,6 +5,7 @@
 #include "MyRobot.h"
 
 class MyBat;
+class MyLine;
 class BattingRobot : public MyRobot, public IBatter{
 
 	static const int SWING_FRAME = 30;
@@ -22,7 +23,8 @@ class BattingRobot : public MyRobot, public IBatter{
 	Vector3d accel_vec_dis;
 	Vector3d vec_dis;
 
-
+	Point3d locus;		// 軌跡
+	MyLine* line;		// 軌跡の様子を見る
 
 protected:
 	// --- Stateクラスの実装クラス --- //
