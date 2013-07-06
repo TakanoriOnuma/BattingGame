@@ -20,6 +20,11 @@ public:
 		pt2.y = y2;
 		pt2.z = z2;
 	}
+	void setPoint2(const Point3d& pt){
+		pt2.x = pt.x;
+		pt2.y = pt.y;
+		pt2.z = pt.z;
+	}
 };
 
 #endif

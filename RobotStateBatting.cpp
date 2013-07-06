@@ -3,6 +3,8 @@
 #include "RobotStateBatting.h"
 #include "MyRobot_BodyParts.h"
 
+#include "MyLine.h"
+
 BattingRobot::Batting::Batting()
 	: max_frame(-1)		// –¢Žg—p
 {
@@ -59,6 +61,11 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 		pt.x = battingRobot.bodyParts->rightArm->getPoint().x;
 		battingRobot.bodyParts->rightArm->move(pt);
 
+		double length = battingRobot.bodyParts->leftArm->getRectBox().height;
+		battingRobot.locus.x = -length * 0.8;
+		battingRobot.locus.y = 0.0;
+		battingRobot.locus.z = 0.0;
+		battingRobot.line->setPoint2(battingRobot.locus);
 }
 
 void BattingRobot::Batting::update(MyRobot& robot) const
