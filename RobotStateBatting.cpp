@@ -69,11 +69,13 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 		battingRobot.locus.z = 0.0;
 		battingRobot.line->setPoint2(battingRobot.locus);
 
-		double dis_y = -1.0;
+		Point3d robot_pt = battingRobot.getPoint();
+		robot_pt.y += battingRobot.bodyParts->body->getPoint().y;
+		double dis_y = battingRobot.target.y - robot_pt.y;
 		battingRobot.accel_vec_r_y = -8 * dis_y / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
 		battingRobot.vec_r_y = 4 * dis_y / battingRobot.SWING_FRAME;
 
-		double dis_z = 1.0;
+		double dis_z = battingRobot.target.x - robot_pt.x;
 		battingRobot.accel_vec_r_z = -8 * dis_z / (battingRobot.SWING_FRAME * battingRobot.SWING_FRAME);
 		battingRobot.vec_r_z = 4 * dis_z / battingRobot.SWING_FRAME;
 }

@@ -25,6 +25,8 @@ class BattingRobot : public MyRobot, public IBatter{
 	double accel_vec_r_y;
 	double accel_vec_r_z;
 
+	Point3d target;			// 振る場所
+
 	// 腕の座標変更に対する速度と加速度
 	Vector3d accel_vec_dis;
 	Vector3d vec_dis;
@@ -48,7 +50,7 @@ public:
 
 	void update() override;
 
-	void swing() override;
+	void swing(const Point3d& target) override;
 
 };
 

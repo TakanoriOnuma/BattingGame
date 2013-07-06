@@ -72,9 +72,10 @@ void BattingRobot::update()
 	}
 }
 
-void BattingRobot::swing()
+void BattingRobot::swing(const Point3d& target)
 {
 	if(frame == 0){
+		this->target = target;
 		state = Batting::getInstance();
 		state->init(*this);
 	}

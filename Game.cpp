@@ -84,7 +84,7 @@ void Game::check_char_key()
 {
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 	if(keyboardManager.isPushCharKey('t')){
-		objects->battingRobot.swing();
+		objects->battingRobot.swing(objects->circle.getPoint());
 	}
 	if(keyboardManager.isPushCharKey('o')){
 		objects->pitchingRobotArm.ball_throw();
