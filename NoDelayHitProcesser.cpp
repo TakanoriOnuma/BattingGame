@@ -43,7 +43,7 @@ void Game::NoDelayHitProcesser::reflect(MyBall& ball, BattingRobot& battingRobot
 	Vector3d move_vec;
 	move_vec.x = (ball.getPoint().x - battingRobot.getTargetPoint().x) / ball.getRectBox().width;
 	move_vec.y = (ball.getPoint().y - battingRobot.getTargetPoint().y) / ball.getRectBox().height;
-	move_vec.z = ball.getPoint().z - battingRobot.getTargetPoint().z;
+	move_vec.z = ball.getRectBox().length - abs(ball.getPoint().z - battingRobot.getTargetPoint().z);
 	outVector("move_vec", move_vec);
 
 	const Vector3d& vec = ball.getVector();
