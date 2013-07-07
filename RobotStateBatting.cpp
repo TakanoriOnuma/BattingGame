@@ -57,7 +57,7 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 	{
 		const Point3d& standardPoint = battingRobot.getStandardPoint();
 		const Point3d& targetPoint = battingRobot.getTargetPoint();
-		const double angle = 20.0 + 20 * (standardPoint.y - targetPoint.y);
+		const double angle = 20.0 + 25 * (standardPoint.y - targetPoint.y);
 		const double frame_time = SWING_FRAME;
 		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
 		const double angle_vec = 4.0 / frame_time;
@@ -65,6 +65,12 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 		battingRobot.bodyParts->leftArm->setBox2AngleVector(angle_vec * angle);
 		battingRobot.bodyParts->rightArm->setBox2AngleAccelVector(accel_angle_vec * angle);
 		battingRobot.bodyParts->rightArm->setBox2AngleVector(angle_vec * angle);
+
+		const double angle2 = 10.0 * (standardPoint.x - targetPoint.x);
+		battingRobot.bodyParts->leftArm->setBox1AngleAccelVector(accel_angle_vec * angle2);
+		battingRobot.bodyParts->leftArm->setBox1AngleVector(angle_vec * angle2);
+		battingRobot.bodyParts->rightArm->setBox1AngleAccelVector(accel_angle_vec * angle2);
+		battingRobot.bodyParts->rightArm->setBox1AngleVector(angle_vec * angle2);
 	}
 
 		// Š’è‚ÌˆÊ’u‚É–ß‚é
