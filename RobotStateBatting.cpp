@@ -49,8 +49,13 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 	const Point3d& locus = battingRobot.locus;
 	const Point3d& right_arm_pt = battingRobot.bodyParts->rightArm->getPoint();
 	double angle = atan2(right_arm_pt.z - locus.z, right_arm_pt.x - locus.x);
-	cout << "angle:" << angle << endl;
+	//cout << "angle:" << angle << endl;
 	battingRobot.bodyParts->rightArm->setAngle(triFunc.RadToDeg(angle) - 90.0);
+
+	const Point3d& right_arm_box2_pt = battingRobot.bodyParts->rightArm->getBox2()->getPoint();
+	angle = atan2(right_arm_pt.y - locus.y, right_arm_pt.x - locus.x);
+	cout << "angle:" << angle << endl;
+	battingRobot.bodyParts->rightArm->setBox2Angle(triFunc.RadToDeg(angle));
 }
 
 void BattingRobot::Batting::update(MyRobot& robot) const
@@ -72,7 +77,7 @@ void BattingRobot::Batting::update(MyRobot& robot) const
 	const Point3d& locus = battingRobot.locus;
 	const Point3d& right_arm_pt = battingRobot.bodyParts->rightArm->getPoint();
 	double angle = atan2(right_arm_pt.z - locus.z, right_arm_pt.x - locus.x);
-	cout << "angle:" << angle << endl;
+	//cout << "angle:" << angle << endl;
 	battingRobot.bodyParts->rightArm->setAngle(-triFunc.RadToDeg(angle) - 90.0);
 
 	battingRobot.frame++;
