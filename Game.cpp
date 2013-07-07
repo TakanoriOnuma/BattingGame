@@ -155,6 +155,14 @@ void Game::check_char_key()
 	else if(keyboardManager.isPushCharKey('x')){
 		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
 	}
+
+	// --- HitProcesserÇÃê›íË --- //
+	if(keyboardManager.isPushCharKey('c')){
+		hitProcesser = RoughHitProcesser::getInstance();
+	}
+	else if(keyboardManager.isPushCharKey('v')){
+		hitProcesser = NoDelayHitProcesser::getInstance();
+	}
 }
 
 void Game::check_special_key()
@@ -224,6 +232,16 @@ void Game::display() const
 		glColor3d(0.0, 1.0, 0.0);
 		glRasterPos3d(-3.0, 2.0, 0.0);
 		drawString("Throw ball at green circle");
+	}
+	if(hitProcesser == RoughHitProcesser::getInstance()){
+		glColor3d(0.0, 1.0, 1.0);
+		glRasterPos3d(-3.0, 1.5, 0.0);
+		drawString("RoughHitProcesser");
+	}
+	else if(hitProcesser == NoDelayHitProcesser::getInstance()){
+		glColor3d(1.0, 0.0, 1.0);
+		glRasterPos3d(-3.0, 1.5, 0.0);
+		drawString("NoDelayHitProcesser");
 	}
 	glEnable(GL_LIGHTING);
 
