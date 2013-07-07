@@ -16,8 +16,6 @@ private:
 	State state;		// “à•”ó‘Ô
 	Vector3d vec;		// ˆÚ“®ƒxƒNƒgƒ‹
 
-	void draw() const override;
-
 public:
 	using DrawableObject::draw;
 

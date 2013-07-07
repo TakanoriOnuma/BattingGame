@@ -17,11 +17,3 @@ void MyBall::update()
 		move(vec);			// ©•ª‚ÌÀ•W‚ğˆÚ“®‚·‚é
 	}
 }
-
-void MyBall::draw() const
-{
-	MySphere::draw();
-
-	glTranslated(-getRadius(), -getRadius(), -getRadius());
-	rectBox.draw();
-}

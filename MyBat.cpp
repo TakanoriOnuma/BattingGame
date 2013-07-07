@@ -47,5 +47,4 @@ void MyBat::draw() const
 	gluDisk(quad, 0.0, 0.15, 16, 1);
 
 	glTranslated(-0.2, -0.2, 0.0);
-	rectBox.draw();
 }
