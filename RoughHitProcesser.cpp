@@ -17,8 +17,8 @@ Game::RoughHitProcesser* Game::RoughHitProcesser::getInstance()
 
 bool Game::RoughHitProcesser::isHit(const MyBall& ball, const BattingRobot& battingRobot) const
 {
-	if(battingRobot.getFrame() >= 1 &&
-		battingRobot.getFrame() <= 15){
+	if(battingRobot.getFrame() >= BattingRobot::SWING_FRAME / 2 - 5 &&
+		battingRobot.getFrame() <= BattingRobot::SWING_FRAME / 2 + 5){
 			cout << "check1" << endl;
 
 		const Point3d& pt = ball.getPoint();

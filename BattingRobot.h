@@ -35,7 +35,7 @@ protected:
 public:
 	using DrawableObject::draw;
 
-	static const int SWING_FRAME = 30;
+	static const int SWING_FRAME = 20;
 
 
 	BattingRobot(double x = 0.0, double y = 0.0, double z = 0.0);
