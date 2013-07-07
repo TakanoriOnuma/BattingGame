@@ -26,11 +26,11 @@ BattingRobot::BattingRobot(double x, double y, double z)
 	bodyParts->leftArm->setAngle(-20.0);
 	bodyParts->rightArm->setAngle(20.0);
 
-	bodyParts->leftArm->setBox1Angle(-30.0);
-	bodyParts->leftArm->setBox2Angle(-90.0);
+	bodyParts->leftArm->setBox1Angle(-20.0);
+	bodyParts->leftArm->setBox2Angle(-120.0);
 
-	bodyParts->rightArm->setBox1Angle(-30.0);
-	bodyParts->rightArm->setBox2Angle(-90.0);
+	bodyParts->rightArm->setBox1Angle(-20.0);
+	bodyParts->rightArm->setBox2Angle(-120.0);
 }
 
 BattingRobot::~BattingRobot()
@@ -65,9 +65,11 @@ void BattingRobot::update()
 	}
 }
 
-void BattingRobot::swing()
+void BattingRobot::swing(const Point3d& target)
 {
 	if(frame == 0){
+		this->target = target;
+
 		state = Batting::getInstance();
 		state->init(*this);
 	}

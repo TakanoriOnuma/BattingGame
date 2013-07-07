@@ -8,6 +8,18 @@ class Game : public IScene{
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
+	class GameMouseListener;		// MouseListener
+	GameMouseListener* mouseListener;
+
+	// --- デザインパターン Strategy --- //
+	class HitProcesser;
+	class NoDelayHitProcesser;
+	class RoughHitProcesser;
+	class StandardHitProcesser;
+	class StrictHitProcesser;
+
+	HitProcesser* hitProcesser;
+
 	Camera* camera;
 
 	void check_char_key();

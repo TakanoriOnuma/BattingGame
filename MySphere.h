@@ -14,13 +14,16 @@ class MySphere : public DrawableObject{
 	void init();
 
 protected:
-	void draw() const;
+	virtual void draw() const;
 
 public:
 	using DrawableObject::draw;
 	MySphere(double radius = 1.0, int sides = 16);
 	MySphere(double x, double y, double z, double radius = 1.0, int sides = 16);
 
+	double getRadius() const{
+		return radius;
+	}
 };
 
 

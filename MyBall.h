@@ -17,6 +17,8 @@ private:
 	Vector3d vec;		// ˆÚ“®ƒxƒNƒgƒ‹
 
 public:
+	using DrawableObject::draw;
+
 	MyBall(double radius = 1.0, int sides = 16);
 	MyBall(double x, double y, double z, double radius = 1.0, int sides = 16);
 
@@ -40,6 +42,9 @@ public:
 		vec.x = x;
 		vec.y = y;
 		vec.z = z;
+	}
+	const Vector3d& getVector() const{
+		return vec;
 	}
 };
 

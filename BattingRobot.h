@@ -7,7 +7,6 @@
 class MyBat;
 class BattingRobot : public MyRobot, public IBatter{
 
-	static const int SWING_FRAME = 30;
 
 
 	MyBat* bat;
@@ -22,7 +21,8 @@ class BattingRobot : public MyRobot, public IBatter{
 	Vector3d accel_vec_dis;
 	Vector3d vec_dis;
 
-
+	Point3d target;
+	Point3d standardPoint;		// 標準のスイング座標
 
 protected:
 	// --- Stateクラスの実装クラス --- //
@@ -35,13 +35,29 @@ protected:
 public:
 	using DrawableObject::draw;
 
+	static const int SWING_FRAME = 20;
+
+
 	BattingRobot(double x = 0.0, double y = 0.0, double z = 0.0);
 	~BattingRobot();
 
 	void update() override;
 
-	void swing() override;
+	void swing(const Point3d& target) override;
 
+	int getFrame() const{
+		return frame;
+	}
+	const Point3d& getTargetPoint() const{
+		return target;
+	}
+
+	void setStandardPoint(const Point3d& standardPoint){
+		this->standardPoint = standardPoint;
+	}
+	const Point3d& getStandardPoint() const{
+		return standardPoint;
+	}
 };
 
 

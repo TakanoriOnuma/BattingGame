@@ -5,14 +5,27 @@
 #include "MaterialData.h"
 #include "KeyboardManager.h"
 #include "MouseManager.h"
+#include "MouseListener.h"
 #include "Camera.h"
 #include "MyBall.h"
 #include "Rectangle2D.h"
 #include "MyCircle.h"
+#include "RoughHitProcesser.h"
+#include "NoDelayHitProcesser.h"
 
 #include <iostream>
 
 using namespace std;
+
+static void outPoint(string str, const Point3d& pt)
+{
+	cout << str << "(" << pt.x << ", " << pt.y << ", " << pt.z << ")" << endl;
+}
+static void outVector(string str, const Vector3d& vec)
+{
+	cout << str << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+}
+
 
 static void drawString(const char* str)
 {
@@ -32,17 +45,18 @@ struct Game::DrawableObjects{
 	MyCircle circle;
 
 	DrawableObjects()
-		: ball(0.3),
-		ground(0.0, -1.8, -5.0, 10, 20),
-		battingRobot(-2.0, 0.9, 3.0),
-		pitchingRobotArm(0.0, -1.5, -13.0),
-		batting_field(0.0, 0.0, 3.0, 2.0, 2.0, ColorData(1.0, 0.0, 0.0)),
+		: ball(0.2),
+		ground(0.0, -1.8, -7.0, 10, 25),
+		battingRobot(-2.3, 0.9, 3.0),
+		pitchingRobotArm(0.0, -1.5, -15.0),
+		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setAngle(90.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
+		battingRobot.setStandardPoint(batting_field.getPoint());
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 		pitchingRobotArm.hand_ball(&ball);
 		pitchingRobotArm.setTargetField(&batting_field);
@@ -68,23 +82,54 @@ struct Game::DrawableObjects{
 	}
 };
 
+
+class Game::GameMouseListener : public MouseListener
+{
+	Game& parent;
+
+public:
+	GameMouseListener(Game& game) : parent(game)
+	{
+		MouseManager::getInstance().addListener(this);
+	}
+
+	~GameMouseListener(){
+		MouseManager::getInstance().removeListener(this);
+	}
+
+	void passive(int x, int y) override{
+	}
+	void motion(int x, int y) override{
+	}
+	void mouse(int button, int state, int x, int y) override{
+		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+			parent.objects->battingRobot.swing(parent.objects->circle.getPoint());
+		}
+	}
+	void wheel(int wheel_number, int direction, int x, int y) override{
+	}
+};
+
 Game::Game()
 {
 	objects = new DrawableObjects();
 	camera  = new Camera();
+	mouseListener = new GameMouseListener(*this);
+	hitProcesser = NoDelayHitProcesser::getInstance();
 }
 
 Game::~Game()
 {
 	delete objects;
 	delete camera;
+	delete mouseListener;
 }
 
 void Game::check_char_key()
 {
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 	if(keyboardManager.isPushCharKey('t')){
-		objects->battingRobot.swing();
+		objects->battingRobot.swing(objects->circle.getPoint());
 	}
 	if(keyboardManager.isPushCharKey('o')){
 		objects->pitchingRobotArm.ball_throw();
@@ -120,6 +165,14 @@ void Game::check_char_key()
 	else if(keyboardManager.isPushCharKey('x')){
 		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
 	}
+
+	// --- HitProcesser‚ÌÝ’è --- //
+	if(keyboardManager.isPushCharKey('c')){
+		hitProcesser = RoughHitProcesser::getInstance();
+	}
+	else if(keyboardManager.isPushCharKey('v')){
+		hitProcesser = NoDelayHitProcesser::getInstance();
+	}
 }
 
 void Game::check_special_key()
@@ -150,9 +203,21 @@ IScene* Game::update()
 	objects->circle.move(worldPoint);
 
 	objects->update();
+	MyBall& ball = objects->ball;
+	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
+		cout << "reflect" << endl;
+		const Point3d& pt = ball.getPoint();
+		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height + 0.1, pt.z));
+		outPoint("ball.point", pt);
+		const Vector3d& vec = ball.getVector();
+		ball.setVector(vec.x, -vec.y, vec.z);
+		outVector("ball.vec", vec);
+	}
 
 	check_char_key();
 	check_special_key();
+
+	hitProcesser->hitProcess(objects->ball, objects->battingRobot);
 
 	return this;
 }
@@ -187,6 +252,16 @@ void Game::display() const
 		glColor3d(0.0, 1.0, 0.0);
 		glRasterPos3d(-3.0, 2.0, 0.0);
 		drawString("Throw ball at green circle");
+	}
+	if(hitProcesser == RoughHitProcesser::getInstance()){
+		glColor3d(0.0, 1.0, 1.0);
+		glRasterPos3d(-3.0, 1.5, 0.0);
+		drawString("RoughHitProcesser");
+	}
+	else if(hitProcesser == NoDelayHitProcesser::getInstance()){
+		glColor3d(1.0, 0.0, 1.0);
+		glRasterPos3d(-3.0, 1.5, 0.0);
+		drawString("NoDelayHitProcesser");
 	}
 	glEnable(GL_LIGHTING);
 
