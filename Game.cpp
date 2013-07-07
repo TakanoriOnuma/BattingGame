@@ -35,9 +35,9 @@ struct Game::DrawableObjects{
 	DrawableObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, -5.0, 10, 20),
-		battingRobot(-2.5, 0.9, 3.0),
+		battingRobot(-2.3, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -13.0),
-		batting_field(0.0, 0.0, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
+		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
