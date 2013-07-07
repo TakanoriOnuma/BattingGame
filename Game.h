@@ -13,6 +13,7 @@ class Game : public IScene{
 
 	// --- デザインパターン Strategy --- //
 	class HitProcesser;
+	class NoDelayHitProcesser;
 	class RoughHitProcesser;
 	class StandardHitProcesser;
 	class StrictHitProcesser;

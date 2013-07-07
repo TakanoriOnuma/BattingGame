@@ -11,6 +11,7 @@
 #include "Rectangle2D.h"
 #include "MyCircle.h"
 #include "RoughHitProcesser.h"
+#include "NoDelayHitProcesser.h"
 
 #include <iostream>
 
@@ -104,7 +105,7 @@ Game::Game()
 	objects = new DrawableObjects();
 	camera  = new Camera();
 	mouseListener = new GameMouseListener(*this);
-	hitProcesser = RoughHitProcesser::getInstance();
+	hitProcesser = NoDelayHitProcesser::getInstance();
 }
 
 Game::~Game()
