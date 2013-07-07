@@ -17,6 +17,16 @@
 
 using namespace std;
 
+static void outPoint(string str, const Point3d& pt)
+{
+	cout << str << "(" << pt.x << ", " << pt.y << ", " << pt.z << ")" << endl;
+}
+static void outVector(string str, const Vector3d& vec)
+{
+	cout << str << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+}
+
+
 static void drawString(const char* str)
 {
 	while(*str != '\0'){
@@ -193,6 +203,16 @@ IScene* Game::update()
 	objects->circle.move(worldPoint);
 
 	objects->update();
+	MyBall& ball = objects->ball;
+	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
+		cout << "reflect" << endl;
+		const Point3d& pt = ball.getPoint();
+		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height + 0.1, pt.z));
+		outPoint("ball.point", pt);
+		const Vector3d& vec = ball.getVector();
+		ball.setVector(vec.x, -vec.y, vec.z);
+		outVector("ball.vec", vec);
+	}
 
 	check_char_key();
 	check_special_key();
