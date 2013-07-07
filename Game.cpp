@@ -9,6 +9,7 @@
 #include "MyBall.h"
 #include "Rectangle2D.h"
 #include "MyCircle.h"
+#include "RoughHitProcesser.h"
 
 #include <iostream>
 
@@ -72,6 +73,7 @@ Game::Game()
 {
 	objects = new DrawableObjects();
 	camera  = new Camera();
+	hitProcesser = RoughHitProcesser::getInstance();
 }
 
 Game::~Game()
@@ -84,7 +86,7 @@ void Game::check_char_key()
 {
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 	if(keyboardManager.isPushCharKey('t')){
-		objects->battingRobot.swing();
+		objects->battingRobot.swing(objects->circle.getPoint());
 	}
 	if(keyboardManager.isPushCharKey('o')){
 		objects->pitchingRobotArm.ball_throw();
@@ -153,6 +155,8 @@ IScene* Game::update()
 
 	check_char_key();
 	check_special_key();
+
+	hitProcesser->hitProcess(objects->ball, objects->battingRobot);
 
 	return this;
 }

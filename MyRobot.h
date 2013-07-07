@@ -48,6 +48,10 @@ public:
 
 	virtual void update() override;
 
+	const BodyParts& getBodyParts() const{
+		return *bodyParts;
+	}
+
 	void stand();
 	void run();
 	void sit();
