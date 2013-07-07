@@ -27,14 +27,14 @@ public:
 		double girth = 1.0, double length = 1.0);
 	~ArmLeg();
 
-/*
-	MyBox* getBox1(){
+
+	const MyBox* getBox1(){
 		return box1;
 	}
-	MyBox* getBox2(){
+	const MyBox* getBox2(){
 		return box2;
 	}
-*/
+
 	double getLength() const{
 		return length;
 	}

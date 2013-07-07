@@ -23,7 +23,7 @@ BattingRobot::BattingRobot(double x, double y, double z)
 	bodyParts->leftArm->setRotateVector(0.0, 1.0, 0.0);
 	bodyParts->rightArm->setRotateVector(0.0, 1.0, 0.0);
 
-	bodyParts->leftArm->setAngle(-20.0);
+//	bodyParts->leftArm->setAngle(-20.0);
 	bodyParts->rightArm->setAngle(20.0);
 
 	bodyParts->leftArm->setBox1Angle(-30.0);
@@ -46,13 +46,13 @@ void BattingRobot::draw() const
 	glPushMatrix();								// Ž©•ª‚ÅÓ”C‚ðŽ‚Á‚Ä‘Þ”ð‚·‚é
 	bodyParts->leftArm->draw(false, false);		// ‘Þ”ð‚Í‚µ‚È‚¢
 	glTranslated(0.8, 0.0, 0.0);
-	bat->draw(false, true);						// bat‚ÌF‚ðŽg‚Á‚Ä•`‰æ
+	//bat->draw(false, true);						// bat‚ÌF‚ðŽg‚Á‚Ä•`‰æ
 	glPopMatrix();								// Ó”C‚ðŽ‚Á‚Ä•œ‹A‚·‚é
 	setMaterial();								// F‚ðMyRobot‚ÌF‚É–ß‚·
 
-	bodyParts->rightArm->draw(true, false);
-	bodyParts->leftLeg->draw(true, false);
-	bodyParts->rightLeg->draw(true, false);
+	//bodyParts->rightArm->draw(true, false);
+	//bodyParts->leftLeg->draw(true, false);
+	//bodyParts->rightLeg->draw(true, false);
 }
 
 void BattingRobot::update()

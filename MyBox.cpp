@@ -50,12 +50,15 @@ void MyBox::init()
 
 void MyBox::draw() const
 {
-	glBegin(GL_QUADS);
+	glDisable(GL_LIGHTING);
+	glBegin(GL_LINE_LOOP);
 	for(int j = 0; j < 6; j++){
-		glNormal3dv(normal[j]);
+//		glNormal3dv(normal[j]);
+		glColor3d(0.0, 0.0, 0.0);
 		for(int i = 3; i >= 0; i--){
 			glVertex3dv(vertex[face[j][i]]);
 		}
 	}
 	glEnd();
+	glEnable(GL_LIGHTING);
 }
