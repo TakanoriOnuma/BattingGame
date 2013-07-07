@@ -5,6 +5,7 @@
 #include "MaterialData.h"
 #include "KeyboardManager.h"
 #include "MouseManager.h"
+#include "MouseListener.h"
 #include "Camera.h"
 #include "MyBall.h"
 #include "Rectangle2D.h"
@@ -70,10 +71,39 @@ struct Game::DrawableObjects{
 	}
 };
 
+
+class Game::GameMouseListener : public MouseListener
+{
+	Game& parent;
+
+public:
+	GameMouseListener(Game& game) : parent(game)
+	{
+		MouseManager::getInstance().addListener(this);
+	}
+
+	~GameMouseListener(){
+		MouseManager::getInstance().removeListener(this);
+	}
+
+	void passive(int x, int y) override{
+	}
+	void motion(int x, int y) override{
+	}
+	void mouse(int button, int state, int x, int y) override{
+		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+			parent.objects->battingRobot.swing(parent.objects->circle.getPoint());
+		}
+	}
+	void wheel(int wheel_number, int direction, int x, int y) override{
+	}
+};
+
 Game::Game()
 {
 	objects = new DrawableObjects();
 	camera  = new Camera();
+	mouseListener = new GameMouseListener(*this);
 	hitProcesser = RoughHitProcesser::getInstance();
 }
 
@@ -81,6 +111,7 @@ Game::~Game()
 {
 	delete objects;
 	delete camera;
+	delete mouseListener;
 }
 
 void Game::check_char_key()
