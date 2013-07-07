@@ -1,8 +1,14 @@
 #include "NoDelayHitProcesser.h"
 
 #include <iostream>
+#include <string>
 
 using namespace std;
+
+static void outVector(string str, const Vector3d& vec)
+{
+	cout << str << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+}
 
 // ŠÖ”‚Ì“à•”‚É•Ï”‚ðŽ‚½‚¹‚ÄƒVƒ“ƒOƒ‹ƒgƒ“‚ðŽÀ‘•‚·‚é
 Game::NoDelayHitProcesser* Game::NoDelayHitProcesser::getInstance()
@@ -34,6 +40,12 @@ bool Game::NoDelayHitProcesser::isHit(const MyBall& ball, const BattingRobot& ba
 
 void Game::NoDelayHitProcesser::reflect(MyBall& ball, BattingRobot& battingRobot) const
 {
+	Vector3d move_vec;
+	move_vec.x = (ball.getPoint().x - battingRobot.getTargetPoint().x) / ball.getRectBox().width;
+	move_vec.y = (ball.getPoint().y - battingRobot.getTargetPoint().y) / ball.getRectBox().height;
+	move_vec.z = ball.getPoint().z - battingRobot.getTargetPoint().z;
+	outVector("move_vec", move_vec);
+
 	const Vector3d& vec = ball.getVector();
-	ball.setVector(vec.x, vec.y, -vec.z);
+	ball.setVector(vec.x + move_vec.x, vec.y + move_vec.y, -vec.z - move_vec.z);
 }
