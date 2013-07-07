@@ -55,7 +55,7 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 	battingRobot.bodyParts->rightArm->setAngle(20.0 - 90.0);
 
 	{
-		const double angle = 50.0;
+		const double angle = 20.0;
 		const double frame_time = SWING_FRAME;
 		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
 		const double angle_vec = 4.0 / frame_time;
