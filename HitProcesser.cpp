@@ -42,7 +42,7 @@ void Game::HitProcesser::hitProcess(MyBall& ball, BattingRobot& battingRobot, My
 	const double box1_length = box1->getRectBox().height;
 	Vector3d box1_vec;
 	box1_vec.x += box1_length * triFunc.t_sin(box1->getAngle());
-	box1_vec.y -= box1_length * triFunc.t_cos(arm_angle) * triFunc.t_cos(box1->getAngle());
+	box1_vec.y -= box1_length * triFunc.t_cos(box1->getAngle());
 	box1_vec.z += box1_length * triFunc.t_cos(arm_angle) * triFunc.t_sin(-box1->getAngle());
 
 	box1_vec.x *= triFunc.t_sin(-robot_angle);
@@ -50,7 +50,7 @@ void Game::HitProcesser::hitProcess(MyBall& ball, BattingRobot& battingRobot, My
 
 	bat_pt.move(box1_vec);
 
-	line.setPoint2(bat_pt.x, bat_pt.y, bat_pt.z);
+//	line.setPoint2(bat_pt.x, bat_pt.y, bat_pt.z);
 
 	if(KeyboardManager::getInstance().isPushCharKey(' ')){
 		const Point3d& robot_pt = battingRobot.getPoint();

@@ -22,7 +22,7 @@ ArmLeg::~ArmLeg()
 void ArmLeg::draw() const
 {
 	box1->draw(false, false);		// box1‚ğ•`‰æ
-	box2->draw(false, false);		// box1‚Æ‘Š‘Î“I‚ÈêŠ‚Ébox2‚ğ•`‰æ
+//	box2->draw(false, false);		// box1‚Æ‘Š‘Î“I‚ÈêŠ‚Ébox2‚ğ•`‰æ
 }
 
 void ArmLeg::update()
