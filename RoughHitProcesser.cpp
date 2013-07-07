@@ -38,6 +38,11 @@ bool Game::RoughHitProcesser::isHit(const MyBall& ball, const BattingRobot& batt
 
 void Game::RoughHitProcesser::reflect(MyBall& ball, BattingRobot& battingRobot) const
 {
+	Vector3d move_vec;
+	move_vec.x = (ball.getPoint().x - battingRobot.getTargetPoint().x) / ball.getRectBox().width;
+	move_vec.y = (ball.getPoint().y - battingRobot.getTargetPoint().y) / ball.getRectBox().height;
+	move_vec.z = ball.getRectBox().length - abs(ball.getPoint().z - battingRobot.getTargetPoint().z);
+
 	const Vector3d& vec = ball.getVector();
-	ball.setVector(vec.x, vec.y, -vec.z);
+	ball.setVector(vec.x + move_vec.x, vec.y + move_vec.y, -vec.z - move_vec.z);
 }
