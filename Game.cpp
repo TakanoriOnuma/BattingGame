@@ -5,6 +5,7 @@
 #include "MaterialData.h"
 #include "KeyboardManager.h"
 #include "MouseManager.h"
+#include "MouseListener.h"
 #include "Camera.h"
 #include "MyBall.h"
 #include "Rectangle2D.h"
@@ -35,15 +36,16 @@ struct Game::DrawableObjects{
 	DrawableObjects()
 		: ball(0.3),
 		ground(0.0, -1.8, -5.0, 10, 20),
-		battingRobot(-2.0, 0.9, 3.0),
+		battingRobot(-2.3, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -13.0),
-		batting_field(0.0, 0.0, 3.0, 2.0, 2.0, ColorData(1.0, 0.0, 0.0)),
+		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setAngle(90.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
+		battingRobot.setStandardPoint(batting_field.getPoint());
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 		pitchingRobotArm.hand_ball(&ball);
 		pitchingRobotArm.setTargetField(&batting_field);
@@ -69,10 +71,39 @@ struct Game::DrawableObjects{
 	}
 };
 
+
+class Game::GameMouseListener : public MouseListener
+{
+	Game& parent;
+
+public:
+	GameMouseListener(Game& game) : parent(game)
+	{
+		MouseManager::getInstance().addListener(this);
+	}
+
+	~GameMouseListener(){
+		MouseManager::getInstance().removeListener(this);
+	}
+
+	void passive(int x, int y) override{
+	}
+	void motion(int x, int y) override{
+	}
+	void mouse(int button, int state, int x, int y) override{
+		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+			parent.objects->battingRobot.swing(parent.objects->circle.getPoint());
+		}
+	}
+	void wheel(int wheel_number, int direction, int x, int y) override{
+	}
+};
+
 Game::Game()
 {
 	objects = new DrawableObjects();
 	camera  = new Camera();
+	mouseListener = new GameMouseListener(*this);
 	hitProcesser = RoughHitProcesser::getInstance();
 }
 
@@ -80,6 +111,7 @@ Game::~Game()
 {
 	delete objects;
 	delete camera;
+	delete mouseListener;
 }
 
 void Game::check_char_key()

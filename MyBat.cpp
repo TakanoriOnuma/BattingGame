@@ -16,7 +16,7 @@ MyBat::MyBat(const Point3d& pt)
 
 void MyBat::init()
 {
-	rectBox.setRectBox(0.4, 0.4, 2.6);
+	rectBox.setRectBox(0.4, 0.4, 2.3);
 }
 
 void MyBat::draw() const
@@ -29,14 +29,14 @@ void MyBat::draw() const
 	glTranslated(0.0, 0.0, -0.1);
 	gluCylinder(quad, 0.2, 0.18, 0.1, 16, 1);
 
-	glTranslated(0.0, 0.0, -0.7);
-	gluCylinder(quad, 0.2, 0.2, 0.7, 16, 1);
+	glTranslated(0.0, 0.0, -0.6);
+	gluCylinder(quad, 0.2, 0.2, 0.6, 16, 1);
 
-	glTranslated(0.0, 0.0, -1.0);
-	gluCylinder(quad, 0.1, 0.2, 1.0, 16, 1);
+	glTranslated(0.0, 0.0, -0.9);
+	gluCylinder(quad, 0.1, 0.2, 0.9, 16, 1);
 
-	glTranslated(0.0, 0.0, -0.7);
-	gluCylinder(quad, 0.1, 0.1, 0.7, 16, 1);
+	glTranslated(0.0, 0.0, -0.6);
+	gluCylinder(quad, 0.1, 0.1, 0.6, 16, 1);
 
 	gluDisk(quad, 0.1, 0.15, 16, 16);
 
@@ -47,5 +47,4 @@ void MyBat::draw() const
 	gluDisk(quad, 0.0, 0.15, 16, 1);
 
 	glTranslated(-0.2, -0.2, 0.0);
-	rectBox.draw();
 }

@@ -8,6 +8,9 @@ class Game : public IScene{
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
+	class GameMouseListener;		// MouseListener
+	GameMouseListener* mouseListener;
+
 	// --- デザインパターン Strategy --- //
 	class HitProcesser;
 	class RoughHitProcesser;
