@@ -44,6 +44,7 @@ struct Game::DrawableObjects{
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setAngle(90.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));
+		battingRobot.setStandardPoint(batting_field.getPoint());
 		pitchingRobotArm.setMaterialData(MaterialData::createMaterialData(Ore::BRONZE));
 		pitchingRobotArm.hand_ball(&ball);
 		pitchingRobotArm.setTargetField(&batting_field);

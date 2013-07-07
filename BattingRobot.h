@@ -22,6 +22,7 @@ class BattingRobot : public MyRobot, public IBatter{
 	Vector3d vec_dis;
 
 	Point3d target;
+	Point3d standardPoint;		// 標準のスイング座標
 
 protected:
 	// --- Stateクラスの実装クラス --- //
@@ -49,6 +50,13 @@ public:
 	}
 	const Point3d& getTargetPoint() const{
 		return target;
+	}
+
+	void setStandardPoint(const Point3d& standardPoint){
+		this->standardPoint = standardPoint;
+	}
+	const Point3d& getStandardPoint() const{
+		return standardPoint;
 	}
 };
 
