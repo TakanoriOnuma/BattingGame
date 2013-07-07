@@ -24,32 +24,14 @@ bool Game::RoughHitProcesser::isHit(const MyBall& ball, const BattingRobot& batt
 		const Point3d& pt = ball.getPoint();
 		const RectBox& box = ball.getRectBox();
 		const Point3d& target = battingRobot.getTargetPoint();
-		if(pt.x - box.width / 2 <= target.x && pt.x + box.width / 2 >= target.x &&
-			pt.y - box.height / 2 <= target.y && pt.y + box.height / 2 >= target.y &&
+		if(pt.x - box.width <= target.x && pt.x + box.width >= target.x &&
+			pt.y - box.height <= target.y && pt.y + box.height >= target.y &&
 			pt.z - box.length <= target.z && pt.z + box.length >= target.z){
 
 				cout << "hit" << endl;
 				return true;
 		}
-
-	}
-
-	if(2 * BattingRobot::SWING_FRAME / 3 < battingRobot.getFrame() &&
-		5 * BattingRobot::SWING_FRAME / 6 > battingRobot.getFrame()){
-			cout << "check" << endl;
-		
-			const Point3d& pt = ball.getPoint();
-			const RectBox& box = ball.getRectBox();
-			const Point3d& target = battingRobot.getTargetPoint();
-			if(pt.x - box.width / 2 <= target.x && pt.x + box.width / 2 >= target.x &&
-				pt.y - box.height / 2 <= target.y && pt.y + box.height / 2 >= target.y &&
-				pt.z - box.length / 2 <= target.z && pt.z + box.length / 2 >= target.z){
-
-					return true;
-			}
-	}
-
-	
+	}	
 
 	return false;
 }

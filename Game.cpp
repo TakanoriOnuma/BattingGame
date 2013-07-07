@@ -34,7 +34,7 @@ struct Game::DrawableObjects{
 	MyCircle circle;
 
 	DrawableObjects()
-		: ball(0.3),
+		: ball(0.2),
 		ground(0.0, -1.8, -7.0, 10, 25),
 		battingRobot(-2.3, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -15.0),
