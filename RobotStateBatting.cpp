@@ -57,7 +57,7 @@ void BattingRobot::Batting::init(MyRobot& robot) const
 	{
 		const Point3d& standardPoint = battingRobot.getStandardPoint();
 		const Point3d& targetPoint = battingRobot.getTargetPoint();
-		const double angle = 20.0 + 25 * (standardPoint.y - targetPoint.y);
+		const double angle = 20.0 + 25 * (standardPoint.y - targetPoint.y) - 10 * (standardPoint.x - targetPoint.x);
 		const double frame_time = SWING_FRAME;
 		const double accel_angle_vec = -8.0 / (frame_time * frame_time);
 		const double angle_vec = 4.0 / frame_time;
