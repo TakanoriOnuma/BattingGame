@@ -369,5 +369,5 @@ void Game::display() const
 
 	glEnable(GL_LIGHTING);
 
-	glutSwapBuffers();
+//	glutSwapBuffers();			// GameDecoratorë§Ç≈èoóÕÇ≥ÇπÇÈ
 }

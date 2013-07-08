@@ -43,6 +43,10 @@ public:
 
 	IScene* update() override;
 	void display() const override;
+
+	const Camera* getCamera() const{
+		return camera;
+	}
 };
 
 
