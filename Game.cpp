@@ -285,6 +285,8 @@ void Game::check_ball()
 
 IScene* Game::update()
 {
+	glLoadIdentity();			// ˆê“x‰Šú‰»‚·‚é
+	camera->setCamera();		// projection‚ÌÝ’è‚ðs‚¤
 	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
 	worldPoint.z += 0.01;
 	objects->circle.move(worldPoint);

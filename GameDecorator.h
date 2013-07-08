@@ -4,11 +4,14 @@
 #include "IScene.h"
 
 class Game;
+class Camera;
 // Game Sceneに責任を追加させるクラス
 // デザインパターン Decorator
 class GameDecorator : public IScene{
 	Game* game;				// ゲームポインタを持つ
 	bool  pause_flag;		// ポーズをしているか
+
+	Camera* camera;			// カメラ
 
 	class GameDecoratorKeyboardListener;	// KeyboardListener
 	GameDecoratorKeyboardListener* keyboardListener;

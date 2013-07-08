@@ -55,6 +55,7 @@ GameDecorator::GameDecorator()
 {
 	pause_flag = false;
 	game = new Game();
+	camera = new Camera();
 	keyboardListener = new GameDecoratorKeyboardListener(*this);
 }
 
@@ -81,10 +82,14 @@ void GameDecorator::display() const
 {
 	game->display();
 
+	glLoadIdentity();			// 一度モデルビューを初期化する
+	camera->setCamera();		// カメラをセット
+
 	if(pause_flag){
 		glDisable(GL_LIGHTING);
 		glColor3d(0.0, 0.0, 0.0);
 		glRasterPos3d(-0.4, 0.0, 4.0);
+
 		drawString("PAUSE");
 		glEnable(GL_LIGHTING);
 	}
