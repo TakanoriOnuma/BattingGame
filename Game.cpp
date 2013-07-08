@@ -12,6 +12,7 @@
 #include "MyCircle.h"
 #include "RoughHitProcesser.h"
 #include "NoDelayHitProcesser.h"
+#include "EmitionMesseage.h"
 
 #include <iostream>
 #include <string>
@@ -112,14 +113,33 @@ public:
 	}
 };
 
+
+class Game::EmitionListener : public EmitionMessage
+{
+	Game& parent;
+
+public:
+	EmitionListener(Game& parent) : parent(parent)
+	{
+	}
+
+	void message() override{
+		parent.ball_num--;		// ボールの数を減らす
+	}
+};
+
 Game::Game()
 {
 	score = 0;
 	check_flag = true;
+	ball_num = 10;
 	objects = new DrawableObjects();
 	camera  = new Camera();
 	mouseListener = new GameMouseListener(*this);
 	hitProcesser = NoDelayHitProcesser::getInstance();
+
+	emitionListener = new EmitionListener(*this);
+	objects->ball.setEmitionMessage(emitionListener);
 }
 
 Game::~Game()
@@ -127,6 +147,10 @@ Game::~Game()
 	delete objects;
 	delete camera;
 	delete mouseListener;
+
+	// 本来ならオブザーバーを解除しないといけないが、
+	// ボール自身も破棄されるため解除しなくても問題はない
+	delete emitionListener;
 }
 
 void Game::check_char_key()
@@ -306,11 +330,19 @@ void Game::display() const
 		drawString("NoDelayHitProcesser");
 	}
 
-	// スコアの表示
+	// ボールの残りの数を表示
 	stringstream stream;
-	stream << score;
+	stream << ball_num;
 	glColor3d(0.0, 0.0, 1.0);
 	glRasterPos3d(1.5, 2.0, 0.0);
+	drawString("Ball:");
+	drawString(stream.str().c_str());
+
+	// スコアの表示
+	stream.str("");		// バッファのクリア
+	stream << score;
+	glColor3d(0.0, 0.0, 1.0);
+	glRasterPos3d(1.5, 1.5, 0.0);
 	drawString("Score:");
 	drawString(stream.str().c_str());
 

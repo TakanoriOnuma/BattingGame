@@ -1,12 +1,12 @@
 #include "MyBall.h"
 
 MyBall::MyBall(double radius, int sides)
-	: MySphere(radius, sides), state(State::HANDED)
+	: MySphere(radius, sides), state(State::HANDED), message(NULL)
 {
 }
 
 MyBall::MyBall(double x, double y, double z, double radius, int sides)
-	: MySphere(x, y, z, radius, sides), state(State::HANDED)
+	: MySphere(x, y, z, radius, sides), state(State::HANDED), message(NULL)
 {
 }
 

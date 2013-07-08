@@ -4,6 +4,7 @@
 #include "MySphere.h"
 #include "IAnimation.h"
 #include "MyVector.h"
+#include "EmitionMesseage.h"
 
 class MyBall : public MySphere, public IAnimation{
 public:
@@ -15,6 +16,8 @@ public:
 private:
 	State state;		// 内部状態
 	Vector3d vec;		// 移動ベクトル
+
+	EmitionMessage* message;		// emitを実行した時に通知するオブザーバー
 
 public:
 	using DrawableObject::draw;
@@ -31,11 +34,18 @@ public:
 	// 解き放つ
 	void emit(){
 		state = State::ISOLATED;
+		if(message != NULL){
+			message->message();		// メッセージを送る
+		}
 	}
 
 	// 誰かに持たれる
 	void handed(){
 		state = State::HANDED;
+	}
+
+	void setEmitionMessage(EmitionMessage* message){
+		this->message = message;
 	}
 
 	void setVector(double x, double y, double z){

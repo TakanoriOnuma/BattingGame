@@ -9,9 +9,13 @@ class Game : public IScene{
 	DrawableObjects* objects;
 
 	int score;		// スコア
+	int ball_num;	// 残りのボールの数
 
 	class GameMouseListener;		// MouseListener
 	GameMouseListener* mouseListener;
+
+	class EmitionListener;			// MyBallがemitした時にメッセージを受け取るクラス
+	EmitionListener* emitionListener;
 
 	// --- デザインパターン Strategy --- //
 	class HitProcesser;
