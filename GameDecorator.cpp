@@ -1,6 +1,8 @@
 #include "GameDecorator.h"
 #include "Game.h"
 #include "Camera.h"
+#include "KeyboardListener.h"
+#include "KeyboardManager.h"
 
 static void drawString(const char* str)
 {
@@ -10,15 +12,49 @@ static void drawString(const char* str)
 	}
 }
 
+class GameDecorator::GameDecoratorKeyboardListener : public KeyboardListener
+{
+	GameDecorator& parent;
+
+public:
+	GameDecoratorKeyboardListener(GameDecorator& parent) : parent(parent)
+	{
+		KeyboardManager::getInstance().addListener(this);
+	}
+	~GameDecoratorKeyboardListener()
+	{
+		KeyboardManager::getInstance().removeListener(this);
+	}
+
+	void keyboard(unsigned char key, int x, int y) override
+	{
+		if(key == 'p'){
+			parent.pause_flag = !parent.pause_flag;		// ƒtƒ‰ƒO‚ð”½“]‚³‚¹‚é
+		}
+	}
+
+	void keyboardUp(unsigned char key, int x, int y) override
+	{
+	}
+	void specialKeyboard(int key, int x, int y) override
+	{
+	}
+	void specialKeyboardUp(int key, int x, int y) override
+	{
+	}
+};
+
 GameDecorator::GameDecorator()
 {
-	pause_flag = true;
+	pause_flag = false;
 	game = new Game();
+	keyboardListener = new GameDecoratorKeyboardListener(*this);
 }
 
 GameDecorator::~GameDecorator()
 {
 	delete game;
+	delete keyboardListener;
 }
 
 IScene* GameDecorator::update()

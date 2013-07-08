@@ -10,6 +10,9 @@ class GameDecorator : public IScene{
 	Game* game;				// ゲームポインタを持つ
 	bool  pause_flag;		// ポーズをしているか
 
+	class GameDecoratorKeyboardListener;	// KeyboardListener
+	GameDecoratorKeyboardListener* keyboardListener;
+
 public:
 	GameDecorator();
 	~GameDecorator();
