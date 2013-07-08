@@ -371,3 +371,15 @@ void Game::display() const
 
 //	glutSwapBuffers();			// GameDecorator側で出力させる
 }
+
+// ゲームを止める(この機能があるならGameDecorator側で止める必要はないかもしれない)
+void Game::stop()
+{
+	MouseManager::getInstance().removeListener(mouseListener);
+}
+
+// ゲームを再開する
+void Game::restart()
+{
+	MouseManager::getInstance().addListener(mouseListener);
+}

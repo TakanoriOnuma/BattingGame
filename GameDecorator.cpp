@@ -30,6 +30,13 @@ public:
 	{
 		if(key == 'p'){
 			parent.pause_flag = !parent.pause_flag;		// フラグを反転させる
+
+			if(parent.pause_flag){			// ポーズフラグがあれば
+				parent.game->stop();		// ゲームを止める
+			}
+			else{							// フラグがなければ
+				parent.game->restart();		// ゲームを再開する
+			}
 		}
 	}
 

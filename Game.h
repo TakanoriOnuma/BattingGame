@@ -47,6 +47,9 @@ public:
 	const Camera* getCamera() const{
 		return camera;
 	}
+
+	void stop();		// イベントも受け取らないようにする
+	void restart();		// 再開する
 };
 
 
