@@ -2,14 +2,16 @@
 #define ___Class_Game
 
 #include "IScene.h"
+#include <string>
 
 class Camera;
 class Game : public IScene{
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
-	int score;		// スコア
-	int ball_num;	// 残りのボールの数
+	int score;					// スコア
+	int ball_num;				// 残りのボールの数
+	std::string result_str;		// 結果
 
 	class GameMouseListener;		// MouseListener
 	GameMouseListener* mouseListener;
