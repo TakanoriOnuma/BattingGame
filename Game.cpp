@@ -160,7 +160,10 @@ void Game::check_char_key()
 		objects->battingRobot.swing(objects->circle.getPoint());
 	}
 	if(keyboardManager.isPushCharKey('o')){
-		objects->pitchingRobotArm.ball_throw();
+		// まだボールが余っているなら
+		if(ball_num > 0){
+			objects->pitchingRobotArm.ball_throw();				// ボールを投げる
+		}
 	}
 	if(keyboardManager.isPushCharKey('h')){
 		check_flag = true;		// 以降チェックさせる
@@ -201,6 +204,11 @@ void Game::check_char_key()
 	}
 	else if(keyboardManager.isPushCharKey('v')){
 		hitProcesser = NoDelayHitProcesser::getInstance();
+	}
+
+	if(keyboardManager.isPushCharKey('r')){
+		score = 0;
+		ball_num = 10;
 	}
 }
 
