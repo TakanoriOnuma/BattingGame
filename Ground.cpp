@@ -10,11 +10,18 @@ const float Ground::ground[2][4] = {
 Ground::Ground(int width, int distance)
 	: DrawableObject(), width(width), distance(distance)
 {
+	init();
 }
 
 Ground::Ground(double x, double y, double z, int width, int distance)
 	: DrawableObject(x, y, z), width(width), distance(distance)
 {
+	init();
+}
+
+void Ground::init()
+{
+	rectBox.setRectBox(distance, width, 0.0);
 }
 
 void Ground::draw() const

@@ -8,6 +8,8 @@ class Game : public IScene{
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
+	int score;		// スコア
+
 	class GameMouseListener;		// MouseListener
 	GameMouseListener* mouseListener;
 
@@ -24,6 +26,9 @@ class Game : public IScene{
 
 	void check_char_key();
 	void check_special_key();
+
+	bool check_flag;		// チェックするか
+	void check_ball();
 
 public:
 	Game();

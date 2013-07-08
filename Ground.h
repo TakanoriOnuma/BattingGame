@@ -8,6 +8,8 @@ class Ground : public DrawableObject{
 	int width;
 	int distance;
 
+	void init();
+
 protected:
 	void draw() const override;
 

@@ -14,6 +14,8 @@
 #include "NoDelayHitProcesser.h"
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -112,6 +114,8 @@ public:
 
 Game::Game()
 {
+	score = 0;
+	check_flag = true;
 	objects = new DrawableObjects();
 	camera  = new Camera();
 	mouseListener = new GameMouseListener(*this);
@@ -135,6 +139,7 @@ void Game::check_char_key()
 		objects->pitchingRobotArm.ball_throw();
 	}
 	if(keyboardManager.isPushCharKey('h')){
+		check_flag = true;		// 以降チェックさせる
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ボールを持たせる
 	}
 	if(keyboardManager.isPushCharKey('k')){
@@ -196,6 +201,48 @@ void Game::check_special_key()
 	}
 }
 
+// ボールのいる場所によって追加するスコアを変える
+void Game::check_ball()
+{
+	MyBall& ball = objects->ball;
+	const Ground& ground = objects->ground;
+	// バッティングする領域よりボール2つ分も後ろにあったら
+	if(ball.getPoint().z - 2 * ball.getRectBox().length > objects->batting_field.getPoint().z){
+		cout << "no check" << endl;
+		check_flag = false;			// もう調べない
+		return;
+	}
+
+	// ボールがグラウンドの脇の外へ出たら
+	if(ball.getPoint().x < ground.getPoint().x - ground.getRectBox().width / 2 ||
+		ball.getPoint().x > ground.getPoint().x + ground.getRectBox().width / 2){
+			score += 1;				// スコアを1加算
+			check_flag = false;		// もう調べない
+			return;
+	}
+
+	// ボールがグラウンドの地面に当たったら
+	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
+		cout << "reflect" << endl;
+		const Point3d& pt = ball.getPoint();
+		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height, pt.z));
+		outPoint("ball.point", pt);
+		const Vector3d& vec = ball.getVector();
+		ball.setVector(vec.x, -vec.y, vec.z);
+		outVector("ball.vec", vec);
+		score += 2;					// スコアを2加算
+		check_flag = false;			// もう調べない
+		return;
+	}
+
+	// ボールがグラウンドの奥まで飛んだら
+	if(ball.getPoint().z + ball.getRectBox().length < ground.getPoint().z - ground.getRectBox().length){
+		score += 3;				// スコアを3加算
+		check_flag = false;		// もう調べない
+		return;
+	}
+}
+
 IScene* Game::update()
 {
 	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
@@ -203,15 +250,10 @@ IScene* Game::update()
 	objects->circle.move(worldPoint);
 
 	objects->update();
-	MyBall& ball = objects->ball;
-	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
-		cout << "reflect" << endl;
-		const Point3d& pt = ball.getPoint();
-		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height + 0.1, pt.z));
-		outPoint("ball.point", pt);
-		const Vector3d& vec = ball.getVector();
-		ball.setVector(vec.x, -vec.y, vec.z);
-		outVector("ball.vec", vec);
+
+	// ボールが独立していて、check_flagがたっていたら
+	if(objects->ball.getState() == MyBall::State::ISOLATED && check_flag){
+		check_ball();		// ボールを調べる
 	}
 
 	check_char_key();
@@ -263,6 +305,15 @@ void Game::display() const
 		glRasterPos3d(-3.0, 1.5, 0.0);
 		drawString("NoDelayHitProcesser");
 	}
+
+	// スコアの表示
+	stringstream stream;
+	stream << score;
+	glColor3d(0.0, 0.0, 1.0);
+	glRasterPos3d(1.5, 2.0, 0.0);
+	drawString("Score:");
+	drawString(stream.str().c_str());
+
 	glEnable(GL_LIGHTING);
 
 	glutSwapBuffers();
