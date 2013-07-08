@@ -129,10 +129,11 @@ public:
 };
 
 Game::Game()
+	: MAX_BALL_NUM(10)
 {
 	score = 0;
 	check_flag = true;
-	ball_num = 10;
+	ball_num = MAX_BALL_NUM;
 	result_str = "";		// ‹ó•¶Žš
 	objects = new DrawableObjects();
 	camera  = new Camera();
@@ -210,7 +211,7 @@ void Game::check_char_key()
 
 	if(keyboardManager.isPushCharKey('r')){
 		score = 0;
-		ball_num = 10;
+		ball_num = MAX_BALL_NUM;
 		result_str = "";		// ‹ó•¶Žš‚É‚·‚é
 	}
 }

@@ -11,6 +11,7 @@ class Game : public IScene{
 
 	int score;					// スコア
 	int ball_num;				// 残りのボールの数
+	const int MAX_BALL_NUM;		// 最大のボールの数
 	std::string result_str;		// 結果
 
 	class GameMouseListener;		// MouseListener
