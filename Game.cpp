@@ -291,8 +291,15 @@ IScene* Game::update()
 	camera->setCamera();		// projectionの設定を行う
 	objects->batting_field.drawField();		// フィールドを描かせる
 	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
-	objects->circle.move(worldPoint);
 
+	const Point3d& field_pt = objects->batting_field.getPoint();
+	const Rectangle2D& field = objects->batting_field;
+	if(worldPoint.x > field_pt.x - field.getWidth() / 2 &&
+		worldPoint.x < field_pt.x + field.getWidth() / 2 &&
+		worldPoint.y > field_pt.y - field.getHeight() / 2 &&
+		worldPoint.y < field_pt.y + field.getHeight() / 2){
+			objects->circle.move(worldPoint);
+	}
 	objects->update();
 
 	// ボールが独立していて、check_flagがたっていたら
