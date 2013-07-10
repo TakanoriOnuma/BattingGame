@@ -25,6 +25,8 @@ public:
 	double getHeight() const{
 		return height;
 	}
+
+	void drawField() const;
 };
 
 #endif

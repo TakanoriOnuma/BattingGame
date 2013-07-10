@@ -1,8 +1,10 @@
 #ifndef ___Class_KeyboardManager
 #define ___Class_KeyboardManager
 
-#include <list>
+#include <vector>
 #include <bitset>
+
+#include "KeyboardListener.h"
 
 enum class SpecialKey{
 	LEFT,		// 左キー
@@ -28,6 +30,9 @@ private:
 	void (*char_key_up_handlar)(unsigned char key, int x, int y);
 	void (*special_key_handlar)(int key, int x, int y);
 	void (*special_key_up_handlar)(int key, int x, int y);
+
+	// --- キーボードリスナー --- //
+	std::vector<KeyboardListener*> listeners;
 
 
 	KeyboardManager();
@@ -60,6 +65,9 @@ public:
 	void setSpecialKeyboardUpHandlar(void (*special_key_up_handlar)(int key, int x, int y)){
 		this->special_key_up_handlar = special_key_up_handlar;
 	}
+
+	void addListener(KeyboardListener* listener);
+	void removeListener(KeyboardListener* listener);
 };
 
 

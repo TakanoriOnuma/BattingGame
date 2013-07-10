@@ -11,6 +11,7 @@ using namespace std;
 #include "SceneManager.h"
 #include "StartMenu.h"
 #include "Game.h"
+#include "GameDecorator.h"
 #include "XorShift.h"
 
 void resize(int w, int h)
@@ -95,7 +96,7 @@ int main(int argc, char* argv[])
 
 	MouseManager::getInstance().useMouse();
 
-	SceneManager::getInstance().setScene(new Game());
+	SceneManager::getInstance().setScene(new GameDecorator());
 
 	init();
 	glutMainLoop();

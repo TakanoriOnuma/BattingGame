@@ -285,8 +285,12 @@ void Game::check_ball()
 
 IScene* Game::update()
 {
+	// Zバッファを用いて3次元座標を得るため、
+	// ディスプレイには表示しなくても長方形を描いてそこに当たるようにする。
+	glLoadIdentity();			// 一度初期化する
+	camera->setCamera();		// projectionの設定を行う
+	objects->batting_field.drawField();		// フィールドを描かせる
 	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
-	worldPoint.z += 0.01;
 	objects->circle.move(worldPoint);
 
 	objects->update();
@@ -369,5 +373,17 @@ void Game::display() const
 
 	glEnable(GL_LIGHTING);
 
-	glutSwapBuffers();
+//	glutSwapBuffers();			// GameDecorator側で出力させる
+}
+
+// ゲームを止める(この機能があるならGameDecorator側で止める必要はないかもしれない)
+void Game::stop()
+{
+	MouseManager::getInstance().removeListener(mouseListener);
+}
+
+// ゲームを再開する
+void Game::restart()
+{
+	MouseManager::getInstance().addListener(mouseListener);
 }
