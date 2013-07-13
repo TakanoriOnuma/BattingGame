@@ -52,9 +52,9 @@ struct Game::DrawableObjects{
 
 	DrawableObjects()
 		: ball(0.2),
-		ground(0.0, -1.8, -7.0, 10, 25),
+		ground(0.0, -1.8, -10.0, 20, 40),
 		battingRobot(-2.3, 0.9, 3.0),
-		pitchingRobotArm(0.0, -1.5, -15.0),
+		pitchingRobotArm(0.0, -1.5, -20.0),
 		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
@@ -168,9 +168,15 @@ void Game::check_char_key()
 		camera->addAngle_xz(-5.0);
 	}
 	if(keyboardManager.isPushCharKey('w')){
-		camera->addDistance(-1.0);
+		camera->addAngle_yz(1.0);
 	}
 	else if(keyboardManager.isPushCharKey('s')){
+		camera->addAngle_yz(-1.0);
+	}
+	if(keyboardManager.isPushCharKey('n')){
+		camera->addDistance(-1.0);
+	}
+	if(keyboardManager.isPushCharKey('f')){
 		camera->addDistance(1.0);
 	}
 
