@@ -116,8 +116,9 @@ Game::Game()
 	result_str = "";		// 空文字
 	objects = new DrawableObjects();
 	camera  = new Camera();
-//	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
-	usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
+	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+	usingDeviceName = "MouseDevice";
+//	usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
 	hitProcesser = NoDelayHitProcesser::getInstance();
 
 	emitionListener = new EmitionListener(*this);
@@ -187,6 +188,18 @@ void Game::check_char_key()
 	}
 	else if(keyboardManager.isPushCharKey('v')){
 		hitProcesser = NoDelayHitProcesser::getInstance();
+	}
+
+	// --- usingDeviceの設定 --- //
+	if(keyboardManager.isPushCharKey('m')){
+		delete usingDevice;
+		usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+		usingDeviceName = "MouseDevice";
+	}
+	else if(keyboardManager.isPushCharKey('k')){
+		delete usingDevice;
+		usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
+		usingDeviceName = "KeyboardDevice";
 	}
 
 	if(keyboardManager.isPushCharKey('r')){
@@ -324,6 +337,10 @@ void Game::display() const
 		glRasterPos3d(-3.0, 1.5, 0.0);
 		drawString("NoDelayHitProcesser");
 	}
+
+	glColor3d(0.5, 0.0, 0.5);
+	glRasterPos3d(-3.0, 1.0, 0.0);
+	drawString(usingDeviceName.c_str());
 
 	// ボールの残りの数を表示
 	stringstream stream;

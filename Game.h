@@ -14,6 +14,8 @@ class Game : public IScene{
 	const int MAX_BALL_NUM;		// 最大のボールの数
 	std::string result_str;		// 結果
 
+	std::string usingDeviceName;	// 使っているデバイス
+
 	class EmitionListener;			// MyBallがemitした時にメッセージを受け取るクラス
 	EmitionListener* emitionListener;
 

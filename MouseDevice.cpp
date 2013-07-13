@@ -6,6 +6,7 @@ Game::MouseDevice::MouseDevice(BattingRobot& battingRobot, MyCircle& circle, Rec
 	: UsingDevice(battingRobot, circle, batting_field), camera(camera)
 {
 	MouseManager::getInstance().addListener(this);
+	passive(0, 0);		// circleの座標をセットさせる
 }
 
 Game::MouseDevice::~MouseDevice()
