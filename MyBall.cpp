@@ -17,7 +17,7 @@ void MyBall::update()
 		move(vec);			// Ž©•ª‚ÌÀ•W‚ðˆÚ“®‚·‚é
 
 		if(vec.z > 0.0){
-			vec.y -= 0.001;
+			vec.y -= 0.005;
 		}
 		if(vec.z < 0.0){
 			vec.y -= 0.01;

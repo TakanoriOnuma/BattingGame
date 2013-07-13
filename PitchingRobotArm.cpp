@@ -89,7 +89,11 @@ void PitchingRobotArm::_ball_throw()
 				double height = XorShift::instance().rand() % (100 * field_height + 1);
 				height = height / 100 - static_cast<double>(field_height) / 2;
 				double v = XorShift::instance().rand() % 100;
-				v = v / 100 + 1.0;
+				v = v / 300 + 1.0;
+
+				//double min = static_cast<double>(field_height) / 2;
+				double dis = pt.z - target_field->getPoint().z;
+				//height += 10 * 0.005 / (2 * v) * sqrt(width * width + min * min + dis * dis);
 
 				cout << "target(" << width << ", " << height << ")" << endl;
 
@@ -106,7 +110,7 @@ void PitchingRobotArm::_ball_throw()
 				vec2.y = (pt.y - target_field->getPoint().y) - height;
 				vec2.z = (pt.z - target_field->getPoint().z);
 				vec2 *= -v / sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z);
-
+				vec2.y += 1.0 / 2 * 0.005 * dis / -vec2.z;
 
 				cout << "vec2(" << vec2.x << ", " << vec2.y << ", " << vec2.z << "), ";
 				cout << "|vec2| = " << sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z) << endl;
