@@ -52,6 +52,39 @@ public:
 		adjust();
 	}
 
+	void setAngle_xz(double angle){
+		angle_xz = angle;
+		adj_degree(angle_xz);
+		adjust();
+	}
+	void setAngle_yz(double angle){
+		angle_yz = angle;
+		if(angle_yz <= -90.0){
+			angle_yz = -89.0;
+		}
+		else if(angle_yz > 90.0){
+			angle_yz = 90.0;
+		}
+		adjust();
+	}
+	void setDistance(double distance){
+		this->distance = distance;
+		if(this->distance < 1.0){
+			this->distance = 1.0;
+		}
+		adjust();
+	}
+
+	double getAngle_xz() const{
+		return angle_xz;
+	}
+	double getAngle_yz() const{
+		return angle_yz;
+	}
+	double getDistance() const{
+		return distance;
+	}
+
 	// à”ê}ìIÇ…Ç¢Ç∂ÇÈ
 	Point3d& getEye(){
 		return eye;

@@ -172,12 +172,18 @@ void Game::check_char_key()
 	}
 	else if(keyboardManager.isPushCharKey('s')){
 		camera->addAngle_yz(-1.0);
+		if(camera->getAngle_yz() < 0.0){
+			camera->setAngle_yz(0.0);
+		}
 	}
 	if(keyboardManager.isPushCharKey('n')){
 		camera->addDistance(-1.0);
 	}
 	if(keyboardManager.isPushCharKey('f')){
 		camera->addDistance(1.0);
+		if(camera->getDistance() > 50.0){
+			camera->setDistance(50.0);
+		}
 	}
 
 	// --- 投げるフィールドの指定 --- //
