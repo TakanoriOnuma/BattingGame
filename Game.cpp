@@ -115,7 +115,9 @@ public:
 		if(worldPoint.x > field_pt.x - field.getWidth() / 2 &&
 			worldPoint.x < field_pt.x + field.getWidth() / 2 &&
 			worldPoint.y > field_pt.y - field.getHeight() / 2 &&
-			worldPoint.y < field_pt.y + field.getHeight() / 2){
+			worldPoint.y < field_pt.y + field.getHeight() / 2 &&
+			worldPoint.z > field_pt.z - 0.1 &&
+			worldPoint.z < field_pt.z + 0.1){
 				parent.objects->circle.move(worldPoint);
 		}
 	}
