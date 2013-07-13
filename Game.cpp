@@ -13,6 +13,8 @@
 #include "RoughHitProcesser.h"
 #include "NoDelayHitProcesser.h"
 #include "EmitionMesseage.h"
+#include "MouseDevice.h"
+#include "KeyboardDevice.h"
 
 #include <iostream>
 #include <string>
@@ -87,55 +89,6 @@ struct Game::DrawableObjects{
 };
 
 
-// ===== マウス入力のイベント処理 ===== //
-class Game::GameMouseListener : public MouseListener
-{
-	Game& parent;
-
-public:
-	GameMouseListener(Game& game) : parent(game)
-	{
-		MouseManager::getInstance().addListener(this);
-	}
-
-	~GameMouseListener(){
-		MouseManager::getInstance().removeListener(this);
-	}
-
-	void passive(int x, int y) override{
-		// Zバッファを用いて3次元座標を得るため、
-		// ディスプレイには表示しなくても長方形を描いてそこに当たるようにする。
-		glLoadIdentity();				// 一度初期化する
-		parent.camera->setCamera();		// cameraの設定を行う
-		parent.objects->batting_field.drawField();		// フィールドを描かせる
-		Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
-
-		const Point3d& field_pt = parent.objects->batting_field.getPoint();
-		const Rectangle2D& field = parent.objects->batting_field;
-		if(worldPoint.x > field_pt.x - field.getWidth() / 2 &&
-			worldPoint.x < field_pt.x + field.getWidth() / 2 &&
-			worldPoint.y > field_pt.y - field.getHeight() / 2 &&
-			worldPoint.y < field_pt.y + field.getHeight() / 2 &&
-			worldPoint.z > field_pt.z - 0.1 &&
-			worldPoint.z < field_pt.z + 0.1){
-				parent.objects->circle.move(worldPoint);
-		}
-	}
-
-	void motion(int x, int y) override{
-	}
-
-	void mouse(int button, int state, int x, int y) override{
-		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-			parent.objects->battingRobot.swing(parent.objects->circle.getPoint());
-		}
-	}
-
-	void wheel(int wheel_number, int direction, int x, int y) override{
-	}
-};
-
-
 // ===== ボールが放たれたときのリスナー ===== //
 class Game::EmitionListener : public EmitionMessage
 {
@@ -163,7 +116,9 @@ Game::Game()
 	result_str = "";		// 空文字
 	objects = new DrawableObjects();
 	camera  = new Camera();
-	mouseListener = new GameMouseListener(*this);
+	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+	usingDeviceName = "MouseDevice";
+//	usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
 	hitProcesser = NoDelayHitProcesser::getInstance();
 
 	emitionListener = new EmitionListener(*this);
@@ -174,7 +129,7 @@ Game::~Game()
 {
 	delete objects;
 	delete camera;
-	delete mouseListener;
+	delete usingDevice;
 
 	// 本来ならオブザーバーを解除しないといけないが、
 	// ボール自身も破棄されるため解除しなくても問題はない
@@ -233,6 +188,18 @@ void Game::check_char_key()
 	}
 	else if(keyboardManager.isPushCharKey('v')){
 		hitProcesser = NoDelayHitProcesser::getInstance();
+	}
+
+	// --- usingDeviceの設定 --- //
+	if(keyboardManager.isPushCharKey('m')){
+		delete usingDevice;
+		usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+		usingDeviceName = "MouseDevice";
+	}
+	else if(keyboardManager.isPushCharKey('k')){
+		delete usingDevice;
+		usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
+		usingDeviceName = "KeyboardDevice";
 	}
 
 	if(keyboardManager.isPushCharKey('r')){
@@ -319,7 +286,10 @@ IScene* Game::update()
 	}
 
 	check_char_key();
-	check_special_key();
+//	check_special_key();
+
+	usingDevice->movePoint();
+	usingDevice->swing();
 
 	hitProcesser->hitProcess(objects->ball, objects->battingRobot);
 
@@ -368,6 +338,10 @@ void Game::display() const
 		drawString("NoDelayHitProcesser");
 	}
 
+	glColor3d(0.5, 0.0, 0.5);
+	glRasterPos3d(-3.0, 1.0, 0.0);
+	drawString(usingDeviceName.c_str());
+
 	// ボールの残りの数を表示
 	stringstream stream;
 	stream << ball_num;
@@ -397,11 +371,11 @@ void Game::display() const
 // ゲームを止める(この機能があるならGameDecorator側で止める必要はないかもしれない)
 void Game::stop()
 {
-	MouseManager::getInstance().removeListener(mouseListener);
+	usingDevice->resetEventHandlar();
 }
 
 // ゲームを再開する
 void Game::restart()
 {
-	MouseManager::getInstance().addListener(mouseListener);
+	usingDevice->setEventHandlar();
 }
