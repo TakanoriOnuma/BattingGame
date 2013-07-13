@@ -14,9 +14,6 @@ class Game : public IScene{
 	const int MAX_BALL_NUM;		// 最大のボールの数
 	std::string result_str;		// 結果
 
-	class GameMouseListener;		// MouseListener
-	GameMouseListener* mouseListener;
-
 	class EmitionListener;			// MyBallがemitした時にメッセージを受け取るクラス
 	EmitionListener* emitionListener;
 
@@ -28,6 +25,13 @@ class Game : public IScene{
 	class StrictHitProcesser;
 
 	HitProcesser* hitProcesser;
+
+	// --- デザインパターン Bridge --- //
+	class UsingDevice;			// battingで使用するデバイス
+	class KeyboardDevice;		// キーボードを使用
+	class MouseDevice;			// マウスを使用
+
+	UsingDevice* usingDevice;
 
 	Camera* camera;
 
