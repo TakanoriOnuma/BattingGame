@@ -38,6 +38,7 @@ static void drawString(const char* str)
 	}
 }
 
+// ===== GameクラスのDrawableObject群 ===== //
 struct Game::DrawableObjects{
 	MyBall ball;
 	Ground ground;
@@ -86,6 +87,7 @@ struct Game::DrawableObjects{
 };
 
 
+// ===== マウス入力のイベント処理 ===== //
 class Game::GameMouseListener : public MouseListener
 {
 	Game& parent;
@@ -101,19 +103,38 @@ public:
 	}
 
 	void passive(int x, int y) override{
+		// Zバッファを用いて3次元座標を得るため、
+		// ディスプレイには表示しなくても長方形を描いてそこに当たるようにする。
+		glLoadIdentity();				// 一度初期化する
+		parent.camera->setCamera();		// cameraの設定を行う
+		parent.objects->batting_field.drawField();		// フィールドを描かせる
+		Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
+
+		const Point3d& field_pt = parent.objects->batting_field.getPoint();
+		const Rectangle2D& field = parent.objects->batting_field;
+		if(worldPoint.x > field_pt.x - field.getWidth() / 2 &&
+			worldPoint.x < field_pt.x + field.getWidth() / 2 &&
+			worldPoint.y > field_pt.y - field.getHeight() / 2 &&
+			worldPoint.y < field_pt.y + field.getHeight() / 2){
+				parent.objects->circle.move(worldPoint);
+		}
 	}
+
 	void motion(int x, int y) override{
 	}
+
 	void mouse(int button, int state, int x, int y) override{
 		if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
 			parent.objects->battingRobot.swing(parent.objects->circle.getPoint());
 		}
 	}
+
 	void wheel(int wheel_number, int direction, int x, int y) override{
 	}
 };
 
 
+// ===== ボールが放たれたときのリスナー ===== //
 class Game::EmitionListener : public EmitionMessage
 {
 	Game& parent;
@@ -128,6 +149,9 @@ public:
 	}
 };
 
+
+
+// ====== ゲームクラスの定義 ===== //
 Game::Game()
 	: MAX_BALL_NUM(10)
 {
@@ -285,21 +309,6 @@ void Game::check_ball()
 
 IScene* Game::update()
 {
-	// Zバッファを用いて3次元座標を得るため、
-	// ディスプレイには表示しなくても長方形を描いてそこに当たるようにする。
-	glLoadIdentity();			// 一度初期化する
-	camera->setCamera();		// projectionの設定を行う
-	objects->batting_field.drawField();		// フィールドを描かせる
-	Point3d worldPoint = MouseManager::getInstance().getWorldPoint3d();
-
-	const Point3d& field_pt = objects->batting_field.getPoint();
-	const Rectangle2D& field = objects->batting_field;
-	if(worldPoint.x > field_pt.x - field.getWidth() / 2 &&
-		worldPoint.x < field_pt.x + field.getWidth() / 2 &&
-		worldPoint.y > field_pt.y - field.getHeight() / 2 &&
-		worldPoint.y < field_pt.y + field.getHeight() / 2){
-			objects->circle.move(worldPoint);
-	}
 	objects->update();
 
 	// ボールが独立していて、check_flagがたっていたら
