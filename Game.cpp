@@ -14,6 +14,7 @@
 #include "NoDelayHitProcesser.h"
 #include "EmitionMesseage.h"
 #include "MouseDevice.h"
+#include "KeyboardDevice.h"
 
 #include <iostream>
 #include <string>
@@ -115,7 +116,8 @@ Game::Game()
 	result_str = "";		// ‹ó•¶Žš
 	objects = new DrawableObjects();
 	camera  = new Camera();
-	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+//	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
+	usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
 	hitProcesser = NoDelayHitProcesser::getInstance();
 
 	emitionListener = new EmitionListener(*this);
@@ -271,7 +273,10 @@ IScene* Game::update()
 	}
 
 	check_char_key();
-	check_special_key();
+//	check_special_key();
+
+	usingDevice->movePoint();
+	usingDevice->swing();
 
 	hitProcesser->hitProcess(objects->ball, objects->battingRobot);
 
