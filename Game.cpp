@@ -311,8 +311,8 @@ IScene* Game::update()
 
 void Game::display() const
 {
-	static GLfloat lightpos0[] = { 3.0, 4.0, 5.0, 1.0 };
-	static GLfloat lightpos1[] = {-3.0, 4.0, 5.0, 1.0 };
+	static GLfloat lightpos0[] = { 0.0, 5.0, 5.0, 1.0 };
+	static GLfloat lightpos1[] = { 0.0, 5.0, -10.0, 1.0 };
 	/* ‰æ–ÊƒNƒŠƒA */
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
