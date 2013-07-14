@@ -8,6 +8,7 @@
 #include "XorShift.h"
 #include "MouseManager.h"
 #include "EasyThrowingBall.h"
+#include "NormalThrowingBall.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ PitchingRobotArm::PitchingRobotArm(double x, double y, double z)
 	: RobotArm(x, y, z), frame(0), accel_vec_r(0.0), vec_r(0.0), ball(NULL), target_field(NULL)
 {
 	update_function = NULL;
-	throwingBall = EasyThrowingBall::getInstance();
+	throwingBall = NormalThrowingBall::getInstance();
 }
 
 void PitchingRobotArm::draw() const
