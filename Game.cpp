@@ -214,6 +214,16 @@ void Game::check_char_key()
 		usingDeviceName = "KeyboardDevice";
 	}
 
+	// --- “ïˆÕ“x‚ÌÝ’è --- //
+	if(keyboardManager.isPushCharKey('1')){
+		objects->batting_field.setWidth(1.0);
+		objects->batting_field.setHeight(1.0);
+	}
+	else if(keyboardManager.isPushCharKey('2')){
+		objects->batting_field.setWidth(1.5);
+		objects->batting_field.setHeight(1.5);
+	}
+
 	if(keyboardManager.isPushCharKey('r')){
 		score = 0;
 		ball_num = MAX_BALL_NUM;

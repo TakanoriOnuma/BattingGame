@@ -26,6 +26,13 @@ public:
 		return height;
 	}
 
+	void setWidth(double width){
+		this->width = width;
+	}
+	void setHeight(double height){
+		this->height = height;
+	}
+
 	void drawField() const;
 };
 
