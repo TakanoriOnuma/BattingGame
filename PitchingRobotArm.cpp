@@ -97,12 +97,12 @@ void PitchingRobotArm::_ball_throw()
 				vec.x = (pt.x - target_field->getPoint().x) - width;
 				vec.y = (pt.y - target_field->getPoint().y) - height;
 				vec.z = (pt.z - target_field->getPoint().z);
-				vec *= -v / sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+				vec *= -v / vec.getMagnitude();
 				double dis = pt.z - target_field->getPoint().z;
 				vec.y += 1.0 / 2 * 0.005 * dis / -vec.z;
 
 				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
-				cout << "|vec| = " << sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) << endl;
+				cout << "|vec| = " << vec.getMagnitude() << endl;
 
 				ball->setVector(vec.x, vec.y, vec.z);
 				ball->emit();
