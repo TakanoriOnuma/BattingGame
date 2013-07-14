@@ -91,31 +91,20 @@ void PitchingRobotArm::_ball_throw()
 				double v = XorShift::instance().rand() % 100;
 				v = v / 300 + 1.0;
 
-				//double min = static_cast<double>(field_height) / 2;
-				double dis = pt.z - target_field->getPoint().z;
-				//height += 10 * 0.005 / (2 * v) * sqrt(width * width + min * min + dis * dis);
-
 				cout << "target(" << width << ", " << height << ")" << endl;
 
-				Vector3d vec(pt.x - target_field->getPoint().x,
-					pt.y - target_field->getPoint().y,
-					pt.z - target_field->getPoint().z);
-				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
-				vec.x -= width;
-				vec.y -= height;
-				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
+				Vector3d vec;
+				vec.x = (pt.x - target_field->getPoint().x) - width;
+				vec.y = (pt.y - target_field->getPoint().y) - height;
+				vec.z = (pt.z - target_field->getPoint().z);
+				vec *= -v / sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
+				double dis = pt.z - target_field->getPoint().z;
+				vec.y += 1.0 / 2 * 0.005 * dis / -vec.z;
 
-				Vector3d vec2;
-				vec2.x = (pt.x - target_field->getPoint().x) - width;
-				vec2.y = (pt.y - target_field->getPoint().y) - height;
-				vec2.z = (pt.z - target_field->getPoint().z);
-				vec2 *= -v / sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z);
-				vec2.y += 1.0 / 2 * 0.005 * dis / -vec2.z;
+				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
+				cout << "|vec| = " << sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z) << endl;
 
-				cout << "vec2(" << vec2.x << ", " << vec2.y << ", " << vec2.z << "), ";
-				cout << "|vec2| = " << sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z) << endl;
-
-				ball->setVector(vec2.x, vec2.y, vec2.z);
+				ball->setVector(vec.x, vec.y, vec.z);
 				ball->emit();
 				ball = NULL;
 			}
