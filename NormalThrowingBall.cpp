@@ -12,14 +12,15 @@ PitchingRobotArm::NormalThrowingBall* PitchingRobotArm::NormalThrowingBall::getI
 	return &normalThrowingBall;
 }
 
-void PitchingRobotArm::NormalThrowingBall::setBallVector
+void PitchingRobotArm::NormalThrowingBall::throwBall
 	(const Point3d& throw_point, const Rectangle2D* target_field, MyBall& ball) const
 {
 	if(target_field == NULL){
 		double vec = XorShift::instance().rand() % 50;
 		vec = vec / 50.0 + 0.5;
 
-		ball.setVector(0.0, 0.0, vec);		// ストレートを投げる
+		ball.setVector(0.0, 0.0, vec);
+		ball.emit(MyBall::Variety::STRAIGHT);	// ストレートを投げる
 	}
 	else{
 		int field_width  = static_cast<int>(target_field->getWidth());
@@ -48,6 +49,7 @@ void PitchingRobotArm::NormalThrowingBall::setBallVector
 		cout << "|vec| = " << vec.getMagnitude() << endl;
 
 		ball.setVector(vec.x, vec.y, vec.z);
+		ball.emit(MyBall::Variety::STRAIGHT);
 	}
 
 }

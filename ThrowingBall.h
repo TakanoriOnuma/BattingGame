@@ -13,7 +13,7 @@ class PitchingRobotArm::ThrowingBall{
 public:
 	virtual ~ThrowingBall(){ }
 
-	virtual void setBallVector(const Point3d& throw_point,
+	virtual void throwBall(const Point3d& throw_point,
 		const Rectangle2D* target_field, MyBall& ball) const = 0;
 };
 

@@ -13,8 +13,20 @@ public:
 		HANDED,			// 誰かに持たれている
 	};
 
+	// --- 球種 --- //
+	enum class Variety{
+		STRAIGHT,		// ストレート
+		CURVE,			// カーブ
+		SHOOT,			// シュート
+		SLIDER,			// スライダー
+		FOLK,			// フォーク
+		CHENGEUP,		// チェンジアップ
+		GYRO,			// ジャイロボール
+	};
+
 private:
-	State state;		// 内部状態
+	State    state;		// 内部状態
+	Variety  variety;	// 球種
 	Vector3d vec;		// 移動ベクトル
 
 	EmitionMessage* message;		// emitを実行した時に通知するオブザーバー
@@ -32,8 +44,9 @@ public:
 	}
 
 	// 解き放つ
-	void emit(){
+	void emit(Variety variety){
 		state = State::ISOLATED;
+		this->variety = variety;	// 球種をセット
 		if(message != NULL){
 			message->message();		// メッセージを送る
 		}

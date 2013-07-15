@@ -64,9 +64,8 @@ void PitchingRobotArm::_ball_throw()
 			ball->move(pt);
 
 			// ボールを投げる方向をセットする
-			throwingBall->setBallVector(pt, target_field, *ball);
+			throwingBall->throwBall(pt, target_field, *ball);
 
-			ball->emit();
 			ball = NULL;
 		}
 	}

@@ -12,7 +12,7 @@ PitchingRobotArm::EasyThrowingBall* PitchingRobotArm::EasyThrowingBall::getInsta
 	return &easyThrowingBall;
 }
 
-void PitchingRobotArm::EasyThrowingBall::setBallVector
+void PitchingRobotArm::EasyThrowingBall::throwBall
 	(const Point3d& throw_point, const Rectangle2D* target_field, MyBall& ball) const
 {
 	if(target_field == NULL){

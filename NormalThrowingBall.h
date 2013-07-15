@@ -10,7 +10,7 @@ class PitchingRobotArm::NormalThrowingBall : public PitchingRobotArm::ThrowingBa
 
 public:
 
-	void setBallVector(const Point3d& throw_point,
+	void throwBall(const Point3d& throw_point,
 		const Rectangle2D* target_field, MyBall& ball) const override;
 
 	static NormalThrowingBall* getInstance();

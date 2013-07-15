@@ -16,10 +16,12 @@ void MyBall::update()
 	if(state != State::HANDED){
 		move(vec);			// Ž©•ª‚ÌÀ•W‚ðˆÚ“®‚·‚é
 
+		// ƒ{[ƒ‹‚ð“Š‚°‚Ä‚¢‚é
 		if(vec.z > 0.0){
 			vec.y -= 0.005;
 		}
-		if(vec.z < 0.0){
+		// ‘Å‚½‚ê‚½‚ ‚Æ
+		else{
 			vec.y -= 0.01;
 		}
 	}
