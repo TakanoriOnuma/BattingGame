@@ -14,7 +14,7 @@ public:
 	};
 
 	// --- 球種 --- //
-	enum class Variety{
+	enum class EVariety{
 		STRAIGHT,		// ストレート
 		CURVE,			// カーブ
 		SHOOT,			// シュート
@@ -22,11 +22,22 @@ public:
 		FOLK,			// フォーク
 		CHENGEUP,		// チェンジアップ
 		GYRO,			// ジャイロボール
+
+		SIZE,			// サイズ
 	};
+
+	// --- デザインパターン State --- //
+	class Variety;
+	class Straight;
+	class Curve;
+	class Slider;
+	class Folk;
+	class ChengeUp;
+	class Gyro;
 
 private:
 	State    state;		// 内部状態
-	Variety  variety;	// 球種
+	Variety* variety;	// 球種
 	Vector3d vec;		// 移動ベクトル
 	double   gravity;	// 重力
 
@@ -45,13 +56,7 @@ public:
 	}
 
 	// 解き放つ
-	void emit(Variety variety){
-		state = State::ISOLATED;
-		this->variety = variety;	// 球種をセット
-		if(message != NULL){
-			message->message();		// メッセージを送る
-		}
-	}
+	void emit(Variety* variety);
 
 	// 誰かに持たれる
 	void handed(){

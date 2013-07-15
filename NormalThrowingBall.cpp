@@ -1,5 +1,6 @@
 #include "NormalThrowingBall.h"
 #include "XorShift.h"
+#include "BallStraight.h"
 
 #include <iostream>
 
@@ -20,7 +21,7 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		vec = vec / 50.0 + 0.5;
 
 		ball.setVector(0.0, 0.0, vec);
-		ball.emit(MyBall::Variety::STRAIGHT);	// ストレートを投げる
+//		ball.emit(MyBall::Variety::STRAIGHT);	// ストレートを投げる
 	}
 	else{
 		int field_width  = static_cast<int>(target_field->getWidth());
@@ -49,7 +50,8 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		cout << "|vec| = " << vec.getMagnitude() << endl;
 
 		ball.setVector(vec.x, vec.y, vec.z);
-		ball.emit(MyBall::Variety::STRAIGHT);
+//		ball.emit(MyBall::Variety::STRAIGHT);
+		ball.emit(new MyBall::Straight(0.0));
 	}
 
 }
