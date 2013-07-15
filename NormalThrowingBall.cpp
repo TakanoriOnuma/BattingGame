@@ -54,7 +54,7 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		// スローボールとストレートは速度によって決める
 		case Variety::SLOWBALL:
 		case Variety::STRAIGHT:
-			if(vec.getMagnitude() <= 2.0){
+			if(vec.getMagnitude() <= 1.0){
 				vec.y += 1.0 / 2 * ball.getGravity() * dis / -vec.z;
 
 				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
