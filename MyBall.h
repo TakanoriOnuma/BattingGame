@@ -13,9 +13,35 @@ public:
 		HANDED,			// 誰かに持たれている
 	};
 
+	// --- 球種 --- //
+	enum class EVariety{
+		SLOWBALL,		// スローボール
+		STRAIGHT,		// ストレート
+		CURVE,			// カーブ
+		SHOOT,			// シュート
+		SLIDER,			// スライダー
+		FOLK,			// フォーク
+		CHENGEUP,		// チェンジアップ
+		GYRO,			// ジャイロボール
+
+		SIZE,			// サイズ
+	};
+
+	// --- デザインパターン State --- //
+	class Variety;
+	class SlowBall;		// スローボールというより無変化のボール
+	class Straight;		// 少し浮き上がるボール
+	class Curve;
+	class Slider;
+	class Folk;
+	class ChengeUp;
+	class Gyro;
+
 private:
-	State state;		// 内部状態
+	State    state;		// 内部状態
+	Variety* variety;	// 球種
 	Vector3d vec;		// 移動ベクトル
+	double   gravity;	// 重力
 
 	EmitionMessage* message;		// emitを実行した時に通知するオブザーバー
 
@@ -32,12 +58,7 @@ public:
 	}
 
 	// 解き放つ
-	void emit(){
-		state = State::ISOLATED;
-		if(message != NULL){
-			message->message();		// メッセージを送る
-		}
-	}
+	void emit(Variety* variety);
 
 	// 誰かに持たれる
 	void handed(){
@@ -55,6 +76,9 @@ public:
 	}
 	const Vector3d& getVector() const{
 		return vec;
+	}
+	double getGravity() const{
+		return gravity;
 	}
 };
 

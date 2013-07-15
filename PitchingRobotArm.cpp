@@ -7,6 +7,8 @@
 #include "Rectangle2D.h"
 #include "XorShift.h"
 #include "MouseManager.h"
+#include "EasyThrowingBall.h"
+#include "NormalThrowingBall.h"
 
 using namespace std;
 
@@ -14,6 +16,7 @@ PitchingRobotArm::PitchingRobotArm(double x, double y, double z)
 	: RobotArm(x, y, z), frame(0), accel_vec_r(0.0), vec_r(0.0), ball(NULL), target_field(NULL)
 {
 	update_function = NULL;
+	throwingBall = EasyThrowingBall::getInstance();
 }
 
 void PitchingRobotArm::draw() const
@@ -56,65 +59,14 @@ void PitchingRobotArm::_ball_throw()
 	frame++;
 	if(parts->joint.getAngle() > 0.0){
 		if(ball != NULL){
-			if(target_field == NULL){
-				Point3d pt = this->getPoint();
-				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
+			Point3d pt = this->getPoint();
+			pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
+			ball->move(pt);
 
-				double v = XorShift::instance().rand() % 50;
-				v = v / 50.0 + 0.5;
+			// ボールを投げる方向をセットする
+			throwingBall->throwBall(pt, target_field, *ball);
 
-				Point3d worldPt = MouseManager::getInstance().getWorldPoint3d();
-
-				Vector3d vec(pt.x - worldPt.x, pt.y - worldPt.y, pt.z - worldPt.z);
-
-				vec *= -v / sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
-
-				ball->move(pt);
-				ball->setVector(vec.x, vec.y, vec.z);
-				ball->emit();
-				ball = NULL;
-			}
-			else{
-				Point3d pt = this->getPoint();
-				pt.y += this->getRectBox().height - parts->hand.getRectBox().height;
-				ball->move(pt);
-
-				int field_width  = static_cast<int>(target_field->getWidth());
-				int field_height = static_cast<int>(target_field->getHeight());
-
-				cout << "field(" << field_width << ", " << field_height << ")" << endl;
-
-				double width  = XorShift::instance().rand() % (100 * field_width + 1);
-				width = width / 100 - static_cast<double>(field_width) / 2;
-				double height = XorShift::instance().rand() % (100 * field_height + 1);
-				height = height / 100 - static_cast<double>(field_height) / 2;
-				double v = XorShift::instance().rand() % 100;
-				v = v / 100 + 1.0;
-
-				cout << "target(" << width << ", " << height << ")" << endl;
-
-				Vector3d vec(pt.x - target_field->getPoint().x,
-					pt.y - target_field->getPoint().y,
-					pt.z - target_field->getPoint().z);
-				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
-				vec.x -= width;
-				vec.y -= height;
-				cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << ")" << endl;
-
-				Vector3d vec2;
-				vec2.x = (pt.x - target_field->getPoint().x) - width;
-				vec2.y = (pt.y - target_field->getPoint().y) - height;
-				vec2.z = (pt.z - target_field->getPoint().z);
-				vec2 *= -v / sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z);
-
-
-				cout << "vec2(" << vec2.x << ", " << vec2.y << ", " << vec2.z << "), ";
-				cout << "|vec2| = " << sqrt(vec2.x * vec2.x + vec2.y * vec2.y + vec2.z * vec2.z) << endl;
-
-				ball->setVector(vec2.x, vec2.y, vec2.z);
-				ball->emit();
-				ball = NULL;
-			}
+			ball = NULL;
 		}
 	}
 
@@ -130,5 +82,17 @@ void PitchingRobotArm::hand_ball(MyBall* ball)
 		this->ball = ball;
 		this->ball->handed();		// ボールを持つ
 		this->ball->move(Point3d(0.0, 0.0, 0.0));
+	}
+}
+
+void PitchingRobotArm::setDifficulity(Difficulity difficulity)
+{
+	switch(difficulity){
+	case Difficulity::EASY:
+		throwingBall = EasyThrowingBall::getInstance();
+		break;
+	case Difficulity::NORMAL:
+		throwingBall = NormalThrowingBall::getInstance();
+		break;
 	}
 }

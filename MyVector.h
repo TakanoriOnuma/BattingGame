@@ -2,6 +2,7 @@
 #define ___Struct_Vector
 
 #include "OpenGL.h"
+#include <math.h>
 
 template<class T>
 struct Vector3{
@@ -31,6 +32,10 @@ struct Vector3{
 
 	Vector3<T> operator - (){
 		return Vector3<T>(-x, -y, -z);
+	}
+
+	T getMagnitude() const{
+		return static_cast<T>(sqrt(x * x + y * y + z * z));
 	}
 };
 

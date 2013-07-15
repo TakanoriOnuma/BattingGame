@@ -8,7 +8,14 @@
 class MyBall;
 class Rectangle2D;
 class PitchingRobotArm : public RobotArm, public IPitcher, public IAnimation{
+public:
+	enum class Difficulity{
+		EASY,
+		NORMAL,
+		HARD,
+	};
 
+private:
 	static const int THROWING_FRAME = 30;		// 投げる動作に必要なフレーム数
 
 	MyBall* ball;
@@ -21,6 +28,13 @@ class PitchingRobotArm : public RobotArm, public IPitcher, public IAnimation{
 	const Rectangle2D* target_field;		// 投げる範囲
 
 	void (PitchingRobotArm::*update_function)();	// update用関数
+
+	// --- デザインパターン Bridge --- //
+	class ThrowingBall;
+	class EasyThrowingBall;
+	class NormalThrowingBall;
+	class HardThrowingBall;
+	ThrowingBall* throwingBall;
 
 protected:
 	void draw() const override;
@@ -44,6 +58,8 @@ public:
 	bool isSetTargetField() const{
 		return target_field != NULL;
 	}
+
+	void setDifficulity(Difficulity difficulity);
 };
 
 
