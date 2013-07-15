@@ -6,6 +6,7 @@
 
 class MyBat : public DrawableObject{
 	QuadricObject quadObject;
+	unsigned int  texNumber;
 
 	void init();
 
