@@ -5,6 +5,15 @@
 
 class PitchingRobotArm::NormalThrowingBall : public PitchingRobotArm::ThrowingBall{
 
+	// --- “Š‚°‚é‹…Ží --- //
+	enum class Variety{
+		SLOWBALL,
+		STRAIGHT,
+		CURVE,
+
+		SIZE,
+	};
+
 	NormalThrowingBall(){ }
 	NormalThrowingBall(const NormalThrowingBall&);
 
