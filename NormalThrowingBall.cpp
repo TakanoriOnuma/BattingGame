@@ -43,7 +43,7 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		vec.z = (throw_point.z - target_field->getPoint().z);
 		vec *= -v / vec.getMagnitude();
 		double dis = throw_point.z - target_field->getPoint().z;
-		vec.y += 1.0 / 2 * 0.005 * dis / -vec.z;
+		vec.y += 1.0 / 2 * ball.getGravity() * dis / -vec.z;
 
 		cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
 		cout << "|vec| = " << vec.getMagnitude() << endl;

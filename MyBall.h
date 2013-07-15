@@ -28,6 +28,7 @@ private:
 	State    state;		// 内部状態
 	Variety  variety;	// 球種
 	Vector3d vec;		// 移動ベクトル
+	double   gravity;	// 重力
 
 	EmitionMessage* message;		// emitを実行した時に通知するオブザーバー
 
@@ -68,6 +69,9 @@ public:
 	}
 	const Vector3d& getVector() const{
 		return vec;
+	}
+	double getGravity() const{
+		return gravity;
 	}
 };
 

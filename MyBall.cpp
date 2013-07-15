@@ -1,12 +1,12 @@
 #include "MyBall.h"
 
 MyBall::MyBall(double radius, int sides)
-	: MySphere(radius, sides), state(State::HANDED), message(NULL)
+	: MySphere(radius, sides), state(State::HANDED), message(NULL), gravity(0.005)
 {
 }
 
 MyBall::MyBall(double x, double y, double z, double radius, int sides)
-	: MySphere(x, y, z, radius, sides), state(State::HANDED), message(NULL)
+	: MySphere(x, y, z, radius, sides), state(State::HANDED), message(NULL), gravity(0.005)
 {
 }
 
@@ -18,7 +18,7 @@ void MyBall::update()
 
 		// ƒ{[ƒ‹‚ð“Š‚°‚Ä‚¢‚é
 		if(vec.z > 0.0){
-			vec.y -= 0.005;
+			vec.y -= gravity;
 		}
 		// ‘Å‚½‚ê‚½‚ ‚Æ
 		else{
