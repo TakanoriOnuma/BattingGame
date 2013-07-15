@@ -274,9 +274,11 @@ void Game::check_ball()
 		return;
 	}
 
-	// ボールがグラウンドの脇の外へ出たら
-	if(ball.getPoint().x < ground.getPoint().x - ground.getRectBox().width / 2 ||
-		ball.getPoint().x > ground.getPoint().x + ground.getRectBox().width / 2){
+	// ボールが外へ出たら
+	const Rectangle2D& batting_field = objects->batting_field;
+	double margin_width = (batting_field.getPoint().z - ball.getPoint().z) / 3;
+	if(ball.getPoint().x < batting_field.getPoint().x - batting_field.getWidth() - margin_width ||
+		ball.getPoint().x > batting_field.getPoint().x + batting_field.getWidth() + margin_width){
 			result_str = "foul";	// ファウル
 			score += 1;				// スコアを1加算
 			check_flag = false;		// もう調べない
@@ -286,13 +288,6 @@ void Game::check_ball()
 	// ボールがグラウンドの地面に当たったら
 	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
 		result_str = "hit";			// ヒット
-		cout << "reflect" << endl;
-		const Point3d& pt = ball.getPoint();
-		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height, pt.z));
-		outPoint("ball.point", pt);
-		const Vector3d& vec = ball.getVector();
-		ball.setVector(vec.x, -vec.y, vec.z);
-		outVector("ball.vec", vec);
 		score += 2;					// スコアを2加算
 		check_flag = false;			// もう調べない
 		return;
@@ -307,13 +302,29 @@ void Game::check_ball()
 	}
 }
 
+void Game::hit_process()
+{
+	MyBall& ball = objects->ball;
+	// ボールがグラウンドの地面に当たったら
+	if(ball.getPoint().y - ball.getRectBox().height < objects->ground.getPoint().y){
+		const Point3d& pt = ball.getPoint();
+		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height, pt.z));
+		const Vector3d& vec = ball.getVector();
+		ball.setVector(vec.x, -vec.y, vec.z);
+	}
+}
+
 IScene* Game::update()
 {
 	objects->update();
 
-	// ボールが独立していて、check_flagがたっていたら
-	if(objects->ball.getState() == MyBall::State::ISOLATED && check_flag){
-		check_ball();		// ボールを調べる
+	// ボールが独立していたら
+	if(objects->ball.getState() == MyBall::State::ISOLATED){
+		// check_flagがたっていたら
+		if(check_flag){
+			check_ball();		// ボールを調べる
+		}
+		hit_process();			// ボールが地面に当たるときの処理
 	}
 
 	check_char_key();

@@ -43,6 +43,8 @@ class Game : public IScene{
 	bool check_flag;		// チェックするか
 	void check_ball();
 
+	void hit_process();
+
 public:
 	Game();
 	~Game();
