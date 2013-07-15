@@ -58,7 +58,8 @@ struct Game::DrawableObjects{
 		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
-		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
+		ball.setDiffuse(1.0f, 1.0f, 1.0f);
+		ball.setAmbient(1.0f, 1.0f, 1.0f);
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setAngle(90.0);
 		battingRobot.setMaterialData(MaterialData::createMaterialData(Jewel::TURQUOISE));

@@ -43,7 +43,14 @@ private:
 	Vector3d vec;		// 移動ベクトル
 	double   gravity;	// 重力
 
+	unsigned int texNumber;		// テクスチャの番号
+
 	EmitionMessage* message;		// emitを実行した時に通知するオブザーバー
+
+	void init();
+
+protected:
+	void draw() const override;
 
 public:
 	using DrawableObject::draw;
