@@ -1,14 +1,17 @@
 #include "MyBall.h"
 #include "BallVariety.h"
+#include "BallStraight.h"
 
 MyBall::MyBall(double radius, int sides)
-	: MySphere(radius, sides), state(State::HANDED), message(NULL), gravity(0.005), variety(NULL)
+	: MySphere(radius, sides), state(State::HANDED), message(NULL), gravity(0.005)
 {
+	variety = new Straight(0.0);		// とりあえず入れておく
 }
 
 MyBall::MyBall(double x, double y, double z, double radius, int sides)
-	: MySphere(x, y, z, radius, sides), state(State::HANDED), message(NULL), gravity(0.005), variety(NULL)
+	: MySphere(x, y, z, radius, sides), state(State::HANDED), message(NULL), gravity(0.005)
 {
+	variety = new Straight(0.0);		// とりあえず入れておく
 }
 
 void MyBall::update()
@@ -20,6 +23,7 @@ void MyBall::update()
 		// ボールを投げている
 		if(vec.z > 0.0){
 			vec.y -= gravity;
+			variety->change(*this);		// ボールによって動きが変わる
 		}
 		// 打たれたあと
 		else{
@@ -31,9 +35,7 @@ void MyBall::update()
 void MyBall::emit(Variety* variety)
 {
 	state = State::ISOLATED;
-	if(this->variety != NULL){
-		delete this->variety;
-	}
+	delete this->variety;		// 前の球種は削除して
 	this->variety = variety;	// 球種をセット
 	if(message != NULL){
 		message->message();		// メッセージを送る

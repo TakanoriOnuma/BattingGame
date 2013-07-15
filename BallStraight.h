@@ -4,7 +4,7 @@
 #include "BallVariety.h"
 
 class MyBall::Straight : public MyBall::Variety{
-	Vector3d anti_gravity;		// d—Í‚É‹t‚ç‚¤—Í
+	double anti_gravity;		// d—Í‚É‹t‚ç‚¤—Í
 
 public:
 	Straight(double anti_gravity);

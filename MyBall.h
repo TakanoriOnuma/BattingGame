@@ -15,6 +15,7 @@ public:
 
 	// --- 球種 --- //
 	enum class EVariety{
+		SLOWBALL,		// スローボール
 		STRAIGHT,		// ストレート
 		CURVE,			// カーブ
 		SHOOT,			// シュート
@@ -28,7 +29,8 @@ public:
 
 	// --- デザインパターン State --- //
 	class Variety;
-	class Straight;
+	class SlowBall;		// スローボールというより無変化のボール
+	class Straight;		// 少し浮き上がるボール
 	class Curve;
 	class Slider;
 	class Folk;

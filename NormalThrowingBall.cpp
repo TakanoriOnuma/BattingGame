@@ -1,5 +1,6 @@
 #include "NormalThrowingBall.h"
 #include "XorShift.h"
+#include "BallSlowBall.h"
 #include "BallStraight.h"
 
 #include <iostream>
@@ -34,7 +35,8 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		double height = XorShift::instance().rand() % (100 * field_height + 1);
 		height = height / 100 - static_cast<double>(field_height) / 2;
 		double v = XorShift::instance().rand() % 100;
-		v = v / 100 + 0.5;
+//		v = v / 100 + 0.5;
+		v = 1.0;
 
 		cout << "target(" << width << ", " << height << ")" << endl;
 
@@ -44,14 +46,26 @@ void PitchingRobotArm::NormalThrowingBall::throwBall
 		vec.z = (throw_point.z - target_field->getPoint().z);
 		vec *= -v / vec.getMagnitude();
 		double dis = throw_point.z - target_field->getPoint().z;
-		vec.y += 1.0 / 2 * ball.getGravity() * dis / -vec.z;
 
-		cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
-		cout << "|vec| = " << vec.getMagnitude() << endl;
+		if(vec.getMagnitude() <= 1.0){
+			vec.y += 1.0 / 2 * ball.getGravity() * dis / -vec.z;
 
-		ball.setVector(vec.x, vec.y, vec.z);
-//		ball.emit(MyBall::Variety::STRAIGHT);
-		ball.emit(new MyBall::Straight(0.0));
+			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
+			cout << "|vec| = " << vec.getMagnitude() << endl;
+
+			ball.setVector(vec.x, vec.y, vec.z);
+
+			ball.emit(new MyBall::SlowBall());
+		}
+		else{
+			vec.y += 1.0 / 2 * (0.7 * ball.getGravity()) * dis / -vec.z;
+
+			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
+			cout << "|vec| = " << vec.getMagnitude() << endl;
+
+			ball.setVector(vec.x, vec.y, vec.z);
+			ball.emit(new MyBall::Straight(0.3 * ball.getGravity()));
+		}
 	}
 
 }
