@@ -84,3 +84,15 @@ void PitchingRobotArm::hand_ball(MyBall* ball)
 		this->ball->move(Point3d(0.0, 0.0, 0.0));
 	}
 }
+
+void PitchingRobotArm::setDifficulity(Difficulity difficulity)
+{
+	switch(difficulity){
+	case Difficulity::EASY:
+		throwingBall = EasyThrowingBall::getInstance();
+		break;
+	case Difficulity::NORMAL:
+		throwingBall = NormalThrowingBall::getInstance();
+		break;
+	}
+}

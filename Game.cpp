@@ -214,16 +214,25 @@ void Game::check_char_key()
 		usingDeviceName = "KeyboardDevice";
 	}
 
-	// --- 難易度の設定 --- //
-	if(keyboardManager.isPushCharKey('1')){
+	// --- フィールドの幅の設定 --- //
+	if(keyboardManager.isPushCharKey('8')){
 		objects->batting_field.setWidth(1.0);
 		objects->batting_field.setHeight(1.0);
 	}
-	else if(keyboardManager.isPushCharKey('2')){
+	else if(keyboardManager.isPushCharKey('9')){
 		objects->batting_field.setWidth(1.5);
 		objects->batting_field.setHeight(1.5);
 	}
 
+	// --- 投げるボールのレベルの指定 --- //
+	if(keyboardManager.isPushCharKey('1')){
+		objects->pitchingRobotArm.setDifficulity(PitchingRobotArm::Difficulity::EASY);
+	}
+	else if(keyboardManager.isPushCharKey('2')){
+		objects->pitchingRobotArm.setDifficulity(PitchingRobotArm::Difficulity::NORMAL);
+	}
+
+	// --- ボールの数のリセット --- //
 	if(keyboardManager.isPushCharKey('r')){
 		score = 0;
 		ball_num = MAX_BALL_NUM;
