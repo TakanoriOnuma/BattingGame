@@ -41,7 +41,7 @@ void MyBall::init()
 	int width, height;
 	unsigned char* pixels;
 	// ファイルを読み込めなかったら
-	if(ReadBitMapData("ball.bmp", &width, &height, &pixels) == 0){
+	if(ReadBitMapData("texture/ball.bmp", &width, &height, &pixels) == 0){
 		return;			// 何もせず終了する
 	}
 

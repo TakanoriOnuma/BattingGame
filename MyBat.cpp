@@ -29,7 +29,7 @@ void MyBat::init()
 	int width, height;
 	unsigned char* pixels;
 	// ファイルを読み込めなかったら
-	if(ReadBitMapData("griptape.bmp", &width, &height, &pixels) == 0){
+	if(ReadBitMapData("texture/griptape.bmp", &width, &height, &pixels) == 0){
 		return;		// 何もせず終了する
 	}
 
