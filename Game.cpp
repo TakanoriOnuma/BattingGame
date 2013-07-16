@@ -157,7 +157,7 @@ void Game::check_char_key()
 			objects->pitchingRobotArm.ball_throw();				// ボールを投げる
 		}
 	}
-	if(keyboardManager.isPushCharKey('y')){
+	if(keyboardManager.isPushCharKey('y') && !check_flag){
 		check_flag = true;		// 以降チェックさせる
 		result_str = "";		// 空文字にする
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ボールを持たせる
