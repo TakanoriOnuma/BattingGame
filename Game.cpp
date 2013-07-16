@@ -197,14 +197,6 @@ void Game::check_char_key()
 		}
 	}
 
-	// --- 投げるフィールドの指定 --- //
-	if(keyboardManager.isPushCharKey('z')){
-		objects->pitchingRobotArm.setTargetField(NULL);
-	}
-	else if(keyboardManager.isPushCharKey('x')){
-		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
-	}
-
 	// --- HitProcesserの設定 --- //
 	if(keyboardManager.isPushCharKey('c')){
 		hitProcesser = RoughHitProcesser::getInstance();
@@ -380,16 +372,6 @@ void Game::display() const
 	objects->draw();
 
 	glDisable(GL_LIGHTING);
-	if(objects->pitchingRobotArm.isSetTargetField()){
-		glColor3d(1.0, 0.0, 0.0);
-		glRasterPos3d(-3.0, 2.0, 0.0);
-		drawString("Throw ball in red box");
-	}
-	else{
-		glColor3d(0.0, 1.0, 0.0);
-		glRasterPos3d(-3.0, 2.0, 0.0);
-		drawString("Throw ball at green circle");
-	}
 	if(hitProcesser == RoughHitProcesser::getInstance()){
 		glColor3d(0.0, 1.0, 1.0);
 		glRasterPos3d(-3.0, 1.5, 0.0);
