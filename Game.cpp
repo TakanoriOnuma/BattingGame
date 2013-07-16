@@ -321,7 +321,7 @@ void Game::hit_process()
 		const Point3d& pt = ball.getPoint();
 		ball.move(Point3d(pt.x, objects->ground.getPoint().y + ball.getRectBox().height, pt.z));
 		const Vector3d& vec = ball.getVector();
-		ball.setVector(vec.x, -vec.y, vec.z);
+		ball.setVector(vec.x, -0.8 * vec.y, vec.z);		// ëΩè≠å∏êäÇ≥ÇπÇÈ
 	}
 }
 
