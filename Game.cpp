@@ -150,9 +150,6 @@ Game::~Game()
 void Game::check_char_key()
 {
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
-	if(keyboardManager.isPushCharKey('t')){
-		objects->battingRobot.swing(objects->circle.getPoint());
-	}
 	if(keyboardManager.isPushCharKey('o')){
 		// ‚Ü‚¾ƒ{[ƒ‹‚ª—]‚Á‚Ä‚¢‚é‚È‚ç
 		if(ball_num > 0){
