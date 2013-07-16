@@ -151,13 +151,13 @@ Game::~Game()
 void Game::check_char_key()
 {
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
-	if(keyboardManager.isPushCharKey('o')){
+	if(keyboardManager.isPushCharKey('t')){
 		// まだボールが余っているなら
 		if(ball_num > 0){
 			objects->pitchingRobotArm.ball_throw();				// ボールを投げる
 		}
 	}
-	if(keyboardManager.isPushCharKey('h')){
+	if(keyboardManager.isPushCharKey('y')){
 		check_flag = true;		// 以降チェックさせる
 		result_str = "";		// 空文字にする
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ボールを持たせる
@@ -196,10 +196,10 @@ void Game::check_char_key()
 	}
 
 	// --- HitProcesserの設定 --- //
-	if(keyboardManager.isPushCharKey('c')){
+	if(keyboardManager.isPushCharKey('z')){
 		hitProcesser = RoughHitProcesser::getInstance();
 	}
-	else if(keyboardManager.isPushCharKey('v')){
+	else if(keyboardManager.isPushCharKey('x')){
 		hitProcesser = NoDelayHitProcesser::getInstance();
 	}
 
