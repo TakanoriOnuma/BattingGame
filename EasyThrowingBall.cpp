@@ -3,10 +3,6 @@
 #include "BallSlowBall.h"
 #include "BallStraight.h"
 
-#include <iostream>
-
-using namespace std;
-
 // “à•”‚É•Ï”‚ğ‚½‚¹‚ÄƒVƒ“ƒOƒ‹ƒgƒ“‚ğÀ‘•‚·‚é
 PitchingRobotArm::EasyThrowingBall* PitchingRobotArm::EasyThrowingBall::getInstance()
 {
@@ -27,16 +23,12 @@ void PitchingRobotArm::EasyThrowingBall::throwBall
 		int field_width  = static_cast<int>(target_field->getWidth());
 		int field_height = static_cast<int>(target_field->getHeight());
 
-		cout << "field(" << field_width << ", " << field_height << ")" << endl;
-
 		double width  = XorShift::instance().rand() % (100 * field_width + 1);
 		width = width / 100 - static_cast<double>(field_width) / 2;
 		double height = XorShift::instance().rand() % (100 * field_height + 1);
 		height = height / 100 - static_cast<double>(field_height) / 2;
 		double v = XorShift::instance().rand() % 100;
 		v = v / 500 + 0.7;
-
-		cout << "target(" << width << ", " << height << ")" << endl;
 
 		Vector3d vec;
 		vec.x = (throw_point.x - target_field->getPoint().x) - width;
@@ -48,18 +40,12 @@ void PitchingRobotArm::EasyThrowingBall::throwBall
 		if(vec.getMagnitude() <= 1.0){
 			vec.y += 1.0 / 2 * ball.getGravity() * dis / -vec.z;
 
-			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
-			cout << "|vec| = " << vec.getMagnitude() << endl;
-
 			ball.setVector(vec.x, vec.y, vec.z);
 
 			ball.emit(new MyBall::SlowBall());
 		}
 		else{
 			vec.y += 1.0 / 2 * (0.7 * ball.getGravity()) * dis / -vec.z;
-
-			cout << "vec(" << vec.x << ", " << vec.y << ", " << vec.z << "), ";
-			cout << "|vec| = " << vec.getMagnitude() << endl;
 
 			ball.setVector(vec.x, vec.y, vec.z);
 			ball.emit(new MyBall::Straight(0.3 * ball.getGravity()));

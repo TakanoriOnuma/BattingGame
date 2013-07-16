@@ -66,20 +66,6 @@ void keyboard(unsigned char key, int x, int y)
 	if(key == '\033' || key == 'q'){
 		exit(0);
 	}
-
-	if(key == ' '){
-		MouseManager& mouseManager = MouseManager::getInstance();
-		const Point2i& pt = mouseManager.getMousePoint();
-		Point3d worldPoint3d = mouseManager.getWorldPoint3d();
-		cout << "Mouse Point:(" << pt.x << ", " << pt.y << ")" << endl;
-		cout << "World Point:(" << worldPoint3d.x << ", " << worldPoint3d.y << ", " << worldPoint3d.z << ")" << endl;
-		cout << "--- Mouse State ---" << endl;
-		cout << boolalpha;
-		cout << " LEFT:" << mouseManager.isClick(MouseClick::LEFT) << endl;
-		cout << " MIDDLE:" << mouseManager.isClick(MouseClick::MIDDLE) << endl;
-		cout << " RIGHT:" << mouseManager.isClick(MouseClick::RIGHT) << endl;
-		cout << "-------------------" << endl;
-	}
 }
 
 int main(int argc, char* argv[])

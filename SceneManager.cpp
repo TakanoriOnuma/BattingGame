@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "SceneManager.h"
 #include "OpenGL.h"
 #include "AnimationManager.h"
@@ -20,12 +18,10 @@ void SceneManager::_display()
 SceneManager::SceneManager()
 	: scene(NULL)
 {
-	std::cout << "create SceneManager" << std::endl;
 }
 
 SceneManager::~SceneManager()
 {
-	std::cout << "delete SceneManager" << std::endl;
 	if(scene != NULL){
 		delete scene;
 	}

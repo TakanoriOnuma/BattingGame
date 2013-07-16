@@ -273,7 +273,6 @@ void Game::check_ball()
 	// バッティングする領域よりボール2つ分も後ろにあったら
 	if(ball.getPoint().z - 2 * ball.getRectBox().length > objects->batting_field.getPoint().z){
 		result_str = "strike";			// ストライク
-		cout << "no check" << endl;
 		check_flag = false;			// もう調べない
 		return;
 	}

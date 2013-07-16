@@ -1,7 +1,6 @@
 #include "OpenGL.h"
 #include "KeyboardManager.h"
 
-#include <iostream>
 #include <algorithm>
 
 using namespace std;
@@ -103,7 +102,6 @@ KeyboardManager::KeyboardManager()
 	: char_key_handlar(NULL), char_key_up_handlar(NULL),
 	special_key_handlar(NULL), special_key_up_handlar(NULL)
 {
-	std::cout << "create KeyboadManager" << std::endl;
 }
 
 // ŠÖ”‚É“à•”•Ï”‚ðŽ‚½‚¹‚ÄƒVƒ“ƒOƒ‹ƒgƒ“‚ðŽÀ‘•‚·‚é
@@ -115,7 +113,6 @@ KeyboardManager& KeyboardManager::getInstance()
 
 KeyboardManager::~KeyboardManager()
 {
-	std::cout << "delete KeyboardManager" << std::endl;
 }
 
 

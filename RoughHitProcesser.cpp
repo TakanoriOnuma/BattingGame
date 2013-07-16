@@ -4,10 +4,6 @@
 #include "MouseManager.h"
 
 
-#include <iostream>
-
-using namespace std;
-
 // ŠÖ”‚Ì“à•”‚É•Ï”‚ðŽ‚½‚¹‚ÄƒVƒ“ƒOƒ‹ƒgƒ“‚ðŽÀ‘•‚·‚é
 Game::RoughHitProcesser* Game::RoughHitProcesser::getInstance()
 {
@@ -19,7 +15,6 @@ bool Game::RoughHitProcesser::isHit(const MyBall& ball, const BattingRobot& batt
 {
 	if(battingRobot.getFrame() >= BattingRobot::SWING_FRAME / 2 - 5 &&
 		battingRobot.getFrame() <= BattingRobot::SWING_FRAME / 2 + 5){
-			cout << "check1" << endl;
 
 		const Point3d& pt = ball.getPoint();
 		const RectBox& box = ball.getRectBox();
@@ -28,7 +23,6 @@ bool Game::RoughHitProcesser::isHit(const MyBall& ball, const BattingRobot& batt
 			pt.y - box.height <= target.y && pt.y + box.height >= target.y &&
 			pt.z - box.length <= target.z && pt.z + box.length >= target.z){
 
-				cout << "hit" << endl;
 				return true;
 		}
 	}	
