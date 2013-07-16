@@ -304,12 +304,22 @@ void Game::check_ball()
 		return;
 	}
 
-	// ボールがグラウンドの奥まで飛んだら
-	if(ball.getPoint().z + ball.getRectBox().length < ground.getPoint().z - ground.getRectBox().length / 2){
-		result_str = "homerun";		// ホームラン
-		score += 3;					// スコアを3加算
-		check_flag = false;			// もう調べない
-		return;
+	// 壁を越えたら
+	const MyBox& backWall = objects->backWall;
+	if(ball.getPoint().z + ball.getRectBox().length <
+		backWall.getPoint().z - backWall.getRectBox().length / 2){
+			// 上を通っていたら
+			if(ball.getPoint().y - ball.getRectBox().height > backWall.getPoint().y){
+				result_str = "homerun";		// ホームラン
+				score += 3;					// スコアを3加算
+			}
+			// 上を通れなかったら
+			else{
+				result_str = "hit";			// ヒット
+				score += 2;					// スコアを2加算
+			}
+			check_flag = false;			// もう調べない
+			return;
 	}
 }
 
