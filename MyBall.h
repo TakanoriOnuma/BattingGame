@@ -57,6 +57,7 @@ public:
 
 	MyBall(double radius = 1.0, int sides = 16);
 	MyBall(double x, double y, double z, double radius = 1.0, int sides = 16);
+	~MyBall();
 
 	void update() override;
 

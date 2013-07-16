@@ -17,6 +17,11 @@ MyBat::MyBat(const Point3d& pt)
 	init();
 }
 
+MyBat::~MyBat()
+{
+	glDeleteTextures(1, &texNumber);
+}
+
 void MyBat::init()
 {
 	rectBox.setRectBox(0.4, 0.4, 2.3);
@@ -70,6 +75,7 @@ void MyBat::draw() const
 	glTranslated(0.0, 0.0, -0.9);
 	gluCylinder(quad, 0.1, 0.2, 0.9, 16, 1);
 
+	glBindTexture(GL_TEXTURE_2D, texNumber);
 	glEnable(GL_TEXTURE_2D);
 	glTranslated(0.0, 0.0, -0.6);
 	gluCylinder(quad, 0.1, 0.1, 0.6, 16, 1);

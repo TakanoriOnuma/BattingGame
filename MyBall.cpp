@@ -19,6 +19,11 @@ MyBall::MyBall(double x, double y, double z, double radius, int sides)
 	init();
 }
 
+MyBall::~MyBall()
+{
+	glDeleteTextures(1, &texNumber);
+}
+
 void MyBall::init()
 {
 	variety = new Straight(0.0);		// ‚Æ‚è‚ ‚¦‚¸“ü‚ê‚Ä‚¨‚­
@@ -57,6 +62,7 @@ void MyBall::init()
 
 void MyBall::draw() const
 {
+	glBindTexture(GL_TEXTURE_2D, texNumber);
 	glEnable(GL_TEXTURE_2D);
 
 	MySphere::draw();
