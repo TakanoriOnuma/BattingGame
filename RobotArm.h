@@ -20,6 +20,7 @@ public:
 
 	void addArmAngle(double value);
 	void setArmAngle(double angle);
+	double getArmAngle() const;
 };
 
 #endif

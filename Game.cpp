@@ -153,7 +153,7 @@ void Game::check_char_key()
 	KeyboardManager& keyboardManager = KeyboardManager::getInstance();
 	if(keyboardManager.isPushCharKey('t')){
 		// まだボールが余っているなら
-		if(ball_num > 0){
+		if(ball_num > 0 && objects->pitchingRobotArm.getArmAngle() == 0.0){
 			objects->pitchingRobotArm.ball_throw();				// ボールを投げる
 		}
 	}
@@ -161,6 +161,7 @@ void Game::check_char_key()
 		check_flag = true;		// 以降チェックさせる
 		result_str = "";		// 空文字にする
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ボールを持たせる
+		objects->pitchingRobotArm.setArmAngle(0.0);				// 初期状態に戻す
 	}
 	if(keyboardManager.isPushCharKey('k')){
 		objects->pitchingRobotArm.setTargetField(&objects->batting_field);

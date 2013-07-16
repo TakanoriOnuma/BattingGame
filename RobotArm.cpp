@@ -49,3 +49,8 @@ void RobotArm::setArmAngle(double angle)
 {
 	parts->joint.setAngle(angle);
 }
+
+double RobotArm::getArmAngle() const
+{
+	return parts->joint.getAngle();
+}
