@@ -5,8 +5,6 @@
 #include "OpenGL.h"
 #include "read_bitmap.h"
 
-#include <stdio.h>
-
 MyBall::MyBall(double radius, int sides)
 	: MySphere(radius, sides), state(State::HANDED), message(NULL), gravity(0.005)
 {
@@ -29,8 +27,6 @@ void MyBall::init()
 	variety = new Straight(0.0);		// ‚Æ‚è‚ ‚¦‚¸“ü‚ê‚Ä‚¨‚­
 
 	glGenTextures(1, &texNumber);		// ‹ó‚¢‚Ä‚¢‚étexNumber‚ðŒ©‚Â‚¯‚é
-
-	printf("MyBall:%d\n", texNumber);
 
 	// --- texNumber‚ÆƒoƒCƒ“ƒh‚·‚é --- //
 	glBindTexture(GL_TEXTURE_2D, texNumber);

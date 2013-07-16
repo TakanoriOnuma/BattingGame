@@ -3,8 +3,6 @@
 
 #include "MyBat.h"
 
-#include <stdio.h>
-
 MyBat::MyBat(double x, double y, double z)
 	: DrawableObject(x, y, z)
 {
@@ -27,8 +25,6 @@ void MyBat::init()
 	rectBox.setRectBox(0.4, 0.4, 2.3);
 
 	glGenTextures(1, &texNumber);		// ‹ó‚¢‚Ä‚¢‚étexNumber‚ğŒ©‚Â‚¯‚é
-
-	printf("MyBat:%d\n", texNumber);
 
 	// --- BMPƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ --- //
 	int width, height;
