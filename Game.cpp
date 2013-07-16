@@ -130,7 +130,6 @@ Game::Game()
 	camera  = new Camera();
 	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
 	usingDeviceName = "MouseDevice";
-//	usingDevice = new KeyboardDevice(objects->battingRobot, objects->circle, objects->batting_field);
 	hitProcesser = NoDelayHitProcesser::getInstance();
 
 	emitionListener = new EmitionListener(*this);
@@ -272,7 +271,7 @@ void Game::check_ball()
 	const Ground& ground = objects->ground;
 	// バッティングする領域よりボール2つ分も後ろにあったら
 	if(ball.getPoint().z - 2 * ball.getRectBox().length > objects->batting_field.getPoint().z){
-		result_str = "strike";			// ストライク
+		result_str = "strike";		// ストライク
 		check_flag = false;			// もう調べない
 		return;
 	}
@@ -341,7 +340,6 @@ IScene* Game::update()
 	}
 
 	check_char_key();
-//	check_special_key();
 
 	usingDevice->movePoint();
 	usingDevice->swing();
