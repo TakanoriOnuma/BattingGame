@@ -189,8 +189,8 @@ void Game::check_char_key()
 	}
 	if(keyboardManager.isPushCharKey('f')){
 		camera->addDistance(1.0);
-		if(camera->getDistance() > 50.0){
-			camera->setDistance(50.0);
+		if(camera->getDistance() > 80.0){
+			camera->setDistance(80.0);
 		}
 	}
 
