@@ -28,7 +28,7 @@ void PitchingRobotArm::EasyThrowingBall::throwBall
 		double height = XorShift::instance().rand() % (100 * field_height + 1);
 		height = height / 100 - static_cast<double>(field_height) / 2;
 		double v = XorShift::instance().rand() % 100;
-		v = v / 500 + 0.7;
+		v = v / 500 + 0.9;
 
 		Vector3d vec;
 		vec.x = (throw_point.x - target_field->getPoint().x) - width;
