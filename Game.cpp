@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "MyBox.h"
 #include "Ground.h"
 #include "BattingRobot.h"
 #include "PitchingRobotArm.h"
@@ -42,6 +43,7 @@ static void drawString(const char* str)
 
 // ===== GameƒNƒ‰ƒX‚ÌDrawableObjectŒQ ===== //
 struct Game::DrawableObjects{
+	MyBox  backWall;		// Œã‚ë‚Ì•Ç
 	MyBall ball;
 	Ground ground;
 	BattingRobot battingRobot;
@@ -51,13 +53,21 @@ struct Game::DrawableObjects{
 	MyCircle circle;
 
 	DrawableObjects()
-		: ball(0.2),
-		ground(0.0, -1.8, -10.0, 20, 40),
+		: backWall(0.0, 0.0, 0.0, 1.0, 20.0, 2.0),
+		ball(0.2),
+		ground(0.0, -1.8, -20.0, 20, 60),
 		battingRobot(-2.3, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -20.0),
 		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
 		circle(0.0, 0.0, 3.0, 0.1, ColorData(0.0, 1.0, 0.0))
 	{
+		Point3d move_pt;
+		move_pt.x = ground.getPoint().x;
+		move_pt.y = ground.getPoint().y + backWall.getRectBox().height;
+		move_pt.z = ground.getPoint().z - ground.getRectBox().length / 2;
+		backWall.move(move_pt);
+		backWall.setMaterialData(MaterialData::createMaterialData(Color::BLUE));
+		
 		ball.setMaterialData(MaterialData::createMaterialData(Jewel::OBSIDIAN));
 		battingRobot.setRotateVector(0.0, 1.0, 0.0);
 		battingRobot.setAngle(90.0);
@@ -72,6 +82,7 @@ struct Game::DrawableObjects{
 		if(ball.getState() != MyBall::State::HANDED){
 			ball.draw(true, true);
 		}
+		backWall.draw(true, true);
 		ground.draw(true, true);
 		battingRobot.draw(true, true);
 		pitchingRobotArm.draw(true, true);

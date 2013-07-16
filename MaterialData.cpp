@@ -19,6 +19,22 @@ MaterialData MaterialData::createMaterialData(Color color, Material material)
 
 	switch(material){
 	case Material::STANDARD:
+		switch(color){
+		case Color::GREEN:
+			setRGBA(matData.ambient, 0.0f, 0.0f, 0.0f);
+			setRGBA(matData.diffuse, 0.1f, 0.35f, 0.1f);
+			setRGBA(matData.specular, 0.1f, 0.2f, 0.1f);
+			matData.shininess = 32.0f;
+			break;
+
+		case Color::BLUE:
+			setRGBA(matData.ambient, 0.0f, 0.0f, 0.0f);
+			setRGBA(matData.diffuse, 0.1f, 0.1f, 0.45f);
+			setRGBA(matData.specular, 0.1f, 0.1f, 0.3f);
+			matData.shininess = 32.0f;
+			break;
+
+		}
 		break;
 
 	case Material::PLASTIC:
