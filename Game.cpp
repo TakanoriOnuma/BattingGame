@@ -124,7 +124,8 @@ Game::Game()
 	score = 0;
 	check_flag = true;
 	ball_num = MAX_BALL_NUM;
-	result_str = "";		// 空文字
+	result_str = "";			// 空文字
+	difficulity_str = "easy";
 	objects = new DrawableObjects();
 	camera  = new Camera();
 	usingDevice = new MouseDevice(objects->battingRobot, objects->circle, objects->batting_field, *camera);
@@ -227,9 +228,11 @@ void Game::check_char_key()
 	// --- 投げるボールのレベルの指定 --- //
 	if(keyboardManager.isPushCharKey('1')){
 		objects->pitchingRobotArm.setDifficulity(PitchingRobotArm::Difficulity::EASY);
+		difficulity_str = "easy";
 	}
 	else if(keyboardManager.isPushCharKey('2')){
 		objects->pitchingRobotArm.setDifficulity(PitchingRobotArm::Difficulity::NORMAL);
+		difficulity_str = "normal";
 	}
 
 	// --- ボールの数のリセット --- //
@@ -369,6 +372,11 @@ void Game::display() const
 	objects->draw();
 
 	glDisable(GL_LIGHTING);
+	glColor3d(1.0, 0.0, 0.0);
+	glRasterPos3d(-3.0, 2.0, 0.0);
+	drawString("Difficulity:");
+	drawString(difficulity_str.c_str());
+
 	if(hitProcesser == RoughHitProcesser::getInstance()){
 		glColor3d(0.0, 1.0, 1.0);
 		glRasterPos3d(-3.0, 1.5, 0.0);

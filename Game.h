@@ -15,6 +15,7 @@ class Game : public IScene{
 	std::string result_str;		// 結果
 
 	std::string usingDeviceName;	// 使っているデバイス
+	std::string difficulity_str;		// 難易度
 
 	class EmitionListener;			// MyBallがemitした時にメッセージを受け取るクラス
 	EmitionListener* emitionListener;
