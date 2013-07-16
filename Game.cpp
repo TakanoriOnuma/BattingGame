@@ -305,7 +305,7 @@ void Game::check_ball()
 	}
 
 	// ボールがグラウンドの奥まで飛んだら
-	if(ball.getPoint().z + ball.getRectBox().length < ground.getPoint().z - ground.getRectBox().length){
+	if(ball.getPoint().z + ball.getRectBox().length < ground.getPoint().z - ground.getRectBox().length / 2){
 		result_str = "homerun";		// ホームラン
 		score += 3;					// スコアを3加算
 		check_flag = false;			// もう調べない
