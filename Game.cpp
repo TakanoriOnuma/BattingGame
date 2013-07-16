@@ -371,49 +371,6 @@ void Game::display() const
 
 	objects->draw();
 
-	glDisable(GL_LIGHTING);
-	glColor3d(1.0, 0.0, 0.0);
-	glRasterPos3d(-3.0, 2.0, 0.0);
-	drawString("Difficulity:");
-	drawString(difficulity_str.c_str());
-
-	if(hitProcesser == RoughHitProcesser::getInstance()){
-		glColor3d(0.0, 1.0, 1.0);
-		glRasterPos3d(-3.0, 1.5, 0.0);
-		drawString("RoughHitProcesser");
-	}
-	else if(hitProcesser == NoDelayHitProcesser::getInstance()){
-		glColor3d(1.0, 0.0, 1.0);
-		glRasterPos3d(-3.0, 1.5, 0.0);
-		drawString("NoDelayHitProcesser");
-	}
-
-	glColor3d(0.5, 0.0, 0.5);
-	glRasterPos3d(-3.0, 1.0, 0.0);
-	drawString(usingDeviceName.c_str());
-
-	// ボールの残りの数を表示
-	stringstream stream;
-	stream << ball_num;
-	glColor3d(0.0, 0.0, 1.0);
-	glRasterPos3d(1.5, 2.0, 0.0);
-	drawString("Ball:");
-	drawString(stream.str().c_str());
-
-	// スコアの表示
-	stream.str("");		// バッファのクリア
-	stream << score;
-	glColor3d(0.0, 0.0, 1.0);
-	glRasterPos3d(1.5, 1.5, 0.0);
-	drawString("Score:");
-	drawString(stream.str().c_str());
-
-	// 結果の表示
-	glColor3d(1.0, 0.0, 1.0);
-	glRasterPos3d(1.7, 0.5, 0.0);
-	drawString(result_str.c_str());
-
-	glEnable(GL_LIGHTING);
 
 //	glutSwapBuffers();			// GameDecorator側で出力させる
 }

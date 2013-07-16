@@ -6,6 +6,8 @@
 
 class Camera;
 class Game : public IScene{
+	friend class GameDecorator;
+
 	struct DrawableObjects;
 	DrawableObjects* objects;
 
