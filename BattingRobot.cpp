@@ -74,3 +74,22 @@ void BattingRobot::swing(const Point3d& target)
 		state->init(*this);
 	}
 }
+
+void BattingRobot::resetForm()
+{
+	bodyParts->leftArm->setAngle(-20.0);
+	bodyParts->rightArm->setAngle(20.0);
+
+	bodyParts->leftArm->setBox1Angle(-20.0);
+	bodyParts->leftArm->setBox2Angle(-120.0);
+
+	bodyParts->rightArm->setBox1Angle(-20.0);
+	bodyParts->rightArm->setBox2Angle(-120.0);
+
+	Point3d pt = bodyParts->leftArm->getPoint();
+	pt.z = bodyParts->head->getPoint().z;
+	bodyParts->leftArm->move(pt);
+	pt = bodyParts->rightArm->getPoint();
+	pt.z = bodyParts->head->getPoint().z;
+	bodyParts->rightArm->move(pt);
+}

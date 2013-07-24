@@ -45,6 +45,8 @@ public:
 
 	void swing(const Point3d& target) override;
 
+	void resetForm();
+
 	int getFrame() const{
 		return frame;
 	}

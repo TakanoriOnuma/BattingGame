@@ -162,6 +162,7 @@ void Game::check_char_key()
 		result_str = "";		// 空文字にする
 		objects->pitchingRobotArm.hand_ball(&objects->ball);	// ボールを持たせる
 		objects->pitchingRobotArm.setArmAngle(0.0);				// 初期状態に戻す
+		objects->battingRobot.resetForm();						// もとのフォームに戻す
 	}
 	if(keyboardManager.isPushCharKey('k')){
 		objects->pitchingRobotArm.setTargetField(&objects->batting_field);
