@@ -3,8 +3,8 @@
 
 void Game::HitProcesser::hitProcess(MyBall& ball, BattingRobot& battingRobot)
 {
-	// ボールが向かってくる方向が違うなら
-	if(ball.getVector().z < 0.0){
+	// ボールが投げられている状態でなければ
+	if(ball.getState() != MyBall::State::THROWED){
 		return;						// 何もせず終了する
 	}
 	// バットをスイングしていない時も何もせず終了させる。
@@ -13,5 +13,6 @@ void Game::HitProcesser::hitProcess(MyBall& ball, BattingRobot& battingRobot)
 
 	if(isHit(ball, battingRobot)){		// ballとbattingRobotのbatが当たっていたら
 		reflect(ball, battingRobot);	// ボールを跳ね返す
+		ball.hit();						// ボールが打たれる
 	}
 }

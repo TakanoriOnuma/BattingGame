@@ -9,8 +9,10 @@
 class MyBall : public MySphere, public IAnimation{
 public:
 	enum class State{
-		ISOLATED,		// “Æ—§‚µ‚Ä‚¢‚é
 		HANDED,			// ’N‚©‚É‚½‚ê‚Ä‚¢‚é
+
+		THROWED,		// “Š‚°‚ç‚ê‚½
+		HIT,			// ‘Å‚½‚ê‚½
 	};
 
 	// --- ‹…í --- //
@@ -71,6 +73,11 @@ public:
 	// ’N‚©‚É‚½‚ê‚é
 	void handed(){
 		state = State::HANDED;
+	}
+
+	// ‘Å‚½‚ê‚é
+	void hit(){
+		state = State::HIT;
 	}
 
 	void setEmitionMessage(EmitionMessage* message){

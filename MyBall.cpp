@@ -73,12 +73,12 @@ void MyBall::update()
 		move(vec);			// 自分の座標を移動する
 
 		// ボールを投げている
-		if(vec.z > 0.0){
+		if(state == State::THROWED){
 			vec.y -= gravity;
 			variety->change(*this);		// ボールによって動きが変わる
 		}
 		// 打たれたあと
-		else{
+		else if(state == State::HIT){
 			vec.y -= 0.01;
 		}
 	}
@@ -86,7 +86,7 @@ void MyBall::update()
 
 void MyBall::emit(Variety* variety)
 {
-	state = State::ISOLATED;
+	state = State::THROWED;		// ボールを投げられた状態に
 	delete this->variety;		// 前の球種は削除して
 	this->variety = variety;	// 球種をセット
 	if(message != NULL){
