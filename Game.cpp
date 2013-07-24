@@ -53,9 +53,9 @@ struct Game::DrawableObjects{
 	MyCircle circle;
 
 	DrawableObjects()
-		: backWall(0.0, 0.0, 0.0, 1.0, 20.0, 2.0),
+		: backWall(0.0, 0.0, 0.0, 1.0, 38.0, 2.0),
 		ball(0.2),
-		ground(0.0, -1.8, -20.0, 20, 60),
+		ground(0.0, -1.8, -20.0, 40, 60),
 		battingRobot(-2.3, 0.9, 3.0),
 		pitchingRobotArm(0.0, -1.5, -20.0),
 		batting_field(0.0, -0.1, 3.0, 1.5, 1.5, ColorData(1.0, 0.0, 0.0)),
@@ -332,7 +332,7 @@ IScene* Game::update()
 	objects->update();
 
 	// ボールが独立していたら
-	if(objects->ball.getState() == MyBall::State::ISOLATED){
+	if(objects->ball.getState() != MyBall::State::HANDED){
 		// check_flagがたっていたら
 		if(check_flag){
 			check_ball();		// ボールを調べる

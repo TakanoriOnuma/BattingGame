@@ -1,6 +1,7 @@
 #include "OpenGL.h"
 
 #include "Ground.h"
+#include "MyLine.h"
 
 const float Ground::ground[2][4] = {
 	{ 0.6f, 0.6f, 0.6f, 1.0f },
@@ -19,13 +20,23 @@ Ground::Ground(double x, double y, double z, int width, int distance)
 	init();
 }
 
+Ground::~Ground()
+{
+	delete line1;
+	delete line2;
+}
+
 void Ground::init()
 {
 	rectBox.setRectBox(distance, width, 0.0);
+	line1 = new MyLine(1.0, 0.01, 23.0, 17.5, 0.01, -52.5);
+	line2 = new MyLine(-1.0, 0.01, 23.0, -17.5, 0.01, -52.5);
 }
 
 void Ground::draw() const
 {
+	line1->draw(true, true);
+	line2->draw(true, true);
 	glNormal3d(0.0, 1.0, 0.0);
 	for(int j = -distance / 2; j < distance / 2; j++){
 		for(int i = -width / 2; i < width / 2; i++){
