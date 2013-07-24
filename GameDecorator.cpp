@@ -102,23 +102,23 @@ void GameDecorator::display() const
 
 	glDisable(GL_LIGHTING);
 	glColor3d(1.0, 0.0, 0.0);
-	glRasterPos3d(-3.0, 2.2, 0.0);
+	glRasterPos3d(-2.0, 1.4, 4.0);
 	drawString("Difficulity:");
 	drawString(game->difficulity_str.c_str());
 
 	if(game->hitProcesser == Game::RoughHitProcesser::getInstance()){
 		glColor3d(0.0, 1.0, 1.0);
-		glRasterPos3d(-3.0, 1.7, 0.0);
+		glRasterPos3d(-2.0, 1.1, 4.0);
 		drawString("RoughHitProcesser");
 	}
 	else if(game->hitProcesser == Game::NoDelayHitProcesser::getInstance()){
 		glColor3d(1.0, 0.0, 1.0);
-		glRasterPos3d(-3.0, 1.7, 0.0);
+		glRasterPos3d(-2.0, 1.1, 4.0);
 		drawString("NoDelayHitProcesser");
 	}
 
 	glColor3d(0.5, 0.0, 0.5);
-	glRasterPos3d(-3.0, 1.2, 0.0);
+	glRasterPos3d(-2.0, 0.8, 4.0);
 	drawString(game->usingDeviceName.c_str());
 
 	// ボールの残りの数を表示
