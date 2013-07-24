@@ -53,7 +53,7 @@ struct Game::DrawableObjects{
 	MyCircle circle;
 
 	DrawableObjects()
-		: backWall(0.0, 0.0, 0.0, 1.0, 38.0, 2.0),
+		: backWall(0.0, 0.0, 0.0, 1.0, 38.0, 5.0),
 		ball(0.2),
 		ground(0.0, -1.8, -20.0, 40, 60),
 		battingRobot(-2.3, 0.9, 3.0),
@@ -298,17 +298,17 @@ void Game::check_ball()
 
 	// 壁を越えたら
 	const MyBox& backWall = objects->backWall;
-	if(ball.getPoint().z + ball.getRectBox().length <
-		backWall.getPoint().z - backWall.getRectBox().length / 2){
+	if(ball.getPoint().z - ball.getRectBox().length <
+		backWall.getPoint().z + backWall.getRectBox().length / 2){
 			// 上を通っていたら
 			if(ball.getPoint().y - ball.getRectBox().height > backWall.getPoint().y){
 				result_str = "homerun";		// ホームラン
-				score += 3;					// スコアを3加算
+				score += 4;					// スコアを4加算
 			}
 			// 上を通れなかったら
 			else{
-				result_str = "hit";			// ヒット
-				score += 2;					// スコアを2加算
+				result_str = "2hit";	// セカンドベースヒット
+				score += 3;				// スコアを3加算
 			}
 			check_flag = false;			// もう調べない
 			return;
