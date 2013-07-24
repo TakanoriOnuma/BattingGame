@@ -196,6 +196,10 @@ void Game::check_char_key()
 			camera->setDistance(80.0);
 		}
 	}
+	if(keyboardManager.isPushCharKey('h')){
+		delete camera;				// 今まで使用したカメラを破棄する
+		camera = new Camera();		// 新しく作り直す
+	}
 
 	// --- HitProcesserの設定 --- //
 	if(keyboardManager.isPushCharKey('z')){
