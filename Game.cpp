@@ -325,6 +325,21 @@ void Game::hit_process()
 		const Vector3d& vec = ball.getVector();
 		ball.setVector(vec.x, -0.8 * vec.y, vec.z);		// ‘½­Œ¸Š‚³‚¹‚é
 	}
+
+	// •Ç‚É“–‚½‚Á‚½‚ç
+	const Point3d& ball_pt = ball.getPoint();
+	const RectBox& ball_rectbox = ball.getRectBox();
+	const Point3d& wall_pt = objects->backWall.getPoint();
+	const RectBox& wall_rectbox = objects->backWall.getRectBox();
+	if(ball_pt.z - ball_rectbox.length < wall_pt.z + wall_rectbox.length / 2 &&
+		ball_pt.z + ball_rectbox.length > wall_pt.z - wall_rectbox.length / 2 &&
+		ball_pt.y - ball_rectbox.height < wall_pt.y){
+			ball.move(Point3d(ball_pt.x, ball_pt.y, ball_pt.z + ball_rectbox.length + wall_rectbox.length / 2));
+			Vector3d vec = ball.getVector();
+			vec *= 0.5;
+			ball.setVector(vec.x, vec.y, -vec.z);
+	}
+
 }
 
 IScene* Game::update()
